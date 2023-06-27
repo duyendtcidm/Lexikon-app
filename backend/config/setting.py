@@ -1,0 +1,24 @@
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
+_env = os.environ.get
+
+POSTGRES_DB = _env("POSTGRES_DB")
+POSTGRES_HOST = _env("POSTGRES_HOST")
+POSTGRES_USER = _env("POSTGRES_USER")
+POSTGRES_PASSWORD = _env("POSTGRES_PASSWORD")
+POSTGRES_PORT = _env("POSTGRES_PORT")
+
+APP_ENV = _env("APP_ENV")
+WEB_URL = _env("WEB_URL")
+# API_INVOICE_URL = _env("API_INVOICE_URL")
+PROJECT_NAME = _env("PROJECT_NAME")
+LANGUAGE = _env("LANGUAGE")
+
+# URL_GET_TOKEN = _env("URL_GET_TOKEN")
+# CLIENT_SECRET = _env("CLIENT_SECRET")
+# CLIENT_KEY = _env("CLIENT_KEY")
+# URL_INVOICE_SERVICE = _env("URL_INVOICE_SERVICE")
+# URL_CATALOG_SERVICE = _env("URL_CATALOG_SERVICE")
