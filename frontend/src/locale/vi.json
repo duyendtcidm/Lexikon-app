@@ -1,0 +1,28 @@
+{
+  "common": {
+    "theme": "Chủ đề",
+    "level": "JLPT",
+    "no_data": "Không tìm thấy dữ liệu."
+
+  },
+  "error": {
+
+  },
+  "home": {
+
+  },
+  "look_up": {
+    "word_search": "Tìm kiếm",
+    "learnt_words": "Từ mới"
+
+  },
+  "practice": {
+
+  },
+  "statistic": {
+
+  },
+  "ranking": {
+
+  }
+}
