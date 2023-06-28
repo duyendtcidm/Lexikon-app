@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  frontend:
+    container_name: ${PROJECT_NAME}_fe
+    image: duyendtcidm/lexikon_fe:latest
+#    Have image -> don't need image
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+    volumes:
+      - './frontend:/app/frontend'
+      - './frontend/node_modules:/app/frontend/node_modules'
+#    env_file: .env
+    ports:
+      - '2300:2300'
+    expose:
+      - 2300
+    command: [ "npm", "run", "serve", "--", "--port", "2300" ]
+
+  backend:
+    container_name: ${PROJECT_NAME}_be
+    image: duyendtcidm/lexikon_be:latest
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app/backend
+#    env_file: .env
+    ports:
+      - '2800:2800'
+    depends_on:
+      - db
+    entrypoint: [ "poetry", "run" ]
+    command: [ "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "2800" ]
+
+  db:
+    container_name: ${PROJECT_NAME}_db
+    image: postgres:14
+    ports:
+      - "2900:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=lexikon
+    volumes:
+      - db14:/var/lib/postgresql/data
+
+volumes:
+  db14:
+    driver: local
