@@ -1,0 +1,41 @@
+# Lexikon
+
+### Install project
+```
+git clone https://github.com/duyendtcidm/Lexikon-app.git
+docker-compose run --rm backend bash
+poetry install
+
+docker-compose run --rm frontend bash
+npm install
+
+```
+
+### Compiles and hot-reloads for development
+```
+docker-compose up
+```
+
+### remove cache
+```
+docker builder prune
+```
+
+### migrate db
+```
+docker-compose run --rm backend bash
+
+# Add new revision
+alembic revision -m "create_table_A"
+chown -R 1000 alembic
+
+# Run migrate
+alembic upgrade head
+
+# remove
+alembic downgrade base
+
+# If you have many head -> merge
+alembic merge heads -m "merge_branch_A_and_B"
+```
+

@@ -8,6 +8,11 @@ authors = ["Iris_duyendt <duyendt@codenet.jp>"]
 python = "^3.10"
 alembic = "^1.11.1"
 fastapi = "^0.98.0"
+uvicorn = "^0.22.0"
+peewee = "^3.16.2"
+pydantic = "^1.10.9"
+psycopg2-binary = "^2.9.6"
+mangum = "^0.17.0"
 
 [tool.poetry.dev-dependencies]
 
