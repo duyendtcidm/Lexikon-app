@@ -1,19 +1,16 @@
-<template>
-  <v-app>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+<template lang="pug">
+  v-app
+    v-main
+      router-view
+  //Register
+
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import {defineComponent} from 'vue'
 
-export default Vue.extend({
-  name: 'App',
+const App = defineComponent({
 
-  data: () => ({
-    //
-  }),
-});
+})
+export default App
 </script>

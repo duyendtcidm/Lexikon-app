@@ -15,7 +15,7 @@
           )
             v-icon(large) mdi-keyboard-backspace
           //v-toolbar-title.header-text.primary--text {{$t($route.query.gr_name) ? $t($route.query.gr_name) + $t('common.no_ja') + $t($route.name) : $t($route.name) }}
-          v-toolbar-title.header-text.primary--text Home
+          v-toolbar-title.header-text.primary--text {{$t('home.title')}}
 
 
       v-col.ma-0.pa-0.pr-2(cols="4")

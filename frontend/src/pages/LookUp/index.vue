@@ -103,7 +103,7 @@
 import { defineComponent, getCurrentInstance, ref } from 'vue'
 import HeaderBar from "@/components/HeaderBar/index.vue";
 
-const LookUp = defineComponent ({
+export default defineComponent ({
   components: {
     HeaderBar
   },
@@ -220,7 +220,6 @@ const LookUp = defineComponent ({
   }
 })
 
-export default LookUp
 </script>
 
 <style scoped lang="sass">

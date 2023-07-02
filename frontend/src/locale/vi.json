@@ -2,27 +2,43 @@
   "common": {
     "theme": "Chủ đề",
     "level": "JLPT",
-    "no_data": "Không tìm thấy dữ liệu."
+    "no_data": "Không tìm thấy dữ liệu.",
+    "email": "Email",
+    "user_name": "Tên",
+    "password": "Mật khẩu"
 
   },
   "error": {
 
   },
   "home": {
+    "title": "Trang chủ"
+
+  },
+  "register" : {
+    "title": "Đăng ký"
+
+  },
+  "sign_in": {
+    "title": "Đăng nhập"
 
   },
   "look_up": {
+    "title": "Tra cứu",
     "word_search": "Tìm kiếm",
     "learnt_words": "Từ mới"
 
   },
   "practice": {
+    "title": "Luyện tập"
 
   },
   "statistic": {
+    "title": "Thống kê"
 
   },
   "ranking": {
+    "title": "Xếp hạng"
 
   }
 }

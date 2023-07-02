@@ -9,6 +9,14 @@ const routes: Array<RouteConfig> = [
       ...urlPath.HOME,
       component: () => import('../pages/Home/index.vue')
   },
+    {
+      ...urlPath.REGISTER,
+      component: () => import('../pages/Register/index.vue')
+  },
+    {
+      ...urlPath.LOG_IN,
+      component: () => import('../pages/LogIn/index.vue')
+  },
   {
       ...urlPath.LOOK_UP,
       component: () => import('../pages/LookUp/index.vue')
