@@ -30,8 +30,8 @@ const routes: Array<RouteConfig> = [
       component: () => import('../pages/Ranking/index.vue')
   },
   {
-      ...urlPath.STATISTICS,
-      component: () => import('../pages/Statistics/index.vue')
+      ...urlPath.TEST,
+      component: () => import('../pages/Test/index.vue')
   },
 ]
 

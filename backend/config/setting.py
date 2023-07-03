@@ -1,9 +1,10 @@
 import os
-# from dotenv import load_dotenv, find_dotenv
-#
-# load_dotenv(find_dotenv())
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 _env = os.environ.get
+
 
 POSTGRES_DB = _env("POSTGRES_DB")
 POSTGRES_HOST = _env("POSTGRES_HOST")
