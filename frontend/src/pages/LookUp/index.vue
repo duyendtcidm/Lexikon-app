@@ -40,8 +40,8 @@
           color="primary"
         )
           template(v-slot:append)
-            v-btn(color="primary" plain @click="onDraw")
-              v-icon mdi-square-edit-outline
+            //v-btn(color="primary" plain @click="onDraw")
+            //  v-icon mdi-square-edit-outline
             v-btn.mr-0(color="primary" plain @click="onSearch(searchInfo)")
               v-icon mdi-magnify
     v-spacer
@@ -77,7 +77,6 @@
         span {{exampleWord.pitch}}
         br
         span.mr-5 {{$t('common.level')}}: {{exampleWord.level}}
-        span {{$t('common.theme')}}: {{exampleWord.theme}}
         div.meaning(v-for="(meaning, index) in exampleWord.word_meaning")
           div.seperate-infor
             div.inner-seperate
@@ -149,7 +148,6 @@ export default defineComponent ({
       kanji: 'tự nhiên',
       level: 'N5',
       pitch: 'shi／zen‾',
-      theme: 'Life',
       word_meaning: [
         {
           id : 1,
