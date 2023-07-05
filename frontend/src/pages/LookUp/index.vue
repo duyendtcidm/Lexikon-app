@@ -1,6 +1,5 @@
 <template lang="pug">
   div.loop-up
-    header-bar
     //div.auction_date__panel.px-2
     //  v-dialog(
     //    ref="dialog"
@@ -100,11 +99,9 @@
 
 <script>
 import { defineComponent, getCurrentInstance, ref } from 'vue'
-import HeaderBar from "@/components/HeaderBar/index.vue";
 
 export default defineComponent ({
   components: {
-    HeaderBar
   },
   setup() {
     const instance = getCurrentInstance()

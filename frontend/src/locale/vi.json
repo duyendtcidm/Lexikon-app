@@ -5,7 +5,8 @@
     "no_data": "Không tìm thấy dữ liệu.",
     "email": "Email",
     "user_name": "Tên",
-    "password": "Mật khẩu"
+    "password": "Mật khẩu",
+    "code": "Code"
 
   },
   "error": {
@@ -30,8 +31,14 @@
 
   },
   "practice": {
-    "title": "Luyện tập"
-
+    "title": "Luyện tập",
+    "practice_header": {
+      "word_or_grammar": "Từ vựng hoặc ngữ pháp",
+      "level": "Cấp độ",
+      "status": "Trạng thái",
+      "score": "Tỷ lệ trả lời",
+      "remark": "Ghi chú"
+    }
   },
   "exam": {
     "title": "Thi thử"
