@@ -1,9 +1,8 @@
 <template lang="pug">
   v-app
-    header-bar.center
-    //(
-    //  :back="enableBack"
-    //)
+    header-bar.center(
+      :back="enableBack"
+    )
     v-main
       router-view
   //Register
@@ -13,6 +12,8 @@
 <script>
 import {defineComponent, ref, watch, getCurrentInstance, computed, onMounted, onUnmounted} from 'vue'
 import { HeaderBar } from './components'
+import { urlPath } from './utils'
+import { history } from "./store/history"
 
 const App = defineComponent({
   components: {
@@ -20,11 +21,27 @@ const App = defineComponent({
   },
   setup() {
     const instance = getCurrentInstance()
-    // const { $root, $store, $toast } = instance.proxy
+    const { $root, $store, $toast } = instance.proxy
+    const start = ref(true)
     const enableBack = ref(false)
 
-    return {
+    watch(
+      () => $root.$route,
+      () => {
+        const { path } = $root.$route
+        start.value = path !== '/'
+        const isMainUrl = urlPath.DISABLE_NAVIGATION?.find((url) => url === path)
+        enableBack.value = !isMainUrl
+        // check histories
+        if (history.state.histories.length > 1) {
+          enableBack.value = !isMainUrl
+        }
+        else { enableBack.value = false }
+      }
+    )
 
+    return {
+      enableBack
     }
   }
 

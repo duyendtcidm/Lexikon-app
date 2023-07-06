@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="934ee2b0-7b07-411d-98bf-491ef1326fd9" name="Changes" comment="third commit">
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+    <list default="true" id="934ee2b0-7b07-411d-98bf-491ef1326fd9" name="Changes" comment="create practice table">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/QuestionDialog/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/QuestionDialog/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/store/history.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HeaderBar/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HeaderBar/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/locale/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/locale/vi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Practice/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Practice/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/urlPath.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/urlPath.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -46,10 +48,16 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/irismyoui/Coding/Lexikon/frontend/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/duyendt/Coding/Lexikon-app/frontend/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/components/QuestionDialog" />
+      <recent name="$PROJECT_DIR$/backend/core/endpoints" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -64,6 +72,12 @@
       <workItem from="1687877392031" duration="50000" />
       <workItem from="1687877442980" duration="48000" />
       <workItem from="1687877591719" duration="405000" />
+      <workItem from="1688348490913" duration="14403000" />
+      <workItem from="1688434510975" duration="686000" />
+      <workItem from="1688516957602" duration="641000" />
+      <workItem from="1688536614560" duration="7349000" />
+      <workItem from="1688576103365" duration="12152000" />
+      <workItem from="1688623255038" duration="604000" />
     </task>
     <task id="LOCAL-00001" summary="third commit">
       <created>1686042105773</created>
@@ -72,7 +86,31 @@
       <option name="project" value="LOCAL" />
       <updated>1686042105773</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="sign up">
+      <option name="closed" value="true" />
+      <created>1688293345851</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1688293345851</updated>
+    </task>
+    <task id="LOCAL-00003" summary="connect db">
+      <option name="closed" value="true" />
+      <created>1688374346463</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688374346463</updated>
+    </task>
+    <task id="LOCAL-00004" summary="create practice table">
+      <option name="closed" value="true" />
+      <created>1688555354946</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1688555354946</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,6 +118,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="third commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="third commit" />
+    <MESSAGE value="sign up" />
+    <MESSAGE value="connect db" />
+    <MESSAGE value="create practice table" />
+    <option name="LAST_COMMIT_MESSAGE" value="create practice table" />
   </component>
 </project>

@@ -6,6 +6,10 @@ const PRACTICE = { path: '/practice/', name: 'practice.title' }
 const RANKING = { path: '/ranking/', name: 'ranking.title' }
 const EXAM = { path: '/exam/', name: 'exam.title' }
 
+const DISABLE_NAVIGATION = [
+    HOME.path
+]
+
 export {
     REGISTER,
     LOG_IN,

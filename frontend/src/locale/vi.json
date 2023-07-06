@@ -38,7 +38,8 @@
       "status": "Trạng thái",
       "score": "Tỷ lệ trả lời",
       "remark": "Ghi chú"
-    }
+    },
+    "no_data": "Không có từ cần ôn tập."
   },
   "exam": {
     "title": "Thi thử"
