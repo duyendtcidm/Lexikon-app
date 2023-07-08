@@ -7,14 +7,14 @@ from config.setting import APP_ENV, PROJECT_NAME, LANGUAGE, WEB_URL
 from config.database import db
 
 from core.api import api_router
-# import i18n
-# import os
+import i18n
+import os
 # import time
 
 # Load translation
-# i18n.load_path.append(os.path.dirname(os.path.realpath(__file__)) + "/langs")
-# i18n.set("locale", LANGUAGE)
-# i18n.set("file_format", "yml")
+i18n.load_path.append(os.path.dirname(os.path.realpath(__file__)) + "/langs")
+i18n.set("locale", LANGUAGE)
+i18n.set("file_format", "yml")
 
 docs_url = "/docs" if APP_ENV == "dev" else None
 redoc_url = "/redoc" if APP_ENV == "dev" else None

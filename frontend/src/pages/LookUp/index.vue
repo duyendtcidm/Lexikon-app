@@ -99,6 +99,7 @@
 
 <script>
 import { defineComponent, getCurrentInstance, ref } from 'vue'
+import {api, i18n} from '@/plugins'
 
 export default defineComponent ({
   components: {
@@ -191,8 +192,15 @@ export default defineComponent ({
     const onDraw = () => {
       console.log('hero')
     }
-    const onSearch = (searchInfo) => {
+    const onSearch = async (searchInfo) => {
       console.log(searchInfo)
+      try {
+        const { data } = await api.get(`test/`)
+        console.log('data', data)
+      } catch (e) {
+       console.log('hihi')
+      }
+
     }
     
     const searchNewWords = () => {
