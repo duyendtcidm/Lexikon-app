@@ -198,7 +198,7 @@ export default defineComponent ({
         const { data } = await api.get(`test/`)
         console.log('data', data)
       } catch (e) {
-       console.log('hihi')
+        console.log('hihi', e)
       }
 
     }

@@ -27,13 +27,13 @@ app = FastAPI(
     openapi_url=openapi_url,
 )
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=[WEB_URL],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[WEB_URL],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Check connections with db
 @app.on_event("startup")
