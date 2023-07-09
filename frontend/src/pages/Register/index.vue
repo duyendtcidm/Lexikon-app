@@ -41,21 +41,14 @@
             span {{$t('common.password')}}
             span.red--text *
       v-btn.hidden-sm-and-up.green-bg-btn.button(width="150px" dark icon @click="registerAccount()")
-        v-icon mdi-plus
       v-btn.hidden-xs-only.button(width="150px" color="primary" dark @click="registerAccount()")
-        v-icon mdi-plus
         span {{ $t('register.title') }}
 </template>
 
 <script>
 import {defineComponent, ref, getCurrentInstance} from 'vue'
-import {ValidationProvider, ValidationObserver} from 'vee-validate'
 
 export default defineComponent({
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
   setup() {
     const { $toast, $root } = getCurrentInstance().proxy
     const accountData = ref({
@@ -70,6 +63,7 @@ export default defineComponent({
         if(!emailRegex.test(accountData.value?.email))
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
+      console.log('accountData', accountData.value)
     }
 
     return {
