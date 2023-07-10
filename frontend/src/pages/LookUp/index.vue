@@ -102,8 +102,6 @@ import { defineComponent, getCurrentInstance, ref } from 'vue'
 import {api, i18n} from '@/plugins'
 
 export default defineComponent ({
-  components: {
-  },
   setup() {
     const instance = getCurrentInstance()
     const { $toast, $root } = instance.proxy
@@ -148,34 +146,28 @@ export default defineComponent ({
       pitch: 'shi／zen‾',
       word_meaning: [
         {
-          id : 1,
           type: 'Danh từ',
           meaning: 'Thiên nhiên, tự nhiên',
           sentences: [
             {
-              id : 11,
               sentence: '人間 は 自然 の 一部 である',
               meaning: 'Con người là một phần của thiên nhiên.'
             },
             {
-              id : 12,
               sentence: '自然 を 教師 としなさい。',
               meaning: 'Hãy để thiên nhiên là người thầy của chúng ta.'
             }
           ]
         },
           {
-          id : 2,
           type: 'Trạng từ',
           meaning: 'Một cách tự nhiên',
           sentences: [
             {
-              id : 13,
               sentence: '自然 に 治 ります。',
               meaning: 'Để nó lành một cách tự nhiên.'
             },
             {
-              id : 14,
               sentence: 'メグ の 髪 は 自然 に カール する。',
               meaning: 'Mái tóc của Meg quăn tự nhiên.'
             }

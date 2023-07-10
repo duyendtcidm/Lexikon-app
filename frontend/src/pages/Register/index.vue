@@ -6,13 +6,13 @@
     )
     h1.text-center.register-title {{$t('register.title')}}
     div.register-form
-      validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.user_name')")
+      ValidationProvider(rules="required" v-slot="{ errors }" :name="$t('common.user_name')")
         v-text-field(
           outlined
           dense
-          :error-messages="errors"
           v-model="accountData.userName"
           color="primary"
+          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.user_name')}}
@@ -22,20 +22,21 @@
           outlined
           dense
           ref="email"
-          :error-messages="errors"
           v-model="accountData.email"
           color="primary"
+          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.email')}}
             span.red--text *
       validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.password')")
         v-text-field(
+          type="password"
           outlined
           dense
-          :error-messages="errors"
           v-model="accountData.password"
           color="primary"
+          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.password')}}
@@ -47,6 +48,7 @@
 
 <script>
 import {defineComponent, ref, getCurrentInstance} from 'vue'
+import {api, i18n} from '@/plugins'
 
 export default defineComponent({
   setup() {
@@ -57,13 +59,19 @@ export default defineComponent({
       password: ''
     })
 
-    const registerAccount = () => {
+    const registerAccount = async () => {
       if (accountData.value?.email) {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         if(!emailRegex.test(accountData.value?.email))
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
       console.log('accountData', accountData.value)
+      try {
+        const { data } = await api.post(`register/`)
+        console.log('data', data)
+      } catch (e) {
+        console.log('hihi', e)
+      }
     }
 
     return {
