@@ -5,8 +5,6 @@
     )
     v-main
       router-view
-  //Register
-
 </template>
 
 <script>

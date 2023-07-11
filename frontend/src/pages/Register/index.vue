@@ -6,13 +6,13 @@
     )
     h1.text-center.register-title {{$t('register.title')}}
     div.register-form
-      ValidationProvider(rules="required" v-slot="{ errors }" :name="$t('common.user_name')")
+      validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.user_name')")
         v-text-field(
           outlined
           dense
+          :error-messages="errors"
           v-model="accountData.userName"
           color="primary"
-          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.user_name')}}
@@ -22,21 +22,20 @@
           outlined
           dense
           ref="email"
+          :error-messages="errors"
           v-model="accountData.email"
           color="primary"
-          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.email')}}
             span.red--text *
       validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.password')")
         v-text-field(
-          type="password"
           outlined
           dense
+          :error-messages="errors"
           v-model="accountData.password"
           color="primary"
-          :error-messages="errors"
         )
           template(v-slot:label)
             span {{$t('common.password')}}

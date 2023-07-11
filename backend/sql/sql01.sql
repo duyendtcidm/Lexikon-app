@@ -1,4 +1,6 @@
-CREATE TABLE learner
+CREATE TYPE roles AS ENUM ('learner', 'admin');
+--     op.execute('''drop type tax_type;''')
+CREATE TABLE user
     (
         id  bigserial NOT NULL,
         code bigint,
@@ -6,6 +8,7 @@ CREATE TABLE learner
         email text,
         search_str text,
         level_id bigint,
+        role roles,
         created_at timestamp with time zone NOT NULL DEFAULT now(),
         created_by bigint,
         modified_at timestamp with time zone,
@@ -15,9 +18,9 @@ CREATE TABLE learner
         active boolean DEFAULT TRUE,
         CONSTRAINT pkey_learner PRIMARY KEY (id)
     );
-create unique index learner_unique_code on learner (code) where active is true;
-create unique index learner_unique_name on learner (name) where active is true;
-create unique index learner_unique_email on learner (email) where active is true;
+create unique index user_unique_code on learner (code) where active is true;
+create unique index user_unique_name on learner (name) where active is true;
+create unique index user_unique_email on learner (email) where active is true;
 
 
 CREATE TABLE level

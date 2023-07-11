@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import i18n from '../../plugins/i18n'
+import {i18n} from '@/plugins'
 export const PRACTICE_HEADER = [
     {
         text: '',
@@ -8,14 +8,16 @@ export const PRACTICE_HEADER = [
         width: 5,
         value: 'index',
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: '',
         width: 5,
         value: 'data-table-select',
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('common.code'),
@@ -23,7 +25,8 @@ export const PRACTICE_HEADER = [
         value: 'word_code',
         width: 100,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('practice.practice_header.word_or_grammar'),
@@ -31,7 +34,8 @@ export const PRACTICE_HEADER = [
         value: 'word_gram_name',
         width: 300,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('practice.practice_header.level'),
@@ -39,7 +43,8 @@ export const PRACTICE_HEADER = [
         value: 'word_gram_level',
         width: 120,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('practice.practice_header.status'),
@@ -47,7 +52,8 @@ export const PRACTICE_HEADER = [
         value: 'word_gram_status',
         width: 120,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('practice.practice_header.score'),
@@ -55,7 +61,8 @@ export const PRACTICE_HEADER = [
         value: 'word_gram_score',
         width: 120,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     },
     {
         text: i18n.t('practice.practice_header.remark'),
@@ -63,6 +70,7 @@ export const PRACTICE_HEADER = [
         value: 'word_gram_remark',
         width: 120,
         class: 'primary',
-        isVisible: true
+        isVisible: true,
+        sortable : false
     }
 ]
