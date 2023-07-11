@@ -5,13 +5,15 @@ from peewee import Model, BooleanField, BigIntegerField, fn
 from playhouse.postgres_ext import DateTimeTZField
 from config.database import db
 from datetime import datetime, timezone
-from peewee import DoesNotExist, SQL, fn, IntegerField
+from peewee import DoesNotExist, SQL, fn, IntegerField, CharField
 from fastapi import HTTPException
 from utils.db import EXCLUDED, transaction
 from utils.mecab import normalize_text
 
 
 class BaseModel(Model):
+    code = IntegerField()
+    name = CharField()
     created_at = DateTimeTZField()
     created_by = BigIntegerField()
     modified_at = DateTimeTZField()

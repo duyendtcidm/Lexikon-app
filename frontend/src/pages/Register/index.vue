@@ -11,7 +11,7 @@
           outlined
           dense
           :error-messages="errors"
-          v-model="accountData.userName"
+          v-model="accountData.name"
           color="primary"
         )
           template(v-slot:label)
@@ -48,15 +48,13 @@
 <script>
 import {defineComponent, ref, getCurrentInstance} from 'vue'
 import {api, i18n} from '@/plugins'
+import { urlPath} from "@/utils" //endpoints
+import router from "@/router";
 
 export default defineComponent({
   setup() {
     const { $toast, $root } = getCurrentInstance().proxy
-    const accountData = ref({
-      userName: '',
-      email: '',
-      password: ''
-    })
+    const accountData = ref({})
 
     const registerAccount = async () => {
       if (accountData.value?.email) {
@@ -64,9 +62,10 @@ export default defineComponent({
         if(!emailRegex.test(accountData.value?.email))
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
-      console.log('accountData', accountData.value)
       try {
-        const { data } = await api.post(`register/`)
+        const { data } = await api.post(`auth/register/`, accountData.value)
+        // router.push({name: urlPath.HOME.name})
+        $toast.success(data.detail)
         console.log('data', data)
       } catch (e) {
         console.log('hihi', e)

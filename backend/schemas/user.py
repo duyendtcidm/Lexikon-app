@@ -4,11 +4,11 @@ from enum import Enum
 from pydantic.datetime_parse import parse_date
 
 class Roles(str, Enum):
-    user = "user"
+    learner = "learner"
     admin = "admin"
 
 class UserBase(BaseModel):
     code: str
     name: str
     email: str
-    role: Roles = "user"
+    role: Roles = "learner"
