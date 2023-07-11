@@ -1,6 +1,7 @@
 <template lang="pug">
   v-app
     header-bar.center(
+      v-if="$root.$route.path !== '/register' && $root.$route.path !== '/log_in' && $root.$route.path !== '/forgot_password'"
       :back="enableBack"
     )
     v-main

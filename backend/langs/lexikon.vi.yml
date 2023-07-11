@@ -1,0 +1,9 @@
+vi:
+  authentication:
+    register:
+      success: Đăng ký thành công.
+      existed_email: Email này đã được sử dụng.
+    login:
+      success: Đăng nhập ký thành công.
+    update_password:
+      success: Mật khẩu đã được cập nhật.

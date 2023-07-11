@@ -6,7 +6,9 @@
     "email": "Email",
     "user_name": "Tên",
     "password": "Mật khẩu",
-    "code": "Code"
+    "new_password": "Mật khẩu mới",
+    "code": "Code",
+    "or": "hoặc"
 
   },
   "error": {
@@ -17,12 +19,18 @@
 
   },
   "register" : {
-    "title": "Đăng ký"
+    "title": "Đăng ký",
+    "already_have_account": "Đã có tài khoản?"
+  },
+  "log_in": {
+    "title": "Đăng nhập",
+    "not_have_account_yet": "Chưa có tài khoản?"
 
   },
-  "sign_in": {
-    "title": "Đăng nhập"
-
+  "forgot_password": {
+    "title": "Cập nhật mật khẩu",
+    "update": "Cập nhật",
+    "question": "Quên mật khẩu?"
   },
   "look_up": {
     "title": "Tra cứu",

@@ -7,6 +7,7 @@ from passlib.context import CryptContext
 from models.users import Users
 from schemas.auth import LoginSchema, ForgotPasswordSchema, RegisterSchema
 from utils.auth import JWTRepo
+from i18n import t
 
 
 # Encrypt password
@@ -22,7 +23,7 @@ class AuthService:
         _email = Users.find_by_email(register.email)
         if _email:
             raise HTTPException(
-                status_code=400, detail="Email already exists!")
+                status_code=400, detail=t('lexikon.authentication.register.existed_email'))
 
         else:
             #  insert to tables

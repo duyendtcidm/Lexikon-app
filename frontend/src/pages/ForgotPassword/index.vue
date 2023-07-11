@@ -4,19 +4,8 @@
       :src="require('../../assets/logo-header.png')"
       width="18%"
     )
-    h1.text-center.register-title {{$t('register.title')}}
+    h1.text-center.register-title {{$t('forgot_password.title')}}
     div.register-form
-      validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.user_name')")
-        v-text-field(
-          outlined
-          dense
-          :error-messages="errors"
-          v-model="accountData.name"
-          color="primary"
-        )
-          template(v-slot:label)
-            span {{$t('common.user_name')}}
-            span.red--text *
       validation-provider(rules="required|email" v-slot="{ errors }" :name="$t('common.email')")
         v-text-field(
           outlined
@@ -29,7 +18,7 @@
           template(v-slot:label)
             span {{$t('common.email')}}
             span.red--text *
-      validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.password')")
+      validation-provider(rules="required" v-slot="{ errors }" :name="$t('common.new_password')")
         v-text-field(
           type="password"
           outlined
@@ -39,12 +28,12 @@
           color="primary"
         )
           template(v-slot:label)
-            span {{$t('common.password')}}
+            span {{$t('common.new_password')}}
             span.red--text *
       v-btn.hidden-sm-and-up.green-bg-btn.button(width="150px" dark icon @click="registerAccount()")
       v-btn.hidden-xs-only.button(width="150px" color="primary" dark @click="registerAccount()")
-        span {{ $t('register.title') }}
-      p.mt-6 {{$t('register.already_have_account')}}
+        span {{ $t('forgot_password.update') }}
+      p.mt-6
         router-link.link(
           :to="{ path: `/log_in` }"
         )
@@ -69,7 +58,7 @@ export default defineComponent({
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
       try {
-        const { data } = await api.post(`auth/register/`, accountData.value)
+        const { data } = await api.post(`auth/forgot-password/`, accountData.value)
         router.push({name: urlPath.LOG_IN.name})
         $toast.success(data.detail)
       } catch (e) {

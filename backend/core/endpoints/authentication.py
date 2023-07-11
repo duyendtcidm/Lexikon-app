@@ -2,6 +2,8 @@ from fastapi import APIRouter
 
 from schemas.auth import ResponseSchema, RegisterSchema, LoginSchema, ForgotPasswordSchema
 from services.auth_service import AuthService
+from i18n import t
+
 
 router = APIRouter()
 
@@ -9,7 +11,7 @@ router = APIRouter()
 @router.post("/register", response_model=ResponseSchema)
 def register(request_body: RegisterSchema):
     AuthService.register_service(request_body)
-    return ResponseSchema(detail="Successfully save data!")
+    return ResponseSchema(detail=t('lexikon.authentication.register.success'))
 
 @router.post("/login", response_model=ResponseSchema)
 def login(requset_body: LoginSchema):

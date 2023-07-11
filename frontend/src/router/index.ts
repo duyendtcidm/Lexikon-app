@@ -17,6 +17,10 @@ const routes: Array<RouteConfig> = [
       ...urlPath.LOG_IN,
       component: () => import('../pages/LogIn/index.vue')
   },
+    {
+      ...urlPath.FORGOT_PASSWORD,
+      component: () => import('../pages/ForgotPassword/index.vue')
+  },
   {
       ...urlPath.LOOK_UP,
       component: () => import('../pages/LookUp/index.vue')

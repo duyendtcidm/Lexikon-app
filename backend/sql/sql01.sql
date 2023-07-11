@@ -6,6 +6,7 @@ CREATE TABLE users
         code bigint,
         name text,
         email text,
+        password text,
         level_id bigint,
         role roles,
         created_at timestamp with time zone NOT NULL DEFAULT now(),

@@ -11,4 +11,5 @@ class UserBase(BaseModel):
     code: str
     name: str
     email: str
+    password: str
     role: Roles = "learner"
