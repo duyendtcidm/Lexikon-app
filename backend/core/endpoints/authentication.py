@@ -16,9 +16,9 @@ def register(request_body: RegisterSchema):
 @router.post("/login", response_model=ResponseSchema)
 def login(requset_body: LoginSchema):
     token = AuthService.logins_service(requset_body)
-    return ResponseSchema(detail="Successfully login", result={"token_type": "Bearer", "access_token": token})
+    return ResponseSchema(detail=t('lexikon.authentication.login.success'), result={"token_type": "Bearer", "access_token": token})
 
 @router.post("/forgot-password", response_model=ResponseSchema)
 def forgot_password(request_body: ForgotPasswordSchema):
     AuthService.forgot_password_service(request_body)
-    return ResponseSchema(detail="Successfully update data!")
+    return ResponseSchema(detail=t('lexikon.authentication.update_password.success'))

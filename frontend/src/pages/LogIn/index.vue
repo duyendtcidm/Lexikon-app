@@ -30,8 +30,8 @@
           template(v-slot:label)
             span {{$t('common.password')}}
             span.red--text *
-      v-btn.hidden-sm-and-up.green-bg-btn.button(width="150px" dark icon @click="registerAccount()")
-      v-btn.hidden-xs-only.button(width="150px" color="primary" dark @click="registerAccount()")
+      v-btn.hidden-sm-and-up.green-bg-btn.button(width="150px" dark icon @click="authenLogin()")
+      v-btn.hidden-xs-only.button(width="150px" color="primary" dark @click="authenLogin()")
         span {{ $t('log_in.title') }}
       p.mt-6 {{$t('log_in.not_have_account_yet')}}
         router-link.link(
@@ -56,24 +56,31 @@ export default defineComponent({
     const { $toast, $root } = getCurrentInstance().proxy
     const accountData = ref({})
 
-    const registerAccount = async () => {
+    const authenLogin = async () => {
       if (accountData.value?.email) {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         if(!emailRegex.test(accountData.value?.email))
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
-      try {
-        const { data } = await api.post(`auth/login/`, accountData.value)
-        router.push({name: urlPath.HOME.name})
-        $toast.success(data.detail)
-      } catch (e) {
-        console.log('hihi', e)
-      }
+        await api.post(`auth/login/`, accountData.value).then((response) => {
+          console.log('response', response)
+          localStorage.setItem("auth_token", response.data.result.access_token)
+          localStorage.setItem(
+            "auth_token_type",
+            response.data.result.token_type
+          );
+          router.push({name: urlPath.HOME.name})
+          $toast.success(data.detail)
+        })
+        .catch((e) => {
+          console.log('hihi', e)
+          $toast.error(e.response.data.detail)
+        })
     }
 
     return {
       accountData,
-      registerAccount
+      authenLogin
     }
   }
 })
