@@ -26,19 +26,20 @@ class BaseModel(Model):
         database = db
 
     @classmethod
-    def get_word_grammar(cls, get_dict=True, search_input=None):
-        query = cls.select().where(cls.active).order_by(cls.id)
-        if search_input:
-            if search_input != '':
-                query = query.where(
-                    cls.search_str.contains(
-                        normalize_text(search_input).lower()
-                    )
-                )
+    def get_list(cls, get_dict=True, search_input=None):
+        query = cls.select().where(cls.name == search_input, cls.active).order_by(cls.id)
+        print(query)
+        # if search_input:
+        #     if search_input != '':
+        #         query = query.where(
+        #             cls.name.contains(
+        #                 normalize_text(search_input).lower()
+        #             )
+        #         )
         if get_dict:
             query = query.dicts()
-        data = list(query)
-        return data
+        # data = list(query)
+        return query
 
     @classmethod
     def update_one(cls, id: int, data_update: dict):

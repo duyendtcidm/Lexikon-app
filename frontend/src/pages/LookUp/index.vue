@@ -172,7 +172,7 @@ export default defineComponent ({
               meaning: 'Mái tóc của Meg quăn tự nhiên.'
             }
           ]
-        },
+        }
       ]
     }
 
@@ -187,7 +187,7 @@ export default defineComponent ({
     const onSearch = async (searchInfo) => {
       console.log(searchInfo)
       try {
-        const { data } = await api.get(`test/`)
+        const { data } = await api.get(`/look_up/new_word?search_input=searchInfo.value` )
         console.log('data', data)
       } catch (e) {
         console.log('hihi', e)

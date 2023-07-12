@@ -14,8 +14,34 @@
   "error": {
 
   },
+  "menu": {
+    "look_up_and_practice": {
+      "look_up": "Tra cứu",
+      "practice": "Luyện tập"
+    }
+
+  },
   "home": {
-    "title": "Trang chủ"
+    "title": "Trang chủ",
+    "today": "Hôm nay",
+    "calendar": {
+      "title": "Lịch học",
+      "not_practiced": "Từ mới",
+      "practicing": "Đang ôn tập",
+      "done_practiced": "Hoàn thành",
+      "unit": "từ"
+    },
+    "status": {
+      "statistic": "Thống kê",
+      "rank": "Xếp hạng",
+      "level": {
+        "n1": "N1",
+        "n2": "N2",
+        "n3": "N3",
+        "n4": "N4",
+        "n5": "N5"
+      }
+    }
 
   },
   "register" : {
@@ -42,6 +68,7 @@
     "title": "Luyện tập",
     "practice_header": {
       "word_or_grammar": "Từ vựng hoặc ngữ pháp",
+      "meaning": "Ý nghĩa",
       "level": "Cấp độ",
       "status": "Trạng thái",
       "score": "Tỷ lệ trả lời",

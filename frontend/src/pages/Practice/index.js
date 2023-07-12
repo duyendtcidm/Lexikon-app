@@ -22,7 +22,7 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('common.code'),
         align: 'center',
-        value: 'word_code',
+        value: 'code',
         width: 100,
         class: 'primary',
         isVisible: true,
@@ -31,8 +31,17 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('practice.practice_header.word_or_grammar'),
         align: 'left',
-        value: 'word_gram_name',
-        width: 300,
+        value: 'name',
+        width: 200,
+        class: 'primary',
+        isVisible: true,
+        sortable : false
+    },
+    {
+        text: i18n.t('practice.practice_header.meaning'),
+        align: 'left',
+        value: 'meaning',
+        width: 200,
         class: 'primary',
         isVisible: true,
         sortable : false
@@ -40,7 +49,7 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('practice.practice_header.level'),
         align: 'left',
-        value: 'word_gram_level',
+        value: 'level',
         width: 120,
         class: 'primary',
         isVisible: true,
@@ -49,7 +58,7 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('practice.practice_header.status'),
         align: 'right',
-        value: 'word_gram_status',
+        value: 'status',
         width: 120,
         class: 'primary',
         isVisible: true,
@@ -58,7 +67,7 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('practice.practice_header.score'),
         align: 'right',
-        value: 'word_gram_score',
+        value: 'score',
         width: 120,
         class: 'primary',
         isVisible: true,
@@ -67,7 +76,7 @@ export const PRACTICE_HEADER = [
     {
         text: i18n.t('practice.practice_header.remark'),
         align: 'left',
-        value: 'word_gram_remark',
+        value: 'remark',
         width: 120,
         class: 'primary',
         isVisible: true,
