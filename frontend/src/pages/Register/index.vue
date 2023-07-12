@@ -69,11 +69,14 @@ export default defineComponent({
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
       try {
-        const { data } = await api.post(`auth/register/`, accountData.value)
-        router.push({name: urlPath.LOG_IN.name})
+        const { data } = await api.post(`/auth/register`, accountData.value)
         $toast.success(data.detail)
+        // reload page
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       } catch (e) {
-        console.log('hihi', e)
+        $toast.error(e.response.data.detail)
       }
     }
 

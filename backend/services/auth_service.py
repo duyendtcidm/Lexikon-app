@@ -33,18 +33,18 @@ class AuthService:
     def logins_service(login: LoginSchema):
         _user = Users.find_by_email(login.email)
 
-        if _user is not None:
+        if len(_user):
             if not pwd_context.verify(login.password, _user[0]['password']):
                 raise HTTPException(
-                    status_code=400, detail="Invalid Password !")
+                    status_code=400, detail=t('lexikon.authentication.login.invalid_password'))
             return JWTRepo(data={"username": _user[0]['name']}).generate_token()
-        raise HTTPException(status_code=404, detail="Username not found !")
+        raise HTTPException(status_code=404, detail=t('lexikon.authentication.login.invalid_email'))
 
     @staticmethod
     async def forgot_password_service(forgot_password: ForgotPasswordSchema):
         _email = await Users.find_by_email(forgot_password.email)
         if _email is None:
-            raise HTTPException(status_code=404, detail="Email not found !")
+            raise HTTPException(status_code=404, detail=t('lexikon.authentication.login.invalid_email'))
         await Users.update_password(forgot_password.email, pwd_context.hash(forgot_password.new_password))
 
 
