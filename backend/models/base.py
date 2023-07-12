@@ -26,7 +26,7 @@ class BaseModel(Model):
         database = db
 
     @classmethod
-    def get_list(cls, get_dict=True, search_input=None, order_by=None, **kwargs):
+    def get_word_grammar(cls, get_dict=True, search_input=None):
         query = cls.select().where(cls.active).order_by(cls.id)
         if search_input:
             if search_input != '':
@@ -35,21 +35,9 @@ class BaseModel(Model):
                         normalize_text(search_input).lower()
                     )
                 )
-        for key, value in kwargs.items():
-            query = query.where(SQL(f"{key} = '{value}'"))
-        if order_by:
-            ordering = []
-            for index, key in enumerate(order_by):
-                if order_by[key] == 'asc':
-                    ordering.append(getattr(cls, key).asc())
-                elif order_by[key] == 'desc':
-                    ordering.append(getattr(cls, key).desc())
-            query = query.order_by(*ordering)
         if get_dict:
             query = query.dicts()
         data = list(query)
-        if search_input:
-            data = cls.to_order(data, search_input)
         return data
 
     @classmethod

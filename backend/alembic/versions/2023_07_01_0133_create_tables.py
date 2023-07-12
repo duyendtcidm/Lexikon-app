@@ -25,7 +25,7 @@ def upgrade() -> None:
             name TEXT NOT NULL,
             email TEXT NOT NULL,
             password TEXT,
-            level_id BIGINT,
+            level BIGINT,
             role TEXT,
             created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
             created_by BIGINT,
