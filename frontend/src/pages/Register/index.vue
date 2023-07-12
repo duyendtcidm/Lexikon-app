@@ -70,6 +70,7 @@ export default defineComponent({
       }
       try {
         const { data } = await api.post(`/auth/register`, accountData.value)
+        router.push({name: urlPath.LOG_IN.name})
         $toast.success(data.detail)
         // reload page
         setTimeout(() => {

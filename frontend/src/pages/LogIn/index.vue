@@ -68,6 +68,7 @@ export default defineComponent({
             "auth_token_type",
             response.data.result.token_type
           );
+          router.push({name: urlPath.HOME.name})
           $toast.success(response.data.detail)
           setTimeout(() => {
             window.location.reload()

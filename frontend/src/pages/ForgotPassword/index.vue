@@ -61,6 +61,9 @@ export default defineComponent({
         const { data } = await api.post(`auth/forgot-password/`, accountData.value)
         router.push({name: urlPath.LOG_IN.name})
         $toast.success(data.detail)
+        setTimeout(() => {
+            window.location.reload()
+          }, 1000)
       } catch (e) {
         console.log('hihi', e)
       }

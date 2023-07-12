@@ -37,7 +37,7 @@ class AuthService:
             if not pwd_context.verify(login.password, _user[0]['password']):
                 raise HTTPException(
                     status_code=400, detail=t('lexikon.authentication.login.invalid_password'))
-            return JWTRepo(data={"username": _user[0]['name']}).generate_token()
+            return JWTRepo(data={"email": _user[0]['email']}).generate_token()
         raise HTTPException(status_code=404, detail=t('lexikon.authentication.login.invalid_email'))
 
     @staticmethod

@@ -13,6 +13,7 @@ import {defineComponent, ref, watch, getCurrentInstance, computed, onMounted, on
 import { HeaderBar } from './components'
 import { urlPath } from './utils'
 import { history } from "./store/history"
+import router from "@/router";
 
 const App = defineComponent({
   components: {
@@ -23,6 +24,7 @@ const App = defineComponent({
     const { $root, $store, $toast } = instance.proxy
     const start = ref(true)
     const enableBack = ref(false)
+    const token = localStorage.getItem("auth_token")
 
     watch(
       () => $root.$route,
@@ -37,6 +39,14 @@ const App = defineComponent({
         }
         else { enableBack.value = false }
       }
+    )
+
+    watch (
+        () => token,
+        () => {
+          if (token !== null)
+            router.push({name: urlPath.HOME.name})
+        }
     )
 
     return {
