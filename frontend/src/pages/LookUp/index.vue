@@ -76,7 +76,7 @@
         span {{exampleWord.pitch}}
         span.green--text 「{{exampleWord.kanji}}」
         br
-        span.mr-5 {{$t('common.level')}}: {{exampleWord.level}}
+        span.mr-5 {{$t('common.level')}}: {{exampleWord.code}}
         div.meaning(v-for="(meaning, index) in exampleWord.word_meaning")
           div.seperate-infor
             div.inner-seperate

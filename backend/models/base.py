@@ -7,6 +7,7 @@ from config.database import db
 from datetime import datetime, timezone
 from peewee import DoesNotExist, SQL, fn, IntegerField, CharField
 from fastapi import HTTPException
+from models.level import Level
 from utils.db import EXCLUDED, transaction
 from utils.mecab import normalize_text
 
@@ -27,7 +28,19 @@ class BaseModel(Model):
 
     @classmethod
     def get_list(cls, get_dict=True, search_input=None):
-        query = cls.select().where(cls.name == search_input, cls.active).order_by(cls.id)
+        query = (
+            cls.select(
+                cls.id,
+                cls.name,
+                cls.code,
+                cls.meaning,
+                cls.kanji,
+                cls.pronunciation,
+                Level.name
+            )
+            .where(cls.name == search_input, cls.active)
+            .join(Level, on=(cls.level == Level.id))
+            .order_by(cls.id))
         if get_dict:
             query = query.dicts()
         data = list(query)

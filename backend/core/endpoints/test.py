@@ -4,9 +4,8 @@ from utils.auth import Auth
 router = APIRouter()
 
 
-@router.get("/")
+@router.post("/")
 def index(data=Depends(Auth())):
-# def index():
     return {
         "Hello": "test api"
     }
