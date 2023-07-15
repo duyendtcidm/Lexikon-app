@@ -72,7 +72,7 @@
     //    )
     div.content
       div.word-detail(v-if="'foundedWord'")
-        h1.mb-1.blue--text {{exampleWord.word}}
+        h1.mb-1.blue--text {{exampleWord.name}}
         span {{exampleWord.pitch}}
         span.green--text 「{{exampleWord.kanji}}」
         br
@@ -143,7 +143,7 @@ export default defineComponent ({
 
     const exampleWord = {
       code: '1',
-      word: '自然',
+      name: '自然',
       kanji: 'tự nhiên',
       level: 'N5',
       pitch: 'shi／zen‾',
