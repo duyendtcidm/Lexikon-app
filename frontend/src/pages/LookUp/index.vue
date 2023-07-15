@@ -74,6 +74,7 @@
       div.word-detail(v-if="'foundedWord'")
         h1.mb-1.blue--text {{exampleWord.word}}
         span {{exampleWord.pitch}}
+        span.green--text 「{{exampleWord.kanji}}」
         br
         span.mr-5 {{$t('common.level')}}: {{exampleWord.level}}
         div.meaning(v-for="(meaning, index) in exampleWord.word_meaning")
@@ -81,9 +82,11 @@
             div.inner-seperate
               h3 {{meaning.meaning}}
               span {{meaning.type}}
-            v-list(lines="two" v-for="(example, index) in meaning.sentences")
-              v-list-item-title {{example.sentence}}
-              v-list-item-subtitle {{example.meaning}}
+            v-list-item-title.mt-3 {{meaning.sentence_1}}
+            v-list-item-subtitle {{meaning.meaning_1}}
+            v-list-item-title.mt-3 {{meaning.sentence_1}}
+            v-list-item-subtitle {{meaning.meaning_1}}
+
       div.word-detail(v-else-if="'foundedGrammer'")
       div.word-detail(v-else)
         span.font-italic(:style="{'margin-top': '100px'}") {{$t('common.no_data')}}
@@ -148,30 +151,18 @@ export default defineComponent ({
         {
           type: 'Danh từ',
           meaning: 'Thiên nhiên, tự nhiên',
-          sentences: [
-            {
-              sentence: '人間 は 自然 の 一部 である',
-              meaning: 'Con người là một phần của thiên nhiên.'
-            },
-            {
-              sentence: '自然 を 教師 としなさい。',
-              meaning: 'Hãy để thiên nhiên là người thầy của chúng ta.'
-            }
-          ]
+          sentence_1: '人間 は 自然 の 一部 である',
+          meaning_1: 'Con người là một phần của thiên nhiên.',
+          sentence_2: '自然 を 教師 としなさい。',
+          meaning_2: 'Hãy để thiên nhiên là người thầy của chúng ta.'
         },
           {
           type: 'Trạng từ',
           meaning: 'Một cách tự nhiên',
-          sentences: [
-            {
-              sentence: '自然 に 治 ります。',
-              meaning: 'Để nó lành một cách tự nhiên.'
-            },
-            {
-              sentence: 'メグ の 髪 は 自然 に カール する。',
-              meaning: 'Mái tóc của Meg quăn tự nhiên.'
-            }
-          ]
+          sentence_1: '自然 に 治 ります。',
+          meaning_1: 'Để nó lành một cách tự nhiên.',
+          sentence_2: 'メグ の 髪 は 自然 に カール する。',
+          meaning_2: 'Mái tóc của Meg quăn tự nhiên.'
         }
       ]
     }
