@@ -23,16 +23,16 @@ def upgrade() -> None:
                     id  BIGSERIAL NOT NULL,
                     code BIGINT,
                     name TEXT,
-                    meaning JSON[],
-                    pronunciation TEXT,
+                    meaning JSON,
+                    yomi TEXT,
                     kanji TEXT,
                     level BIGINT,
-                    synonym JSON[],
-                    antonym JSON[],
-                    kanren JSON[],
-                    antonym JSON[],
-                    antonym JSON[],
-                    antonym JSON[],
+                    synonym JSON,
+                    antonym JSON,
+                    kanren JSON
+                    usage_pattern JSON,
+                    compound_word JSON,
+                    common_word JSON,
                     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
                     created_by BIGINT,
                     modified_at TIMESTAMP WITH TIME ZONE,
@@ -43,6 +43,16 @@ def upgrade() -> None:
                     CONSTRAINT pkey_word PRIMARY KEY (id)
                 );''')
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS word_unique_code ON level (code) WHERE active IS TRUE;''')
+    op.execute('''
+    INSERT INTO word (code, name, kanji, yomi, level, synonym, antonym, kanren, usage_pattern, compound_word, common_word, meaning, active)
+VALUES (1, '男性', 'Nam tính', 'だんせい', 3, '{"haha": "h jkj "}', '{"haha":"h jkj "}', '{"haha":"h jkj "}', '{"haha":"h jkj "}',
+        '{"男性": "nam giới",
+          "性別": "giới tính"}',
+        '{"haha":"h jkj "}',
+        '[{"type":"Danh từ","sen_1":"理想の 男性 と結婚する","mean_1":"Kết hôn với người đàn ông lý tưởng.","sen_2":"","mean_2":""},
+          {"type":"Danh từ","sen_1":"理想の 男性 と結婚する","mean_1":"Kết hôn với người đàn ông lý tưởng.","sen_2":"","mean_2":""}]',
+        'true');
+    ''')
 
     op.execute('''CREATE TABLE grammar
                 (
