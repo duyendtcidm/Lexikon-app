@@ -27,7 +27,7 @@
                 v-btn.button(:style="'background-color:' + child.color")
                   router-link.link(
                     style="text-decoration: none; color: inherit;"
-                    :to="{ path: `${child.path}?auction_date=${chosenDate}` }"
+                    :to="{ path: `${child.path}` }"
                   )
                     .d-flex.justify-center.mb-1
                       v-icon(color="white").icon-child {{child.icon}}

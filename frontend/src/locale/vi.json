@@ -3,6 +3,7 @@
     "theme": "Chủ đề",
     "level": "JLPT",
     "no_data": "Không tìm thấy dữ liệu.",
+    "no_data_note": "Hiện tại, từ - ngữ pháp này chưa có trong hệ thống. Bạn vui lòng  ôn tập từ - ngữ pháp khác.",
     "email": "Email",
     "user_name": "Tên",
     "password": "Mật khẩu",
@@ -61,7 +62,15 @@
   "look_up": {
     "title": "Tra cứu",
     "word_search": "Tìm kiếm",
-    "learnt_words": "Từ mới"
+    "learnt_words": "Từ mới",
+    "reference" : {
+      "synonym": "Từ đồng nghĩa",
+      "antonym": "Từ trái nghĩa",
+      "kanren": "Từ có liên quan",
+      "usage_pattern": "Hình thái sử dụng",
+      "compound_word": "Từ kết hợp",
+      "common_word": "Cụm từ thông dụng"
+    }
 
   },
   "practice": {

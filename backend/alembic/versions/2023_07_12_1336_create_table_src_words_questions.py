@@ -1,6 +1,6 @@
 """create_table_src_words_questions
 
-Revision ID: 6d9f7cf32fa8
+Revision ID: 2
 Revises: 1
 Create Date: 2023-07-12 13:36:09.217612
 
@@ -23,16 +23,16 @@ def upgrade() -> None:
                     id  BIGSERIAL NOT NULL,
                     code BIGINT,
                     name TEXT,
-                    meaning JSON,
+                    meanings JSON,
                     yomi TEXT,
                     kanji TEXT,
                     level BIGINT,
-                    synonym JSON,
-                    antonym JSON,
-                    kanren JSON,
-                    usage_pattern JSON,
-                    compound_word JSON,
-                    common_word JSON,
+                    synonym JSON DEFAULT '{}',
+                    antonym JSON DEFAULT '{}',
+                    kanren JSON DEFAULT '{}',
+                    usage_pattern JSON DEFAULT '{}',
+                    compound_word JSON DEFAULT '{}',
+                    common_word JSON DEFAULT '{}',
                     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
                     created_by BIGINT,
                     modified_at TIMESTAMP WITH TIME ZONE,
@@ -49,7 +49,7 @@ def upgrade() -> None:
                     id  BIGSERIAL NOT NULL,
                     code BIGINT,
                     name TEXT,
-                    usage JSON,
+                    usage JSON DEFAULT '{}',
                     kanji TEXT,
                     level BIGINT,
                     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),

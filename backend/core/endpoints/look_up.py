@@ -9,7 +9,6 @@ def get_new_word(
     search_input: str
 ):
     word = Word.get_list(search_input=search_input)
-    print(word)
     if word:
         word[0]['kanji'] = word[0]['kanji'].upper()
     return word

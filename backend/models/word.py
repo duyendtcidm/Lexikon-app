@@ -6,7 +6,7 @@ from models.level import Level
 class Word(BaseModel):
     code = IntegerField()
     name = CharField()
-    meaning = JSONField()
+    meanings = JSONField()
     kanji = CharField()
     yomi = CharField()
     level = ForeignKeyField(Level, column_name='level', field='id')
@@ -28,7 +28,7 @@ class Word(BaseModel):
                 cls.id,
                 cls.name,
                 cls.code,
-                cls.meaning,
+                cls.meanings,
                 cls.kanji,
                 cls.yomi,
                 Level.name.alias("level"),

@@ -71,30 +71,37 @@
     //      type="list-item,divider, list-item, divider, list-item, divider"
     //    )
     div.content
-      div.word-detail(v-if="'foundedWord'")
-        h1.mb-1.blue--text {{exampleWord.name}}
-        span {{exampleWord.pitch}}
-        span.green--text 「{{exampleWord.kanji}}」
+      div.word-detail(v-if="dataType.word")
+        h1.mb-1.blue--text {{searchedWord.name}}
+        span {{searchedWord.yomi}}
+        span.green--text 「{{searchedWord.kanji}}」
         br
-        span.mr-5 {{$t('common.level')}}: {{exampleWord.code}}
-        div.meaning(v-for="(meaning, index) in exampleWord.word_meaning")
+        span.mr-5 {{$t('common.level')}}: {{searchedWord.level}}
+        div.meaning(v-for="(meaning, index) in searchedWord.meanings")
           div.seperate-infor
             div.inner-seperate
-              h3 {{meaning.meaning}}
+              h3 {{meaning.mean}}
               span {{meaning.type}}
-            v-list-item-title.mt-3 {{meaning.sentence_1}}
-            v-list-item-subtitle {{meaning.meaning_1}}
-            v-list-item-title.mt-3 {{meaning.sentence_1}}
-            v-list-item-subtitle {{meaning.meaning_1}}
-
-      div.word-detail(v-else-if="'foundedGrammer'")
+            v-list-item-title.mt-3 {{meaning.sen_1}}
+            v-list-item-subtitle {{meaning.mean_1}}
+            v-list-item-title.mt-3 {{meaning.sen_2}}
+            v-list-item-subtitle {{meaning.mean_2}}
+        div.seperate-infor
+          div.mt-2(v-for="reference in references" v-if="Object.keys(searchedWord[reference]).length" )
+            h4 {{$t('look_up.reference.'+reference)}}
+            div.pl-4(v-for="(value, name, index) in searchedWord[reference]")
+              span {{ name }}: {{ value }}
+      div.word-detail(v-else-if="dataType.grammar")
+      div.word-detail(v-else-if="dataType.not_found")
+        p.not-found
+          span(:style="{'font-size': '30px'}") {{$t('common.no_data')}}e
+          br
+          span {{$t('common.no_data_note')}}
       div.word-detail(v-else)
-        span.font-italic(:style="{'margin-top': '100px'}") {{$t('common.no_data')}}
+        span gioi thieu
 
       //div.kanji
       //  h3 hihi
-
-
 
 
 
@@ -114,10 +121,13 @@ export default defineComponent ({
     const searchInfo = ref('')
     const searchInfoNewWord = ref('')
     // const searchedNewWords = ref([])
-    const data = ref({
-      searchedNewWords: {},
-      isFound: 'noData'
+    const dataType = ref({
+      word: false,
+      grammar: false,
+      not_found: false
     })
+    const references = ['synonym', 'synonym', 'antonym', 'kanren', 'usage_pattern', 'compound_word', 'common_word']
+    const searchedWord = ref({})
     const searchedNewWords = [
       {
         code: 1,
@@ -141,49 +151,37 @@ export default defineComponent ({
       newWords: false
     })
 
-    const exampleWord = {
-      code: '1',
-      name: '自然',
-      kanji: 'tự nhiên',
-      level: 'N5',
-      pitch: 'shi／zen‾',
-      word_meaning: [
-        {
-          type: 'Danh từ',
-          meaning: 'Thiên nhiên, tự nhiên',
-          sentence_1: '人間 は 自然 の 一部 である',
-          meaning_1: 'Con người là một phần của thiên nhiên.',
-          sentence_2: '自然 を 教師 としなさい。',
-          meaning_2: 'Hãy để thiên nhiên là người thầy của chúng ta.'
-        },
-          {
-          type: 'Trạng từ',
-          meaning: 'Một cách tự nhiên',
-          sentence_1: '自然 に 治 ります。',
-          meaning_1: 'Để nó lành một cách tự nhiên.',
-          sentence_2: 'メグ の 髪 は 自然 に カール する。',
-          meaning_2: 'Mái tóc của Meg quăn tự nhiên.'
-        }
-      ]
-    }
-
     const handleSearchInput = (input) => {
       searchInfo.value = input
-      console.log('searchInfo', searchInfo)
     }
 
     const onDraw = () => {
       console.log('hero')
     }
+
+    const defineDataType = (type) => {
+
+      if (type === 'word') {
+        dataType.value.word = true
+        dataType.value.grammar = false
+        dataType.value.not_found = false
+      } else if (type === 'grammar') {
+        dataType.value.word = false
+        dataType.value.grammar = true
+        dataType.value.not_found = false
+      }
+    }
     const onSearch = async (searchInfo) => {
-      console.log(searchInfo)
       try {
-        const { data } = await api.get(`/look_up/new_word?search_input=searchInfo.value` )
-        console.log('data', data)
+        const { data } = await api.get(`/look_up/new_word?search_input=${searchInfo}` )
+        if (data.length) {
+          searchedWord.value = data[0]
+          defineDataType('word')
+        } else
+          dataType.value.not_found = true
       } catch (e) {
         console.log('hihi', e)
       }
-
     }
     
     const searchNewWords = () => {
@@ -201,7 +199,9 @@ export default defineComponent ({
       searchNewWords,
       searchedNewWords,
       loading,
-      exampleWord
+      references,
+      dataType,
+      searchedWord
     }
   }
 })
@@ -262,5 +262,9 @@ export default defineComponent ({
   width: 25%
   background-color: #13CE66
   margin-right: 30px
+.not-found
+  margin-top: 100px
+  color: orange
+  font-weight: bold
 
 </style>
