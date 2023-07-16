@@ -5,6 +5,7 @@ from datetime import datetime
 from i18n import t
 from zoneinfo import ZoneInfo
 
+
 class Level(BaseModel):
     code = IntegerField()
     name = CharField()

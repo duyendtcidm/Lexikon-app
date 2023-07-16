@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from i18n import t
 from zoneinfo import ZoneInfo
 
+
 class Users(BaseModel):
     code = IntegerField()
     name = CharField()
@@ -28,6 +29,7 @@ class Users(BaseModel):
         query = cls.select(cls.name, cls.code, cls.email, cls.role, cls.level_id).where(cls.email == email,
                                                                                         cls.active).dicts()
         return list(query)
+
     @classmethod
     def find_by_name(cls, name):
         query = cls.select().where(cls.name == name, cls.active).dicts()
