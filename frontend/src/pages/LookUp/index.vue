@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.loop-up
+  div.look-up
     //div.auction_date__panel.px-2
     //  v-dialog(
     //    ref="dialog"
@@ -94,12 +94,13 @@
       div.word-detail(v-else-if="dataType.grammar")
       div.word-detail(v-else-if="dataType.not_found")
         p.not-found
-          span(:style="{'font-size': '30px'}") {{$t('common.no_data')}}e
+          span(:style="{'font-size': '30px'}") {{$t('common.no_data')}}
           br
           span {{$t('common.no_data_note')}}
-      div.word-detail(v-else)
-        span gioi thieu
-
+      div.word-detail.intro(v-else)
+        h2.blue--text {{$t('look_up.intro.hello')}}
+        h3.blue--text {{$t('look_up.intro.about')}}
+        h3.blue--text.mt-3 {{$t('look_up.intro.thanks')}}
       //div.kanji
       //  h3 hihi
 
@@ -173,7 +174,7 @@ export default defineComponent ({
     }
     const onSearch = async (searchInfo) => {
       try {
-        const { data } = await api.get(`/look_up/new_word?search_input=${searchInfo}` )
+        const { data } = await api.get(`/look_up/new_word/?search_input=${searchInfo}` )
         if (data.length) {
           searchedWord.value = data[0]
           defineDataType('word')
@@ -216,7 +217,9 @@ export default defineComponent ({
     padding: 0px 8px
   .v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-inner
     margin-top: 3px
-
+.look-up
+  background-color: #f7f7f7
+  height: 100vh
 .auction_date__panel
   position: fixed
   top: 5px
@@ -244,14 +247,20 @@ export default defineComponent ({
   z-index: 10
   background-color: #FFFFFF
 .content
-  display: flex
-  justify-content: space-between
-  width: 80%
-  float: right
+  //display: flex
+  //justify-content: space-between
+  //float: right
+  width: 60%
+  margin: auto
 .word-detail
-  width: 70%
+  width: 100%
   margin-top: 20px
-  //background-color: #66ABF2
+.intro
+  padding: 40px
+  margin-top: 50px
+  border-radius: 10px
+  background-color: #c3e0ff
+
 .seperate-infor
   border-top: 3px solid #5d2fc1
   margin-top: 20px

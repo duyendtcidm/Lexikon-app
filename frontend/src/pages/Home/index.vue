@@ -47,39 +47,57 @@ export default defineComponent ({
     Calendar
   },
   setup() {
-    const auth_token = localStorage.getItem("auth_token")
-    const auth_token_type = localStorage.getItem("auth_token_type")
-    const token = auth_token_type + " " + auth_token
-    //  fetch data from get user api
-    api
-      .get(`/users`, {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        console.log('response', response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-     const instance = getCurrentInstance()
+    // const auth_token = localStorage.getItem("auth_token")
+    // const auth_token_type = localStorage.getItem("auth_token_type")
+    // const token = auth_token_type + " " + auth_token
+    // //  fetch data from get user api
+    // api
+    //   .get(`/users/`, {
+    //     headers: { Authorization: token },
+    //   })
+    //   .then((response) => {
+    //     console.log('response', response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
+    const instance = getCurrentInstance()
     const { $root } = instance.proxy
     const chosenDate = ref('')
     const menus = [
       {
         title: $root.$t('menu.look_up_and_practice.title'),
-        icon: 'mdi-flower-pollen',
+        icon: 'mdi-account-school-outline',
         children: [
           {
             title: $root.$t('menu.look_up_and_practice.look_up'),
             icon: 'mdi-text-box-search-outline',
             color: 'grey',
-            path: `/look_up/`
+            path: `/look_up`
           },
           {
             title: $root.$t('menu.look_up_and_practice.practice'),
             icon: 'mdi-note-edit-outline',
             color: 'orange',
-            path: `/practice/`
+            path: `/practice`
+          },
+            {
+            title: $root.$t('menu.look_up_and_practice.exam'),
+            icon: 'mdi-alpha-j-box-outline',
+            color: 'rgb(184 54 49)',
+            path: `/test`
+          }
+        ]
+      },
+        {
+        title: $root.$t('menu.rank.ranking'),
+        icon: 'mdi-cannabis',
+        children: [
+          {
+            title: $root.$t('ranking.title'),
+            icon: 'mdi-podium',
+            color: 'rgb(30 82 146)',
+            path: `/ranking`
           }
         ]
       }

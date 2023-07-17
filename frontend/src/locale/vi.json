@@ -18,7 +18,8 @@
   "menu": {
     "look_up_and_practice": {
       "look_up": "Tra cứu",
-      "practice": "Luyện tập"
+      "practice": "Luyện tập",
+      "exam": "Thi thử"
     }
 
   },
@@ -43,7 +44,6 @@
         "n5": "N5"
       }
     }
-
   },
   "register" : {
     "title": "Đăng ký",
@@ -70,6 +70,11 @@
       "usage_pattern": "Hình thái sử dụng",
       "compound_word": "Từ kết hợp",
       "common_word": "Cụm từ thông dụng"
+    },
+    "intro": {
+      "hello": "Xin chào!",
+      "about": "Lexikon là website hỗ trợ bạn ôn tập từ vựng - ngữ pháp chuẩn bị cho kì thi JLPT. Khi bạn tra cứu, nội dung mà bạn vừa tìm kiếm sẽ được lưu lại, phục vụ cho mục đích ôn tập sau này.",
+      "thanks": "Bắt đầu bổ sung kiến thức ngay bây giờ nào!"
     }
 
   },

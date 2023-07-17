@@ -14,6 +14,7 @@ import { HeaderBar } from './components'
 import { urlPath } from './utils'
 import { history } from "./store/history"
 import router from "@/router";
+import {api} from "@/plugins";
 
 const App = defineComponent({
   components: {
@@ -24,7 +25,20 @@ const App = defineComponent({
     const { $root, $store, $toast } = instance.proxy
     const start = ref(true)
     const enableBack = ref(false)
-    const token = localStorage.getItem("auth_token")
+    const auth_token = localStorage.getItem("auth_token")
+    const auth_token_type = localStorage.getItem("auth_token_type")
+    const token = auth_token_type + " " + auth_token
+    // const token = localStorage.getItem("auth_token")
+    api
+      .get(`/users/`, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        console.log('response', response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
     watch(
       () => $root.$route,
@@ -41,12 +55,21 @@ const App = defineComponent({
       }
     )
 
+    // watch (
+    //   () => token,
+    //   () => {
+    //     if (token !== null)
+    //       router.push({name: urlPath.HOME.name})
+    //   }
+    // )
     watch (
-        () => token,
-        () => {
-          if (token !== null)
+      () => auth_token,
+      () => {
+        if (auth_token !== null)
+          console.log()
+          // if ()
             router.push({name: urlPath.HOME.name})
-        }
+      }
     )
 
     return {

@@ -25,8 +25,8 @@ class Users(BaseModel):
         return list(query)
 
     @classmethod
-    def get_user_profile(cls, email):
-        query = cls.select(cls.name, cls.code, cls.email, cls.role, cls.level_id).where(cls.email == email,
+    def get_user_profile(cls, id):
+        query = cls.select(cls.id, cls.name, cls.code, cls.email, cls.role, cls.level_id).where(cls.id == id,
                                                                                         cls.active).dicts()
         return list(query)
 

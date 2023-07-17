@@ -81,7 +81,7 @@ export default {
       const stats = [
         {
           title: vm.$t('home.status.level.n1'),
-          icon: "mdi-decagram-outline",
+          icon: "mdi-party-popper",
           class: 'orderstats__new',
           color: 'primary',
           count: 5,
@@ -89,7 +89,7 @@ export default {
         },
         {
           title: vm.$t('home.status.level.n2'),
-          icon: "mdi-gamepad-circle-outline",
+          icon: "mdi-bullseye-arrow",
           class: 'orderstats__confirming',
           color: 'primary',
           count: 15,
@@ -97,7 +97,7 @@ export default {
         },
         {
           title: vm.$t('home.status.level.n3'),
-          icon: "mdi-svg",
+          icon: "mdi-speedometer",
           class: 'orderstats__invoiceable',
           color: 'primary',
           count: 20,
@@ -105,7 +105,7 @@ export default {
         },
           {
           title: vm.$t('home.status.level.n4'),
-          icon: "mdi-globe-light",
+          icon: "mdi-fire",
           class: 'orderstats__invoiceable',
           color: 'primary',
           count: 30,
@@ -113,7 +113,7 @@ export default {
         },
           {
           title: vm.$t('home.status.level.n5'),
-          icon: "mdi-grain",
+          icon: "mdi-baby-carriage",
           class: 'orderstats__invoiceable',
           color: 'primary',
           count: 40,

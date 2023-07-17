@@ -62,27 +62,23 @@ export default defineComponent({
         if(!emailRegex.test(accountData.value?.email))
           return $toast.error($root.$t('master.msg.check_type_email'))
       }
-        await api.post(`/auth/login`, accountData.value).then((response) => {
-          console.log('')
+        await api.post(`/auth/login/`, accountData.value).then((response) => {
           localStorage.setItem("auth_token", response.data.result.access_token)
           localStorage.setItem(
             "auth_token_type",
             response.data.result.token_type
           );
-
           $toast.success(response.data.detail)
           // setTimeout(() => {
           //   window.location.reload()
           //
           // }, 1000)
-          router.push({name: urlPath.HOME.name})
+          $root.$router.replace({name: urlPath.HOME.name})
         })
         .catch((e) => {
-          console.log('hihi', e)
           $toast.error(e.response.data.detail)
         })
     }
-
     return {
       accountData,
       authenLogin
