@@ -18,7 +18,7 @@ depends_on = None
 
 def upgrade() -> None:
     op.execute('''
-        CREATE TABLE users
+        CREATE TABLE IF NOT EXISTS users
         (
             id  BIGSERIAL NOT NULL,
             code BIGINT,
@@ -39,7 +39,7 @@ def upgrade() -> None:
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS user_unique_code ON users (code) WHERE active IS TRUE;''')
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS user_unique_email ON users (email) WHERE active IS TRUE;''')
 
-    op.execute('''CREATE TABLE level
+    op.execute('''CREATE TABLE IF NOT EXISTS level
         (
             id  BIGSERIAL NOT NULL,
             code BIGINT,

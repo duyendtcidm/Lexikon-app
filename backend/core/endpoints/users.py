@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, Security
-from utils.auth import Auth, JWTRepo
-from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import APIRouter, Depends
+from utils.auth import Auth
 
 from models.users import Users
 

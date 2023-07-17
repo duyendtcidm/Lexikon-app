@@ -48,7 +48,7 @@ export const PRACTICE_HEADER = [
     },
     {
         text: i18n.t('practice.practice_header.level'),
-        align: 'left',
+        align: 'center',
         value: 'level',
         width: 120,
         class: 'primary',
@@ -57,16 +57,16 @@ export const PRACTICE_HEADER = [
     },
     {
         text: i18n.t('practice.practice_header.status'),
-        align: 'right',
+        align: 'center',
         value: 'status',
-        width: 120,
+        width: 100,
         class: 'primary',
         isVisible: true,
         sortable : false
     },
     {
         text: i18n.t('practice.practice_header.score'),
-        align: 'right',
+        align: 'center',
         value: 'score',
         width: 120,
         class: 'primary',

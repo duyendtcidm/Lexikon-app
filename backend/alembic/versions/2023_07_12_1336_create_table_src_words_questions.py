@@ -18,7 +18,7 @@ depends_on = None
 
 def upgrade() -> None:
     #  Create table word, grammar
-    op.execute('''CREATE TABLE word
+    op.execute('''CREATE TABLE IF NOT EXISTS word
                 (
                     id  BIGSERIAL NOT NULL,
                     code BIGINT,
@@ -26,7 +26,7 @@ def upgrade() -> None:
                     meanings JSON,
                     yomi TEXT,
                     kanji TEXT,
-                    level BIGINT,
+                    level_id BIGINT,
                     synonym JSON DEFAULT '{}',
                     antonym JSON DEFAULT '{}',
                     kanren JSON DEFAULT '{}',
@@ -44,14 +44,14 @@ def upgrade() -> None:
                 );''')
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS word_unique_code ON level (code) WHERE active IS TRUE;''')
 
-    op.execute('''CREATE TABLE grammar
+    op.execute('''CREATE TABLE IF NOT EXISTS grammar
                 (
                     id  BIGSERIAL NOT NULL,
                     code BIGINT,
                     name TEXT,
                     usage JSON DEFAULT '{}',
                     kanji TEXT,
-                    level BIGINT,
+                    level_id BIGINT,
                     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
                     created_by BIGINT,
                     modified_at TIMESTAMP WITH TIME ZONE,
