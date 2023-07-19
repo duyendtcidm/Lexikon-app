@@ -32,27 +32,48 @@
                 )
                   v-icon mdi-dots-vertical
               v-list
-                v-list-item(@click="")
+                v-list-item(@click="showPracticeDialog=true")
                   v-icon.pr-3 mdi-pencil
                   v-list-item-title {{$t('practice.title')}}
-                v-list-item(@click="")
+                v-list-item(@click="showConfirmDeleteDialog=true")
                   v-icon.pr-3(color="red" ) mdi-delete-outline
                   v-list-item-title {{$t('common.delete')}}
             span.pa-2
+    //dialog-container(
+    //  ref="dialog_container"
+    //  :label="title"
+    //  :loading="loading"
+    //  :width="1000"
+    //  :saveBtnLabel="saveBtnLbl"
+    //  @on-create="checkAssignment"
+    //  @on-close="$emit('on-close')"
+    //  v-model="showPracticeDialog"
+    //)
+    dialog-container(
+      ref="dialog_container"
+      :width="1000"
+      :saveBtnLabel="saveBtnLbl"
+      v-model="showPracticeDialog"
+    )
+
 </template>
 
 <script>
 import {defineComponent, getCurrentInstance, onMounted, ref, watch} from 'vue'
 import { PRACTICE_HEADER } from './index'
-import QuestionDialog from "@/components/QuestionDialog/index.vue";
+import QuestionDialog from "@/components/QuestionDialog/index.vue"
 import {api} from "@/plugins";
+import DialogContainer from "@/components/DialogContainer/index.vue"
 
 export default defineComponent ({
   components: {
-    QuestionDialog
+    QuestionDialog,
+    DialogContainer
   },
   setup() {
     const searchedWords = ref([])
+    const showPracticeDialog = ref(false)
+    const showConfirmDeleteDialog = ref(false)
     const getWord = async () => {
       // Date object
       const date = new Date();
@@ -70,7 +91,9 @@ export default defineComponent ({
 
     return {
       PRACTICE_HEADER,
-      searchedWords
+      searchedWords,
+      showPracticeDialog,
+      showConfirmDeleteDialog
     }
   }
 })
