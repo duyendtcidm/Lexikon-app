@@ -25,14 +25,6 @@ const App = defineComponent({
     const { $root, $store, $toast } = instance.proxy
     const start = ref(true)
     const enableBack = ref(false)
-    api
-      .get(`/users/`)
-      .then((response) => {
-        console.log('response', response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
 
     watch(
       () => $root.$route,
@@ -48,23 +40,6 @@ const App = defineComponent({
         else { enableBack.value = false }
       }
     )
-
-    // watch (
-    //   () => token,
-    //   () => {
-    //     if (token !== null)
-    //       router.push({name: urlPath.HOME.name})
-    //   }
-    // )
-    // watch (
-    //   () => auth_token,
-    //   () => {
-    //     if (auth_token !== null)
-    //       console.log()
-    //       // if ()
-    //         router.push({name: urlPath.HOME.name})
-    //   }
-    // )
 
     return {
       enableBack

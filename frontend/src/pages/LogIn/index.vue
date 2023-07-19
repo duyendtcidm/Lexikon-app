@@ -60,7 +60,7 @@ export default defineComponent({
       if (accountData.value?.email) {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         if(!emailRegex.test(accountData.value?.email))
-          return $toast.error($root.$t('master.msg.check_type_email'))
+          return $toast.error($root.$t('msg.check_type_email'))
       }
         await api.post(`/auth/login/`, accountData.value).then((response) => {
           localStorage.setItem("auth_token", response.data.result.access_token)

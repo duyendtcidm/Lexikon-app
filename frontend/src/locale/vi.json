@@ -11,11 +11,15 @@
     "code": "Code",
     "or": "hoặc",
     "delete": "Xóa",
-    "ok": "OK"
+    "ok": "OK",
+    "logout": "Đăng xuất"
 
   },
-  "error": {
-
+  "error_code": {
+    "failed_to_load_current_member": "Không thể xác định người dùng"
+  },
+  "msg": {
+    "check_type_email": "Địa chỉ email không đúng, vui lòng thử lại."
   },
   "menu": {
     "look_up_and_practice": {

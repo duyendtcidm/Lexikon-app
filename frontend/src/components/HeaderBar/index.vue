@@ -19,8 +19,8 @@
 
       v-col.ma-0.pa-0.pr-2(cols="4")
         v-row.ma-0(justify="end")
-          h3.black--text profile
-          //profile
+          //h3.black--text profile
+          profile
 
     //v-row.ma-0.pa-0(v-else align="center" justify="space-between")
     //  portal-target(name="header-action")
@@ -50,14 +50,13 @@
 <script>
 import {defineComponent} from 'vue'
 import Logo from './logo.vue'
-// import Profile from './profile.vue'
-// import JNotifications from '../JNotifications/index.vue'
+import Profile from './profile.vue'
 import { backPage } from '../../utils/common/index'
 
 const HeaderBar = defineComponent({
   components: {
     Logo,
-    // Profile
+    Profile
   },
   props: {
     back: {
