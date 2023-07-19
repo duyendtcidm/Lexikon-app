@@ -49,3 +49,11 @@ class WordLearning(BaseModel):
             .dicts()
         )
         return list(query)
+
+    @classmethod
+    def check_duplicate(cls, user_id, word_id):
+        query = cls.select().where(cls.active, cls.user_id == user_id, cls.word_id == word_id)
+        data = list(query)
+        if len(data):
+            print(data[0])
+        return data

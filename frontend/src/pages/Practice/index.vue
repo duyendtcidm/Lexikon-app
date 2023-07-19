@@ -52,7 +52,6 @@
     dialog-container(
       ref="dialog_container"
       :width="1000"
-      :saveBtnLabel="saveBtnLbl"
       v-model="showPracticeDialog"
     )
 

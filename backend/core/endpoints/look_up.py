@@ -14,9 +14,12 @@ def get_new_word(
     user=Depends(Auth())
 ):
     word = Word.get_list(search_input=search_input)
-    pratice_date = date.today() + timedelta(days=1)
     if word:
         word['kanji'] = word['kanji'].upper()
-    data = {'user_id': user.id, 'word_id': word['id'], 'status': 0, 'correct_times': 0, 'practice_times': 0, 'practice_date' : pratice_date}
-    WordLearning.create(**data)
+        pratice_date = date.today() + timedelta(days=1)
+        is_learned = WordLearning.check_duplicate(user.id, word['id'])
+        # check if user id learning this word or not, if not add to word_learning
+        if not is_learned:
+            data = {'user_id': user.id, 'word_id': word['id'], 'status': 0, 'correct_times': 0, 'practice_times': 0, 'practice_date' : pratice_date}
+            WordLearning.create(**data)
     return word

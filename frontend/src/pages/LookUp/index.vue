@@ -175,8 +175,8 @@ export default defineComponent ({
     const onSearch = async (searchInfo) => {
       try {
         const { data } = await api.get(`/look_up/new_word/?search_input=${searchInfo}` )
-        if (data.length) {
-          searchedWord.value = data[0]
+        if (Object.keys(data).length) {
+          searchedWord.value = data
           defineDataType('word')
         } else
           dataType.value.not_found = true

@@ -13,8 +13,6 @@ from utils.mecab import normalize_text
 
 
 class BaseModel(Model):
-    code = IntegerField()
-    name = CharField()
     created_at = DateTimeTZField()
     created_by = BigIntegerField()
     modified_at = DateTimeTZField()
