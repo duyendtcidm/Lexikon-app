@@ -9,7 +9,8 @@
     "password": "Mật khẩu",
     "new_password": "Mật khẩu mới",
     "code": "Code",
-    "or": "hoặc"
+    "or": "hoặc",
+    "delete": "Xóa"
 
   },
   "error": {
@@ -86,7 +87,7 @@
       "level": "Cấp độ",
       "status": "Trạng thái",
       "score": "Tỷ lệ trả lời",
-      "remark": "Ghi chú"
+      "note": "Ghi chú"
     },
     "no_data": "Không có từ cần ôn tập."
   },

@@ -47,20 +47,6 @@ export default defineComponent ({
     Calendar
   },
   setup() {
-    // const auth_token = localStorage.getItem("auth_token")
-    // const auth_token_type = localStorage.getItem("auth_token_type")
-    // const token = auth_token_type + " " + auth_token
-    // //  fetch data from get user api
-    // api
-    //   .get(`/users/`, {
-    //     headers: { Authorization: token },
-    //   })
-    //   .then((response) => {
-    //     console.log('response', response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
     const instance = getCurrentInstance()
     const { $root } = instance.proxy
     const chosenDate = ref('')

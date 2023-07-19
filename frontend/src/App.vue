@@ -25,14 +25,8 @@ const App = defineComponent({
     const { $root, $store, $toast } = instance.proxy
     const start = ref(true)
     const enableBack = ref(false)
-    const auth_token = localStorage.getItem("auth_token")
-    const auth_token_type = localStorage.getItem("auth_token_type")
-    const token = auth_token_type + " " + auth_token
-    // const token = localStorage.getItem("auth_token")
     api
-      .get(`/users/`, {
-        headers: { Authorization: token },
-      })
+      .get(`/users/`)
       .then((response) => {
         console.log('response', response);
       })
@@ -62,15 +56,15 @@ const App = defineComponent({
     //       router.push({name: urlPath.HOME.name})
     //   }
     // )
-    watch (
-      () => auth_token,
-      () => {
-        if (auth_token !== null)
-          console.log()
-          // if ()
-            router.push({name: urlPath.HOME.name})
-      }
-    )
+    // watch (
+    //   () => auth_token,
+    //   () => {
+    //     if (auth_token !== null)
+    //       console.log()
+    //       // if ()
+    //         router.push({name: urlPath.HOME.name})
+    //   }
+    // )
 
     return {
       enableBack

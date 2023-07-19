@@ -44,7 +44,7 @@ class Word(BaseModel):
             .order_by(cls.id))
         if get_dict:
             query = query.dicts()
-        data = list(query)
+        data = list(query)[0]
         return data
 
 

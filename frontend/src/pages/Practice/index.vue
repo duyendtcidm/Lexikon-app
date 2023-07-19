@@ -4,7 +4,7 @@
       v-col(:cols="12")
         v-data-table(
           :headers="PRACTICE_HEADER.filter(h => h.isVisible)"
-          :items="searchWords"
+          :items="searchedWords"
           :items-per-page="-1"
           :single-select="false"
           fixed-header
@@ -14,61 +14,63 @@
           template(v-slot:header.status="{ header }")
             v-row.ma-0.pa-0(align="center")
               span {{header.text}}
-          template(v-slot:header.data-table-select="{ on }")
-            div.border-checkbox
-              v-simple-checkbox(v-model="isSelectedAll" color="primary" v-on="on")
           template(v-slot:no-data)
             span {{ $t('practice.no_data') }}
-    v-row
-      QuestionDialog
-
-
-
+          template(v-slot:item.index="{ item }")
+            span {{searchedWords.findIndex((word) => word.name === item.name) + 1}}
+          template(v-slot:item.action="{ item }")
+            v-menu(bottom left min-width="9vw")
+              template(v-slot:activator='{ on }')
+                v-btn(
+                  color='primary',
+                  dark,
+                  class='mr-auto',
+                  v-on='on',
+                  icon,
+                  max-height="20px"
+                  max-width="20px"
+                )
+                  v-icon mdi-dots-vertical
+              v-list
+                v-list-item(@click="")
+                  v-icon.pr-3 mdi-pencil
+                  v-list-item-title {{$t('practice.title')}}
+                v-list-item(@click="")
+                  v-icon.pr-3(color="red" ) mdi-delete-outline
+                  v-list-item-title {{$t('common.delete')}}
+            span.pa-2
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance, ref } from 'vue'
+import {defineComponent, getCurrentInstance, onMounted, ref, watch} from 'vue'
 import { PRACTICE_HEADER } from './index'
 import QuestionDialog from "@/components/QuestionDialog/index.vue";
+import {api} from "@/plugins";
 
 export default defineComponent ({
   components: {
     QuestionDialog
   },
   setup() {
-    const searchWords = ref([
-      {
-        "code": 1,
-        "name": "人生",
-        "meaning": "cuộc đời",
-        "level": "N2",
-        "status": "3",
-        "score": "6:9",
-        "remark": ""
-      },
-        {
-        "code": 2,
-        "name": "精算",
-        "meaning": "tính toán",
-        "level": "N2",
-        "status": "5",
-        "score": "5:5",
-        "remark": ""
-      },
-        {
-        "code": 3,
-        "name": "微妙",
-        "meaning": "tinh tế",
-        "level": "N2",
-        "status": "3",
-        "score": "6:9",
-        "remark": ""
-      }
-    ])
+    const searchedWords = ref([])
+    const getWord = async () => {
+      // Date object
+      const date = new Date();
+      let currentDay= String(date.getDate()).padStart(2, '0');
+      let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+      let currentYear = date.getFullYear();
+      let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+      const { data } = await api.get(`/practice/?current_date=${currentDate}` )
+      searchedWords.value = data
+    }
+
+    onMounted(() => {
+      getWord()
+    })
 
     return {
       PRACTICE_HEADER,
-      searchWords
+      searchedWords
     }
   }
 })
@@ -93,7 +95,7 @@ export default defineComponent ({
         margin-right: 0px !important
 .invoice_table
   padding-top: 7px !important
-  padding-left: 10px !important
+  padding-left: 15px !important
 ::v-deep .v-data-table > .v-data-table__wrapper
   overflow-x: auto
   overflow-y: hidden
@@ -106,42 +108,6 @@ export default defineComponent ({
       font-size: 16px !important
       .v-input--selection-controls__input
         margin-right: 0px !important
-.transmission-list
-  background-color: white
-  .v-list-item
-    height: 48px
-    &__icon
-      // Reduce big margin between icon and text in default style
-      margin-right: 16px
-
-    &__title
-      // Disable bold text caused by dense list style
-      font-weight: normal
-.col-send-type
-  display: inline
-  width: 50px
-  font-size: 16px !important
-.border-checkbox i
-  background-color: white
-  border-radius: 5px
-.link-text
-  color: blue
-  text-decoration: underline
-  cursor: pointer
-.blur-progress-loader-div
-  position: fixed
-  top: 0
-  left: 0
-  height: 100vh
-  width: 100vw
-  opacity: 0.3
-  background-color: lightblue
-  z-index: 998
-.progress_circle_loader-div
-  position: fixed
-  top: calc(50vh - 50px)
-  left: calc(50vw - 50px)
-  z-index: 999
 .status-div
   height: 20px
   width: 44px

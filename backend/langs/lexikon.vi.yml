@@ -4,7 +4,7 @@ vi:
       success: Đăng ký thành công.
       existed_email: Email này đã được sử dụng.
     login:
-      success: Đăng nhập ký thành công.
+      success: Đăng nhập thành công.
       invalid_password: Mật khẩu không chính xác. Vui lòng thử lại.
       invalid_email: Email không chính xác. Vui lòng thử lại.
     update_password:

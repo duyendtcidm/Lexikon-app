@@ -18,12 +18,10 @@ depends_on = None
 
 def upgrade() -> None:
     op.execute('''
-        CREATE TABLE IF NOT EXISTS learning  (
+        CREATE TABLE IF NOT EXISTS word_learning  (
             id  BIGSERIAL NOT NULL,
-            type TEXT NOT NULL,  
             user_id BIGINT NOT NULL,  
             word_id BIGINT, 
-            grammar_id BIGINT,
             status BIGINT,
             correct_times BIGINT,
             practice_times BIGINT,
@@ -42,4 +40,4 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.execute('''DROP TABLE IF EXISTS learning CASCADE ''')
+    op.execute('''DROP TABLE IF EXISTS word_learning CASCADE ''')
