@@ -43,6 +43,14 @@ def upgrade() -> None:
                     CONSTRAINT pkey_word PRIMARY KEY (id)
                 );''')
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS word_unique_code ON level (code) WHERE active IS TRUE;''')
+    op.execute('''
+        ALTER TABLE word ADD COLUMN search_str TEXT;
+        UPDATE word
+        SET search_str = concat(code, '|', lower(name), CASE
+        WHEN yomi IS NOT NULL AND LENGTH(yomi) > 0 AND (yomi = ANY (array [name])) IS NOT TRUE
+        THEN concat('|', yomi) END )
+        WHERE TRUE;
+    ''')
 
     op.execute('''CREATE TABLE IF NOT EXISTS grammar
                 (

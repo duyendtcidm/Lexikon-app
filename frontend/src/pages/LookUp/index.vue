@@ -72,25 +72,26 @@
     //    )
     div.content
       div.word-detail(v-if="dataType.word")
-        h1.mb-1.blue--text {{searchedWord.name}}
-        span {{searchedWord.yomi}}
-        span.green--text 「{{searchedWord.kanji}}」
-        br
-        span.mr-5 {{$t('common.level')}}: {{searchedWord.level}}
-        div.meaning(v-for="(meaning, index) in searchedWord.meanings")
+        div(v-for="searchedWord in searchedWords")
+          h1.mb-1.blue--text {{searchedWord.name}}
+          span {{searchedWord.yomi}}
+          span.green--text 「{{searchedWord.kanji}}」
+          br
+          span.mr-5 {{$t('common.level')}}: {{searchedWord.level}}
+          div.meaning(v-for="(meaning, index) in searchedWord.meanings")
+            div.seperate-infor
+              div.inner-seperate
+                h3 {{meaning.mean}}
+                span {{meaning.type}}
+              v-list-item-title.mt-3 {{meaning.sen_1}}
+              v-list-item-subtitle {{meaning.mean_1}}
+              v-list-item-title.mt-3 {{meaning.sen_2}}
+              v-list-item-subtitle {{meaning.mean_2}}
           div.seperate-infor
-            div.inner-seperate
-              h3 {{meaning.mean}}
-              span {{meaning.type}}
-            v-list-item-title.mt-3 {{meaning.sen_1}}
-            v-list-item-subtitle {{meaning.mean_1}}
-            v-list-item-title.mt-3 {{meaning.sen_2}}
-            v-list-item-subtitle {{meaning.mean_2}}
-        div.seperate-infor
-          div.mt-2(v-for="reference in references" v-if="Object.keys(searchedWord[reference]).length" )
-            h4 {{$t('look_up.reference.'+reference)}}
-            div.pl-4(v-for="(value, name, index) in searchedWord[reference]")
-              span {{ name }}: {{ value }}
+            div.mt-2(v-for="reference in references" v-if="Object.keys(searchedWord[reference]).length" )
+              h4 {{$t('look_up.reference.'+reference)}}
+              div.pl-4(v-for="(value, name, index) in searchedWord[reference]")
+                span {{ name }}: {{ value }}
       div.word-detail(v-else-if="dataType.grammar")
       div.word-detail(v-else-if="dataType.not_found")
         p.not-found
@@ -128,7 +129,7 @@ export default defineComponent ({
       not_found: false
     })
     const references = ['synonym', 'synonym', 'antonym', 'kanren', 'usage_pattern', 'compound_word', 'common_word']
-    const searchedWord = ref({})
+    const searchedWords = ref([])
     const searchedNewWords = [
       {
         code: 1,
@@ -175,8 +176,8 @@ export default defineComponent ({
     const onSearch = async (searchInfo) => {
       try {
         const { data } = await api.get(`/look_up/new_word/?search_input=${searchInfo}` )
-        if (Object.keys(data).length) {
-          searchedWord.value = data
+        if (data.length) {
+          searchedWords.value = data
           defineDataType('word')
         } else
           dataType.value.not_found = true
@@ -202,7 +203,7 @@ export default defineComponent ({
       loading,
       references,
       dataType,
-      searchedWord
+      searchedWords
     }
   }
 })

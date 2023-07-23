@@ -45,8 +45,5 @@ class Word(BaseModel):
         if get_dict:
             query = query.dicts()
         data = list(query)
-        if len(data):
-            return data[0]
-        else:
-            return {}
+        return data
 

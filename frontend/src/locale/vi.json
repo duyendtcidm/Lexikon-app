@@ -12,7 +12,8 @@
     "or": "hoặc",
     "delete": "Xóa",
     "ok": "OK",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "save": "Lưu"
 
   },
   "error_code": {
@@ -92,11 +93,21 @@
       "level": "Cấp độ",
       "status": "Trạng thái",
       "score": "Tỷ lệ trả lời",
-      "note": "Ghi chú",
-      "check": "Kiểm tra",
-      "cancel": "Hủy bài"
+      "note": "Ghi chú"
     },
-    "no_data": "Không có từ cần ôn tập."
+    "exercise": {
+      "kanji": "",
+      "yomi": "",
+      "synonym": "",
+      "antonym": "",
+      "kanren": "",
+      "usage_pattern": "",
+      "compound_word": "",
+      "common_word": ""
+    },
+    "no_data": "Không có từ cần ôn tập.",
+    "check": "Kiểm tra",
+    "cancel": "Hủy bài"
   },
   "exam": {
     "title": "Thi thử"

@@ -33,8 +33,11 @@
                   v-icon mdi-dots-vertical
               v-list
                 v-list-item(@click="showPracticeDialog=true")
-                  v-icon.pr-3 mdi-pencil
+                  v-icon.pr-3 mdi-file-sign
                   v-list-item-title {{$t('practice.title')}}
+                v-list-item(@click="showNoteDialog=true")
+                  v-icon.pr-3 mdi-pencil
+                  v-list-item-title {{$t('practice.practice_header.note')}}
                 v-list-item(@click="showConfirmDeleteDialog=true")
                   v-icon.pr-3(color="red" ) mdi-delete-outline
                   v-list-item-title {{$t('common.delete')}}
@@ -50,9 +53,30 @@
     //  v-model="showPracticeDialog"
     //)
     dialog-container(
-      ref="dialog_container"
-      :width="1000"
+      :width="500"
       v-model="showPracticeDialog"
+      @on-close="showPracticeDialog=false"
+      :saveBtnLabel="$t('practice.check')"
+    )
+      v-row.ma-0.pa-0.require
+        h3 123 :
+        validation-provider(rules="required" v-slot="{ errors }")
+          v-text-field#name(
+            ref="name"
+            :error-messages="errors"
+          )
+    dialog-container(
+      :width="1000"
+      v-model="showNoteDialog"
+      @on-close="showNoteDialog=false"
+      :saveBtnLabel="$t('common.save')"
+    )
+
+    confirm-delete-dialog(
+      :width="1000"
+      v-model="showConfirmDeleteDialog"
+      @on-close="showConfirmDeleteDialog=false"
+      :saveBtnLabel="$t('practice.check')"
     )
 
 </template>
@@ -60,18 +84,19 @@
 <script>
 import {defineComponent, getCurrentInstance, onMounted, ref, watch} from 'vue'
 import { PRACTICE_HEADER } from './index'
-import QuestionDialog from "@/components/QuestionDialog/index.vue"
 import {api} from "@/plugins";
 import DialogContainer from "@/components/DialogContainer/index.vue"
+import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog/index.vue"
 
 export default defineComponent ({
   components: {
-    QuestionDialog,
-    DialogContainer
+    DialogContainer,
+    ConfirmDeleteDialog
   },
   setup() {
     const searchedWords = ref([])
     const showPracticeDialog = ref(false)
+    const showNoteDialog = ref(false)
     const showConfirmDeleteDialog = ref(false)
     const getWord = async () => {
       // Date object
@@ -92,6 +117,7 @@ export default defineComponent ({
       PRACTICE_HEADER,
       searchedWords,
       showPracticeDialog,
+      showNoteDialog,
       showConfirmDeleteDialog
     }
   }
@@ -115,6 +141,11 @@ export default defineComponent ({
       font-size: 16px !important
       .v-input--selection-controls__input
         margin-right: 0px !important
+::v-deep .v-text-field input
+  line-height: 48px
+::v-deep .theme--light.v-card > .v-card__text
+  padding: 0
+  margin: 0
 .invoice_table
   padding-top: 7px !important
   padding-left: 15px !important
@@ -130,16 +161,9 @@ export default defineComponent ({
       font-size: 16px !important
       .v-input--selection-controls__input
         margin-right: 0px !important
-.status-div
-  height: 20px
-  width: 44px
-  display: flex
-  flex-wrap: wrap
-.status-div-more-2
-  height: 35px
-  width: 44px
-  display: flex
-  flex-wrap: wrap
+.require
+  line-height: 48px
+  margin-right: 10px !important
 
 
 </style>
