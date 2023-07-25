@@ -13,7 +13,7 @@ def get_new_word(
     search_input: str,
     user=Depends(Auth())
 ):
-    words = Word.__get_list__(search_input=search_input)
+    words = Word.get_list(search_input=search_input)
     if len(words):
         for word in words:
             word['kanji'] = word['kanji'].upper()

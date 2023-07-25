@@ -8,6 +8,7 @@ class Grammar(BaseModel):
     name = CharField()
     usage = JSONField()
     kanji = CharField()
+    search_str = CharField()
     level = ForeignKeyField(Level, column_name='level', field='id')
 
 

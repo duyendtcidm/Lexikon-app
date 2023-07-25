@@ -13,7 +13,6 @@ from utils.mecab import normalize_text
 
 
 class BaseModel(Model):
-    search_str = CharField()
     created_at = DateTimeTZField()
     created_by = BigIntegerField()
     modified_at = DateTimeTZField()
@@ -24,33 +23,6 @@ class BaseModel(Model):
 
     class Meta:
         database = db
-
-    @classmethod
-    def __get_list__(cls, get_dict=True, search_input=None):
-        query = cls.select().where(cls.active).order_by(cls.id)
-        if search_input:
-            if search_input != '':
-                query = query.where(
-                    cls.search_str.contains(
-                        normalize_text(search_input).lower()
-                    )
-                )
-        # query = (
-        #     cls.select(
-        #         cls.id,
-        #         cls.name,
-        #         cls.code,
-        #         cls.meaning,
-        #         cls.kanji,
-        #         cls.yomi,
-        #         cls.level
-        #     )
-        #     .where(cls.name == search_input, cls.active)
-        #     .order_by(cls.id))
-        if get_dict:
-            query = query.dicts()
-        data = list(query)
-        return data
 
     @classmethod
     def update_one(cls, id: int, data_update: dict):

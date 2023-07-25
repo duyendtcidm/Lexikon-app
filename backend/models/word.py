@@ -9,6 +9,7 @@ class Word(BaseModel):
     meanings = JSONField()
     kanji = CharField()
     yomi = CharField()
+    search_str = CharField()
     level = ForeignKeyField(Level, column_name='level', field='id')
     synonym = JSONField()
     antonym = JSONField()
@@ -23,6 +24,12 @@ class Word(BaseModel):
 
     @classmethod
     def get_list(cls, get_dict=True, search_input=None):
+        # query = cls.select().where(cls.active).order_by(cls.id)
+        # if search_input:
+        #     if search_input != '':
+        #         query = query.where(
+        #             cls.search_str.contains(search_input)
+        #         )
         query = (
             cls.select(
                 cls.id,
@@ -40,7 +47,7 @@ class Word(BaseModel):
                 cls.common_word
             )
             .join(Level, on=cls.level == Level.id)
-            .where(cls.name == search_input, cls.active)
+            .where(cls.search_str.contains(search_input), cls.active)
             .order_by(cls.id))
         if get_dict:
             query = query.dicts()
