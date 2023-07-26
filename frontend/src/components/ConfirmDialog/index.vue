@@ -14,7 +14,7 @@
 
           span.white--text {{ title ? title : $t('common.confirm') }}
           v-spacer
-          portal-target(name="header-dialog-action")
+          //portal-target(name="header-dialog-action")
           v-btn(icon dark @click="$emit('on-close')")
             v-icon mdi-close
 

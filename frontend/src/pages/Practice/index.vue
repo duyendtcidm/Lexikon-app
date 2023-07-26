@@ -35,10 +35,10 @@
                 v-list-item(@click="showPracticeDialog=true")
                   v-icon.pr-3 mdi-file-sign
                   v-list-item-title {{$t('practice.title')}}
-                v-list-item(@click="showNoteDialog=true")
+                v-list-item(@click="showNoteDialog=true, selectedItem=item")
                   v-icon.pr-3 mdi-pencil
                   v-list-item-title {{$t('practice.practice_header.note')}}
-                v-list-item(@click="showConfirmDeleteDialog=true")
+                v-list-item(@click="showConfirmDeleteDialog=true, selectedItem=item")
                   v-icon.pr-3(color="red" ) mdi-delete-outline
                   v-list-item-title {{$t('common.delete')}}
             span.pa-2
@@ -65,17 +65,17 @@
             ref="name"
             :error-messages="errors"
           )
-    dialog-container(
-      :width="1000"
+    note-dialog(
       v-model="showNoteDialog"
-      @on-close="showNoteDialog=false"
-      :saveBtnLabel="$t('common.save')"
+      :remark="selectedItem ? (selectedItem.note ? selectedItem.note : '') : ''"
+      @on-ok="updateRemark"
+      @on-close="showNoteDialog = false"
     )
 
     confirm-delete-dialog(
       :width="1000"
-      v-model="showConfirmDeleteDialog"
-      @on-close="showConfirmDeleteDialog=false"
+      :show-dialog="showConfirmDeleteDialog"
+      @on-close="(param) => confirmDelete(param)"
       :saveBtnLabel="$t('practice.check')"
     )
 
@@ -83,21 +83,26 @@
 
 <script>
 import {defineComponent, getCurrentInstance, onMounted, ref, watch} from 'vue'
+import { showError } from '@/utils'
 import { PRACTICE_HEADER } from './index'
 import {api} from "@/plugins";
-import DialogContainer from "@/components/DialogContainer/index.vue"
-import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog/index.vue"
+import { ConfirmDeleteDialog, DialogContainer } from "@/components";
+import NoteDialog from "@/pages/Practice/NoteDialog.vue"
 
 export default defineComponent ({
   components: {
     DialogContainer,
-    ConfirmDeleteDialog
+    ConfirmDeleteDialog,
+    NoteDialog
   },
   setup() {
+    const instance = getCurrentInstance()
+    const { $toast, $root, $refs } = instance.proxy
     const searchedWords = ref([])
     const showPracticeDialog = ref(false)
     const showNoteDialog = ref(false)
     const showConfirmDeleteDialog = ref(false)
+    const selectedItem = ref({})
     const getWord = async () => {
       // Date object
       const date = new Date();
@@ -107,6 +112,33 @@ export default defineComponent ({
       let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
       const { data } = await api.get(`/practice/?current_date=${currentDate}` )
       searchedWords.value = data
+    }
+    const updateRemark = async (input) => {
+      try {
+        const param = {
+          id: selectedItem.value.id,
+          note: input
+        }
+        await api.put(`/practice/update_note/`, param)
+        $toast.success($root.$t('practice.note.update_successful'))
+        await getWord()
+      } catch (e) {
+        showError(e, $toast, $root.$t('master.msg.update_failed'))
+      }
+      showNoteDialog.value = false
+    }
+
+    const confirmDelete = async (action) => {
+      if (action === 'delete') {
+        try {
+          await api.delete(`/practice/${selectedItem.value.id}`)
+          $toast.success($root.$t('practice.msg.delete_successful'))
+          await getWord()
+        } catch (e) {
+          showError(e, $toast, $root.$t('master.msg.update_failed'))
+        }
+      }
+      showConfirmDeleteDialog.value = false
     }
 
     onMounted(() => {
@@ -118,6 +150,9 @@ export default defineComponent ({
       searchedWords,
       showPracticeDialog,
       showNoteDialog,
+      updateRemark,
+      selectedItem,
+      confirmDelete,
       showConfirmDeleteDialog
     }
   }

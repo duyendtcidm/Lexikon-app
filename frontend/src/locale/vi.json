@@ -13,7 +13,10 @@
     "delete": "Xóa",
     "ok": "OK",
     "logout": "Đăng xuất",
-    "save": "Lưu"
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "confirm_delete": "Bạn có thực sự muốn xóa hay không?"
 
   },
   "error_code": {
@@ -104,6 +107,14 @@
       "usage_pattern": "",
       "compound_word": "",
       "common_word": ""
+    },
+    "note": {
+      "title": "Ghi chú",
+      "edit_note": "Thêm ghi chú",
+      "update_successful": "Cập nhật ghi chú thành công!"
+    },
+    "msg": {
+      "delete_successful": "Đã xóa khỏi dữ liệu học tập thành công!"
     },
     "no_data": "Không có từ cần ôn tập.",
     "check": "Kiểm tra",

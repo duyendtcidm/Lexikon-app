@@ -4,6 +4,8 @@ from datetime import date
 from utils.auth import Auth
 from models.word_learning import WordLearning
 
+import schemas.learning_word as learning_word_schemas
+
 
 router = APIRouter()
 
@@ -18,6 +20,14 @@ def get_list_practice(current_date: date, user=Depends(Auth())):
         word['meanings'] = mean
         word['score'] = str(word['correct_times']) + '/' + str(word['practice_times'])
     return list_word
+
+@router.put('/update_note')
+def update_note(payload: learning_word_schemas.UpdateNotePayLoad, user=Depends(Auth())):
+    WordLearning.update_one(payload.id, {'note': payload.note, 'modified_by': user.id})
+
+@router.delete('/{id}')
+def delete_size_group(id: int, user=Depends(Auth())):
+    return WordLearning.soft_delete(id, user.id)
 
 def validate_pratice_date(word, current_date):
     '''Check if users practice word frequently or not

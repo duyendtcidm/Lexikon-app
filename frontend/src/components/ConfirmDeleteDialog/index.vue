@@ -2,7 +2,6 @@
   confirm-dialog(
     :showDialog="showDialog"
     :messages="setMessage()"
-    :is-delete-master = "isDeleteMaster"
     :cancel-text="$t('common.cancel')"
     :ok-text="okText?okText:$t('common.delete')"
     :color-confirm="'red'"
