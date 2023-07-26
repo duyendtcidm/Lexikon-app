@@ -32,7 +32,7 @@
                 )
                   v-icon mdi-dots-vertical
               v-list
-                v-list-item(@click="showPracticeDialog=true")
+                v-list-item(@click="showPracticeDialog=true, selectedItem=item")
                   v-icon.pr-3 mdi-file-sign
                   v-list-item-title {{$t('practice.title')}}
                 v-list-item(@click="showNoteDialog=true, selectedItem=item")
@@ -42,36 +42,18 @@
                   v-icon.pr-3(color="red" ) mdi-delete-outline
                   v-list-item-title {{$t('common.delete')}}
             span.pa-2
-    //dialog-container(
-    //  ref="dialog_container"
-    //  :label="title"
-    //  :loading="loading"
-    //  :width="1000"
-    //  :saveBtnLabel="saveBtnLbl"
-    //  @on-create="checkAssignment"
-    //  @on-close="$emit('on-close')"
-    //  v-model="showPracticeDialog"
-    //)
-    dialog-container(
-      :width="500"
-      v-model="showPracticeDialog"
-      @on-close="showPracticeDialog=false"
-      :saveBtnLabel="$t('practice.check')"
+    question(
+       v-model="showPracticeDialog"
+       :item="selectedItem"
+       @on-close="showPracticeDialog=false"
+       @on-ok="updateStatus"
     )
-      v-row.ma-0.pa-0.require
-        h3 123 :
-        validation-provider(rules="required" v-slot="{ errors }")
-          v-text-field#name(
-            ref="name"
-            :error-messages="errors"
-          )
     note-dialog(
       v-model="showNoteDialog"
       :remark="selectedItem ? (selectedItem.note ? selectedItem.note : '') : ''"
       @on-ok="updateRemark"
-      @on-close="showNoteDialog = false"
+      @on-close="showNoteDialog=false"
     )
-
     confirm-delete-dialog(
       :width="1000"
       :show-dialog="showConfirmDeleteDialog"
@@ -88,9 +70,11 @@ import { PRACTICE_HEADER } from './index'
 import {api} from "@/plugins";
 import { ConfirmDeleteDialog, DialogContainer } from "@/components";
 import NoteDialog from "@/pages/Practice/NoteDialog.vue"
+import Question from "@/pages/Practice/Question.vue";
 
 export default defineComponent ({
   components: {
+    Question,
     DialogContainer,
     ConfirmDeleteDialog,
     NoteDialog
@@ -141,7 +125,43 @@ export default defineComponent ({
       showConfirmDeleteDialog.value = false
     }
 
+    const definePracticeDate = (status, practiceDate) => {
+      let oldPracticeDate = new Date(practiceDate)
+      let newPracticeDate = new Date(practiceDate)
+      if (status === 0) newPracticeDate.setDate(oldPracticeDate.getDate() + 1)
+      else if (status === 1) newPracticeDate.setDate(oldPracticeDate.getDate() + 2)
+      else if (status === 2) newPracticeDate.setDate(oldPracticeDate.getDate() + 4)
+      else if (status === 3) newPracticeDate.setDate(oldPracticeDate.getDate() + 7)
+      else if (status === 4) newPracticeDate.setDate(oldPracticeDate.getDate() + 14)
+      else if (status === 5) newPracticeDate = null
+      if (newPracticeDate) {
+        let month = newPracticeDate.getMonth().toString().padStart(2, '0')
+        let year = newPracticeDate.getFullYear()
+        let day = newPracticeDate.getDate()
+        return year + '-' + month + '-' + day
+      }
+      return null
+    }
+
+    const updateStatus = async (isPass) => {
+      const param = {}
+      param.id = selectedItem.value.id
+      param.status = isPass ? selectedItem.value.status + 1 : (selectedItem.value.status - 1 > 0 ? selectedItem.value.status - 1 : 0)
+      param.correct_times = isPass ? selectedItem.value.correct_times + 1 : selectedItem.value.correct_times
+      param.practice_times = selectedItem.value.practice_times + 1
+      param.practice_date = definePracticeDate(param.status, selectedItem.value.practice_date)
+      try {
+        await api.put(`/practice/update_status/`, param)
+        $toast.success($root.$t('practice.exercise.update_successful'))
+        await getWord()
+      } catch (e) {
+        showError(e, $toast, $root.$t('master.msg.update_failed'))
+      }
+      showPracticeDialog.value = false
+    }
+
     onMounted(() => {
+      searchedWords.value = []
       getWord()
     })
 
@@ -149,6 +169,7 @@ export default defineComponent ({
       PRACTICE_HEADER,
       searchedWords,
       showPracticeDialog,
+      updateStatus,
       showNoteDialog,
       updateRemark,
       selectedItem,

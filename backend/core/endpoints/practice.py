@@ -25,6 +25,19 @@ def get_list_practice(current_date: date, user=Depends(Auth())):
 def update_note(payload: learning_word_schemas.UpdateNotePayLoad, user=Depends(Auth())):
     WordLearning.update_one(payload.id, {'note': payload.note, 'modified_by': user.id})
 
+@router.put('/update_status')
+def update_note(payload: learning_word_schemas.UpdateStatusPayLoad, user=Depends(Auth())):
+    WordLearning.update_one(
+        payload.id,
+        {
+            'status': payload.status,
+            'correct_times': payload.correct_times,
+            'practice_times': payload.practice_times,
+            'practice_date': payload.practice_date,
+            'modified_by': user.id
+        }
+    )
+
 @router.delete('/{id}')
 def delete_size_group(id: int, user=Depends(Auth())):
     return WordLearning.soft_delete(id, user.id)

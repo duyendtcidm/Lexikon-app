@@ -99,14 +99,16 @@
       "note": "Ghi chú"
     },
     "exercise": {
-      "kanji": "",
-      "yomi": "",
-      "synonym": "",
-      "antonym": "",
-      "kanren": "",
-      "usage_pattern": "",
-      "compound_word": "",
-      "common_word": ""
+      "kanji": "Hán việt",
+      "yomi": "Cách đọc",
+      "meanings": "Ý nghĩa",
+      "synonym": "Từ đồng nghĩa",
+      "antonym": "Từ trái nghĩa",
+      "kanren": "Từ vựng liên quan",
+      "usage_pattern": "Hình thái sử dụng",
+      "compound_word": "Từ ghép",
+      "common_word": "Từ thông dụng",
+      "update_successful": "Cập nhật trạng thái thành công!"
     },
     "note": {
       "title": "Ghi chú",
