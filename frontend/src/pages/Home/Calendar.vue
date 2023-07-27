@@ -6,7 +6,7 @@
           v-row.px-4.pt-1.pb-2
             v-col.pa-0.ma-0(cols="12")
               div.button-calendar
-                span.mr-2.title {{ $t('home.calendar.title')}}
+                span.mr-4.title {{ $t('home.calendar.title')}}
                 //j-status(
                 //  :icon="'mdi-information-outline'"
                 //  :page="'home'"
@@ -32,24 +32,11 @@
                   div.pointer.date-cell(
                     @click='clickEvent(day)'
                   )
-                    //div.status-div
-                    //  v-icon(
-                    //    size="20"
-                    //    :style="{ color: STATUS_ICONS[getStatusForDay(day, 'invoice')]?.color, opacity: getStatusForDay(day, 'invoice') !== null ? 1 : 0.01 }"
-                    //  ) {{ getStatusForDay(day, 'invoice') ? STATUS_ICONS[getStatusForDay(day, 'invoice')]?.icon : 'mdi-receipt-text-outline' }}
-                    //  v-icon(
-                    //    size="20"
-                    //    :style="{ color: STATUS_ICONS[getStatusForDay(day, 'sale')]?.color, opacity: getStatusForDay(day, 'sale') !== null ? 1 : 0.01 }"
-                    //  ) {{ getStatusForDay(day, 'sale') ? STATUS_ICONS[getStatusForDay(day, 'sale')]?.icon : 'mdi-cash'}}
-                    //  v-icon(
-                    //    size="20"
-                    //    :style="{ color: STATUS_ICONS[getStatusForDay(day, 'billing')]?.color, opacity: getStatusForDay(day, 'billing') !== null ? 1 : 0.01 }"
-                    //  ) {{ getStatusForDay(day, 'billing') ? STATUS_ICONS[getStatusForDay(day, 'billing')]?.icon : 'mdi-credit-card-outline'}}
-                    //  v-icon(
-                    //    size="20"
-                    //    :style="{ color: STATUS_ICONS[getStatusForDay(day, 'deposit')]?.color, opacity: getStatusForDay(day, 'deposit') !== null ? 1 : 0.01 }"
-                    //  ) {{ getStatusForDay(day, 'deposit') ? STATUS_ICONS[getStatusForDay(day, 'deposit')]?.icon : 'mdi-bank'}}
-
+                    div.status-div
+                      v-icon(
+                        size="20"
+                        :style="{ color: STATUS_ICONS[getStatusForDay(day)]?.color, opacity: getStatusForDay(day) !== null ? 1 : 0.01 }"
+                      ) {{ getStatusForDay(day) ? STATUS_ICONS[getStatusForDay(day)]?.icon : 'mdi-text-box-search-outline' }}
                 template(v-slot:day-label="day")
                   v-btn(
                     v-if='clickedDay === day.date'
@@ -77,19 +64,19 @@
               v-subheader(v-if='clickedDay')
                 v-icon mdi-calendar-search
                 span.pl-3 {{ clickedDay }}
-              template
-                div(v-if="dateDetails")
-                  v-list-item-content.py-1.my-0.ml-8(v-for="key in Object.keys(dateDetails)")
+              template(v-if="!noData")
+                div(v-for="key in Object.keys(dateDetails)")
+                  v-list-item-content.py-1.my-0.ml-8(v-if="dateDetails[key].length > 0")
                     v-list-item-title
                       v-icon(
                         size="18"
                         :style="'color:' + STATUS_ICONS[key]?.color"
                         ) {{STATUS_ICONS[key]?.icon}}
-                      span.ml-1.text-decoration-underline.bold--text.primary--text {{$t('home.calendar.' + STATUS_ICONS[key]?.title)}}
-                      span.ml-2 {{dateDetails[key]}}
+                      span.ml-1.bold--text.primary--text {{$t('home.calendar.' + STATUS_ICONS[key]?.title)}}
+                      span.ml-2 {{dateDetails[key].length}}
                       span.ml-2 {{$t('home.calendar.unit')}}
-              template(v-if="noData")
-                span.ml-5.grey--text {{ $t('common.no_data')}}2
+              template(v-else)
+                span.ml-5.grey--text {{ $t('common.no_data')}}
 </template>
 
 <script lang="js">
@@ -98,34 +85,16 @@ import {endpoints, urlPath} from "@/utils"
 import {api} from "@/plugins"
 import {getCurrentInstance, toRefs, ref, onMounted} from "vue"
 import router from "../../router"
-// import JStatus from '@/components/JStatus/index.vue'
-// import { GROUP_STATUS, CALENDAR_STATUSES, STATUS_ICONS} from "@/components/JStatus";
 import moment from "moment"
 
 export default {
-  components: {
-    // JStatus
-  },
-  props: {
-    remainDates: {
-      type: Array,
-      default: null
-    },
-    unconfirmSaleResultDates: {
-      type: Array,
-      default: null
-    }
-  },
   setup(props, {emit}) {
     const instance = getCurrentInstance()
     const {$refs, $root} = instance.proxy
-    const { remainDates, unconfirmSaleResultDates } = toRefs(props)
     const weekdays = [0, 1, 2, 3, 4, 5, 6]
     const assignmentDates = ref([])
     const invoiceStatusCount = ref(0)
     const orders = ref([])
-    const remainDatesCount = ref(0)
-    const unconfirmSaleResultDatesCount = ref(0)
     const today = ref(null)
     const focus = ref(null)
     const start = ref(null)
@@ -133,25 +102,31 @@ export default {
     const clickedDay = ref(null)
     const noData = ref(false)
     const dateDetails = ref({})
-    // const calendarData = ref(null)
+    const calendarData = ref(null)
 
     const STATUS_ICONS = ref({
-      not_practiced: {
-        title: 'not_practiced',
+      0: {
+        title: 'new_words',
         icon: 'mdi-text-box-search-outline',
         color: 'grey'
       },
-      practicing: {
-        title: 'practicing',
+      1: {
+        title: 'doing_words',
         icon: 'mdi-note-edit-outline',
         color: 'orange'
       },
-      done_practiced: {
-        title: 'done_practiced',
+      2: {
+        title: 'complete_words',
         icon: 'mdi-text-box-check-outline',
         color: 'green'
       }
     })
+
+    const CALENDAR_STATUSES = {
+        'new_words': 0,
+        'doing_words': 1,
+        'complete_words': 2
+    }
     const prev = (date) => {
       $refs.calendar.prev()
       date = new Date(date)
@@ -181,58 +156,36 @@ export default {
       }
       start.value = data.start
       end.value = data.end
-      // getDates()
+      getDates()
     }
 
-    // const getDates = async() => {
-    //   await api
-    //       .get(`${endpoints.HOME}calendar?start_date=${start.value.date}&end_date=${end.value.date}&is_get_list_bill=false`)
-    //       .then((response) => {
-    //         calendarData.value = response.data
-    //       })
-    //       .catch(err => console.error(err))
-    //   dateDetails.value = getDateDetails(focus.value)
-    //   if(clickedDay.value == null) {
-    //     clickedDay.value = today.value
-    //     clickEvent(today.value)
-    //   }
-    // }
-
-  //   const getFormattedDate = (date) => {
-  //     date = new Date(date)
-  //     let year = date.getFullYear()
-  //     let month = (1 + date.getMonth()).toString().padStart(2, '0')
-  //     let day = date.getDate().toString().padStart(2, '0')
-  //     return year + '-' + month + '-' + day
-  // }
-    // const getDateDetails = (date) => {
-    //   const details = {}
-    //   details[CALENDAR_STATUSES.invoice.sent_d1] = calendarData.value?.invoice.sent_d1.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.invoice.not_send_d1] = calendarData.value?.invoice.not_send_d1.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.invoice.modified_after_sent_d1] = calendarData.value?.invoice.modified_after_sent_d1.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.sale.registered_but_not_fixed] = calendarData.value?.sale.registered_but_not_fixed.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.sale.urizan] = calendarData.value?.sale.urizan.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.sale.fixed_registered] = calendarData.value?.sale.fixed_registered.filter((stat) => stat.auction_date === date)
-    //   details[CALENDAR_STATUSES.billing.generated_but_not_yet_paid] = calendarData.value?.billing.generated_but_not_yet_paid.filter((stat) => getFormattedDate(stat.created_at) === date)
-    //   details[CALENDAR_STATUSES.billing.paid_partial] = calendarData.value?.billing.paid_partial.filter((stat) => getFormattedDate(stat.created_at) === date)
-    //   details[CALENDAR_STATUSES.billing.paid] = calendarData.value?.billing.paid.filter((stat) => getFormattedDate(stat.created_at) === date)
-    //   details[CALENDAR_STATUSES.deposit.deposit_registered] = calendarData.value?.deposit.deposit_registered.filter(
-    //       (stat) => getFormattedDate(stat.created_at) === date
-    //   )
-    //   noData.value = !Object.values(details).find((value) => value.length > 0)
-    //   return details
-    // }
-    const clickEvent = (day) => {
-      // noData.value = true
-      noData.value = false
-      clickedDay.value = day.date ? day.date : day
-      // emit('on-chosenDate', clickedDay.value)
-      // dateDetails.value = getDateDetails(clickedDay.value)
-      dateDetails.value = {
-        "not_practiced": 3,
-        "practicing": 6,
-        "done_practiced": 4
+    const getDates = async() => {
+      await api
+          .get(`/home/calendar?start_date=${start.value.date}&end_date=${end.value.date}`)
+          .then((response) => {
+            calendarData.value = response.data
+          })
+          .catch(err => console.error(err))
+      dateDetails.value = getDateDetails(focus.value)
+      if(clickedDay.value == null) {
+        clickedDay.value = today.value
+        clickEvent(today.value)
       }
+    }
+
+    const getDateDetails = (date) => {
+      const details = {}
+      details[CALENDAR_STATUSES.new_words] = calendarData.value?.new_words.filter((stat) => stat.created_at === date)
+      details[CALENDAR_STATUSES.doing_words] = calendarData.value?.doing_words.filter((stat) => stat.created_at === date)
+      details[CALENDAR_STATUSES.complete_words] = calendarData.value?.complete_words.filter((stat) => stat.created_at === date)
+      noData.value = !Object.values(details).find((value) => value.length > 0)
+      return details
+    }
+    const clickEvent = (day) => {
+      noData.value = true
+      clickedDay.value = day.date ? day.date : day
+      emit('on-chosenDate', clickedDay.value)
+      dateDetails.value = getDateDetails(clickedDay.value)
     }
 
     const setToday = () => {
@@ -280,67 +233,18 @@ export default {
     //     }
     //   })
     // }
-    // const getStatusForDay = (date, type) => {
-    //   switch (type) {
-    //     case 'invoice': {
-    //       const sent_d1 = calendarData.value?.invoice.sent_d1.find((stat) => stat.auction_date === date.date)
-    //       const not_send_d1 = calendarData.value?.invoice.not_send_d1.find((stat) => stat.auction_date === date.date)
-    //       const modified_after_sent_d1 = calendarData.value?.invoice.modified_after_sent_d1.find((stat) => stat.auction_date === date.date)
-    //       if (not_send_d1)
-    //         return CALENDAR_STATUSES.invoice.not_send_d1
-    //       if (modified_after_sent_d1)
-    //         return CALENDAR_STATUSES.invoice.modified_after_sent_d1
-    //       if (sent_d1)
-    //         return CALENDAR_STATUSES.invoice.sent_d1
-    //       return null
-    //     }
-    //     case 'sale': {
-    //       const registered_but_not_fixed = calendarData.value?.sale.registered_but_not_fixed.find((stat) => stat.auction_date === date.date)
-    //       const urizan = calendarData.value?.sale.urizan.find((stat) => stat.auction_date === date.date)
-    //       const fixed_registered = calendarData.value?.sale.fixed_registered.find((stat) => stat.auction_date === date.date)
-    //       if (registered_but_not_fixed)
-    //         return CALENDAR_STATUSES.sale.registered_but_not_fixed
-    //       if (urizan)
-    //         return CALENDAR_STATUSES.sale.urizan
-    //       if (fixed_registered)
-    //         return CALENDAR_STATUSES.sale.fixed_registered
-    //       return null
-    //     }
-    //     case 'billing': {
-    //       const generated_but_not_yet_paid = calendarData.value?.billing.generated_but_not_yet_paid.find(
-    //           (stat) => getFormattedDate(stat.created_at) === date.date
-    //       )
-    //       const paid_partial = calendarData.value?.billing.paid_partial.find(
-    //           (stat) => getFormattedDate(stat.created_at) === date.date
-    //       )
-    //       const paid = calendarData.value?.billing.paid.find(
-    //           (stat) => getFormattedDate(stat.created_at) === date.date
-    //       )
-    //       if (generated_but_not_yet_paid)
-    //         return CALENDAR_STATUSES.billing.generated_but_not_yet_paid
-    //       if (paid_partial)
-    //         return CALENDAR_STATUSES.billing.paid_partial
-    //       if (paid)
-    //         return CALENDAR_STATUSES.billing.paid
-    //       return null
-    //     }
-    //     case 'deposit': {
-    //       const deposit_registered = calendarData.value?.deposit.deposit_registered.find(
-    //           (stat) => getFormattedDate(stat.created_at) === date.date
-    //       )
-    //       if (deposit_registered)
-    //         return CALENDAR_STATUSES.deposit.deposit_registered
-    //       return null
-    //     }
-    //   }
-    // }
-    // const groupHasData = (group) => {
-    //   let check = false
-    //   group.keys.forEach((key) => {
-    //     if (dateDetails.value[key]?.length > 0) check = true
-    //   })
-    //   return check
-    // }
+    const getStatusForDay = (date) => {
+      const new_words = calendarData.value?.new_words.find((stat) => stat.created_at === date.date)
+      const doing_words = calendarData.value?.doing_words.find((stat) => stat.created_at === date.date)
+      const complete_words = calendarData.value?.complete_words.find((stat) => stat.created_at === date.date)
+      if (new_words)
+        return CALENDAR_STATUSES.new_words
+      if (doing_words)
+        return CALENDAR_STATUSES.doing_words
+      if (complete_words)
+        return CALENDAR_STATUSES.complete_words
+      return null
+    }
     onMounted(()=>{
       focus.value = today.value = getToday()
     })
@@ -351,8 +255,6 @@ export default {
       assignmentDates,
       invoiceStatusCount,
       orders,
-      remainDatesCount,
-      unconfirmSaleResultDatesCount,
       today,
       focus,
       start,
@@ -365,15 +267,13 @@ export default {
       next,
       getToday,
       updateRange,
-      // getDates,
+      getDates,
       clickEvent,
       // goToDate,
-      // getStatusForDay,
-      // CALENDAR_STATUSES,
+      getStatusForDay,
+      CALENDAR_STATUSES,
       dateDetails,
       STATUS_ICONS,
-      // GROUP_STATUS,
-      // groupHasData
     }
   }
 };
@@ -398,7 +298,7 @@ export default {
 .date-cell
   min-height: 100%
   min-width: 100%
-  padding: 20px 0 0 20px
+  padding: 30px 0 0 30px
 .status-div
   position: absolute
   height: 30px

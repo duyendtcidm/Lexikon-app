@@ -38,9 +38,9 @@
     "today": "Hôm nay",
     "calendar": {
       "title": "Lịch học",
-      "not_practiced": "Từ mới",
-      "practicing": "Đang ôn tập",
-      "done_practiced": "Hoàn thành",
+      "new_words": "Từ mới",
+      "doing_words": "Đang ôn tập",
+      "complete_words": "Hoàn thành",
       "unit": "từ"
     },
     "status": {

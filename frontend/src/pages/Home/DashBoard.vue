@@ -82,7 +82,6 @@ export default {
         {
           title: vm.$t('home.status.level.n1'),
           icon: "mdi-party-popper",
-          class: 'orderstats__new',
           color: 'primary',
           count: 5,
           to: 'q=~%28match_status~%28~%27new%29%29'
@@ -90,7 +89,6 @@ export default {
         {
           title: vm.$t('home.status.level.n2'),
           icon: "mdi-bullseye-arrow",
-          class: 'orderstats__confirming',
           color: 'primary',
           count: 15,
           to: 'q=~%28match_status~%28~%27confirming%29%29'
@@ -98,7 +96,6 @@ export default {
         {
           title: vm.$t('home.status.level.n3'),
           icon: "mdi-speedometer",
-          class: 'orderstats__invoiceable',
           color: 'primary',
           count: 20,
           to: 'q=~%28match_status~%28~%27confirmed%29%29'
@@ -106,7 +103,6 @@ export default {
           {
           title: vm.$t('home.status.level.n4'),
           icon: "mdi-fire",
-          class: 'orderstats__invoiceable',
           color: 'primary',
           count: 30,
           to: 'q=~%28match_status~%28~%27confirmed%29%29'
@@ -114,7 +110,6 @@ export default {
           {
           title: vm.$t('home.status.level.n5'),
           icon: "mdi-baby-carriage",
-          class: 'orderstats__invoiceable',
           color: 'primary',
           count: 40,
           to: 'q=~%28match_status~%28~%27confirmed%29%29'

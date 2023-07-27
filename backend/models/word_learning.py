@@ -55,3 +55,81 @@ class WordLearning(BaseModel):
         query = cls.select().where(cls.active, cls.user_id == user_id, cls.word_id == word_id)
         data = list(query)
         return data
+
+    @classmethod
+    def get_word_by_status(cls, start_date, end_date, user_id):
+        query = (
+            cls.select(
+                cls.id,
+                cls.status,
+                cls.created_at
+            )
+            .where(
+                cls.created_at.between(start_date, end_date) &
+                cls.active &
+                (cls.user_id == user_id)
+            )
+            .order_by(cls.created_at)
+            .dicts()
+        )
+        words = list(query)
+        new_words = []
+        doing_words = []
+        complete_words = []
+        for word in words:
+            word['created_at'] = word['created_at'].date()
+            if word['status'] == 0:
+                new_words.append(word)
+            elif word['status'] == 5:
+                complete_words.append(word)
+            else: doing_words.append(word)
+
+        return {
+            "new_words": new_words,
+            "doing_words": doing_words,
+            "complete_words": complete_words
+        }
+
+    @classmethod
+    def get_word_by_level(cls, user_id):
+        query = (
+            cls.select(
+                cls.id,
+                cls.status,
+                Level.name.alias('level')
+            )
+            .where(
+                (cls.word_id == Word.id) &
+                (Word.level_id == Level.id) &
+                cls.active &
+                (cls.user_id == user_id)
+            )
+            .join(Word, on=(cls.word_id == Word.id))
+            .join(Level, on=Word.level == Level.id)
+            .dicts()
+        )
+        words = list(query)
+        n1 = []
+        n2 = []
+        n3 = []
+        n4 = []
+        n5 = []
+        for word in words:
+            if word['level'] == 'N1':
+                n1.append(word)
+            elif word['level'] == 'N2':
+                n2.append(word)
+            elif word['level'] == 'N3':
+                n3.append(word)
+            elif word['level'] == 'N4':
+                n4.append(word)
+            else:
+                n5.append(word)
+
+        return {
+            "n1": n1,
+            "n2": n2,
+            "n3": n3,
+            "n4": n4,
+            "n5": n5,
+        }

@@ -26,7 +26,7 @@ def update_note(payload: learning_word_schemas.UpdateNotePayLoad, user=Depends(A
     WordLearning.update_one(payload.id, {'note': payload.note, 'modified_by': user.id})
 
 @router.put('/update_status')
-def update_note(payload: learning_word_schemas.UpdateStatusPayLoad, user=Depends(Auth())):
+def update_status(payload: learning_word_schemas.UpdateStatusPayLoad, user=Depends(Auth())):
     WordLearning.update_one(
         payload.id,
         {
