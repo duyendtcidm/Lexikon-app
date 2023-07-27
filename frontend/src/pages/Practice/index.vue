@@ -135,7 +135,7 @@ export default defineComponent ({
       else if (status === 4) newPracticeDate.setDate(oldPracticeDate.getDate() + 14)
       else if (status === 5) newPracticeDate = null
       if (newPracticeDate) {
-        let month = newPracticeDate.getMonth().toString().padStart(2, '0')
+        let month = (newPracticeDate.getMonth() + 1).toString().padStart(2, '0')
         let year = newPracticeDate.getFullYear()
         let day = newPracticeDate.getDate()
         return year + '-' + month + '-' + day
@@ -146,8 +146,8 @@ export default defineComponent ({
     const updateStatus = async (isPass) => {
       const param = {}
       param.id = selectedItem.value.id
-      param.status = isPass ? selectedItem.value.status + 1 : (selectedItem.value.status - 1 > 0 ? selectedItem.value.status - 1 : 0)
-      param.correct_times = isPass ? selectedItem.value.correct_times + 1 : selectedItem.value.correct_times
+      param.status = isPass.value ? (selectedItem.value.status + 1) : (((selectedItem.value.status - 1) > 0) ? (selectedItem.value.status - 1) : 0)
+      param.correct_times = isPass.value ? (selectedItem.value.correct_times + 1) : selectedItem.value.correct_times
       param.practice_times = selectedItem.value.practice_times + 1
       param.practice_date = definePracticeDate(param.status, selectedItem.value.practice_date)
       try {
