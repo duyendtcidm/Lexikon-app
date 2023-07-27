@@ -7,10 +7,6 @@
             v-col.pa-0.ma-0(cols="12")
               div.button-calendar
                 span.mr-4.title {{ $t('home.calendar.title')}}
-                //j-status(
-                //  :icon="'mdi-information-outline'"
-                //  :page="'home'"
-                //)
                 v-btn(outlined, @click="setToday") {{ $t('home.today') }}
                 v-btn(fab, small, text, @click="prev(focus)")
                   v-icon(small) mdi-chevron-left

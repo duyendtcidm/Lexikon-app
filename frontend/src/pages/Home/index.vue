@@ -1,22 +1,13 @@
 <template lang="pug">
   div
-    //img.welcome(v-if="" src='@/assets/welcom.png')
     div(style="max-width: 1380px; margin: auto;").mt-8
       v-row.ml-2.justify-center.content
-        dash-board(
-          :remainDates="remainDates"
-          :remainDatesCount="remainDatesCount"
-          :unconfirmSaleResultDatesCount="unconfirmSaleResultDatesCount"
-          :unconfirmSaleResultDates="unconfirmSaleResultDates"
-        )
+        dash-board(:date="chosenDate")
         v-col(cols="7").pl-0.mt-2
           calendar.mb-4(
             :loading="loading"
-            :remainDates="remainDates"
-            :unconfirmSaleResultDates="unconfirmSaleResultDates"
+            @on-chosenDate="updateChosenDate"
           )
-          // @on-chosenDate="updateChosenDate"
-          //j-dashboard
         v-col.mt-2
           div(v-for="menu in menus" :key="menu.title")
             v-row
@@ -89,24 +80,15 @@ export default defineComponent ({
       }
     ]
     const loading = ref(true)
-    const remainDates = ref([])
-    const remainDatesCount = ref()
-    const unconfirmSaleResultDates = ref([])
-    const unconfirmSaleResultDatesCount = ref()
 
     const updateChosenDate = (date) => {
-        chosenDate.value = date
+      chosenDate.value = date
+      console.log( chosenDate.value )
     }
 
     return {
       menus,
       loading,
-      remainDates,
-      remainDatesCount,
-      unconfirmSaleResultDates,
-      unconfirmSaleResultDatesCount,
-      // getRemaining,
-      // getUnconfirmed,
       chosenDate,
       updateChosenDate
     }
