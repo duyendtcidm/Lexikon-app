@@ -35,22 +35,24 @@ const Profile = defineComponent({
 
     const logout = () => {
       // remove token form local storage
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("auth_token_type");
+      localStorage.removeItem("auth_token")
+      localStorage.removeItem("auth_token_type")
+      localStorage.removeItem("current_user")
       $root.$router.replace({name: urlPath.LOG_IN.name})
     }
-    // create new
-    const getCurrentMember = async () => {
-      // try {
-        const { data } = await api.get(`/users/`)
-        currentMember.value = data[0]
-      // } catch (e) {
-      //   $toast.error($root.$t('error_code.failed_to_load_current_member'))
-      // }
-    }
+
+    // const getCurrentMember = async () => {
+    //   // try {
+    //     const { data } = await api.get(`/users/`)
+    //     currentMember.value = data[0]
+    //   // } catch (e) {
+    //   //   $toast.error($root.$t('error_code.failed_to_load_current_member'))
+    //   // }
+    // }
 
     onMounted(() => {
-      getCurrentMember()
+      // getCurrentMember()
+      currentMember.value = JSON.parse(localStorage.getItem("current_user"))
     })
 
     return {

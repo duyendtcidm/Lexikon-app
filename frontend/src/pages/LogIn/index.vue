@@ -64,16 +64,16 @@ export default defineComponent({
       }
         await api.post(`/auth/login/`, accountData.value).then((response) => {
           localStorage.setItem("auth_token", response.data.result.access_token)
-          localStorage.setItem(
-            "auth_token_type",
-            response.data.result.token_type
-          );
+          localStorage.setItem("auth_token_type",response.data.result.token_type)
+          localStorage.setItem("current_user", JSON.stringify(response.data.result.user))
           $toast.success(response.data.detail)
           // setTimeout(() => {
           //   window.location.reload()
           //
           // }, 1000)
-          $root.$router.replace({name: urlPath.HOME.name})
+          if (response.data.result.user.role === 'learner')
+            $root.$router.replace({name: urlPath.HOME.name})
+          else $root.$router.replace({name: urlPath.CONTENTS.name})
         })
         .catch((e) => {
           $toast.error(e.response.data.detail)

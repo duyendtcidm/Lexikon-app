@@ -83,7 +83,6 @@ export default defineComponent ({
 
     const updateChosenDate = (date) => {
       chosenDate.value = date
-      console.log( chosenDate.value )
     }
 
     return {

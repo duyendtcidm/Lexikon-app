@@ -129,5 +129,8 @@
   "ranking": {
     "title": "Xếp hạng"
 
+  },
+  "contents": {
+    "title": "Admin"
   }
 }

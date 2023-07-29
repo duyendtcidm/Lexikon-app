@@ -37,6 +37,10 @@ const routes: Array<RouteConfig> = [
       ...urlPath.EXAM,
       component: () => import('../pages/Exam/index.vue')
   },
+    {
+      ...urlPath.CONTENTS,
+      component: () => import('../pages/Contents/index.vue')
+  },
 ]
 
 const router = new VueRouter({

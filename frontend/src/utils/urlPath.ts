@@ -6,6 +6,7 @@ const LOOK_UP = { path: '/look_up/', name: 'look_up.title' }
 const PRACTICE = { path: '/practice/', name: 'practice.title' }
 const RANKING = { path: '/ranking/', name: 'ranking.title' }
 const EXAM = { path: '/exam/', name: 'exam.title' }
+const CONTENTS = { path: '/contents/', name: 'contents.title' }
 
 const DISABLE_NAVIGATION = [
     HOME.path
@@ -19,5 +20,6 @@ export {
     LOOK_UP,
     PRACTICE,
     RANKING,
-    EXAM
+    EXAM,
+    CONTENTS
 }

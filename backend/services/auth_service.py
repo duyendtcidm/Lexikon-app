@@ -32,12 +32,15 @@ class AuthService:
     @staticmethod
     def logins_service(login: LoginSchema):
         _user = Users.find_by_email(login.email)
-
+        user = {}
         if len(_user):
+            user['email'] = _user[0]['email']
+            user['name'] = _user[0]['name']
+            user['role'] = _user[0]['role']
             if not pwd_context.verify(login.password, _user[0]['password']):
                 raise HTTPException(
                     status_code=400, detail=t('lexikon.authentication.login.invalid_password'))
-            return JWTRepo(data={"email": _user[0]['email']}).generate_token()
+            return {'token': JWTRepo(data={"email": _user[0]['email']}).generate_token(), 'user': user}
         raise HTTPException(status_code=404, detail=t('lexikon.authentication.login.invalid_email'))
 
     @staticmethod

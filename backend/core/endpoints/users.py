@@ -8,5 +8,4 @@ router = APIRouter()
 
 @router.get("/")
 def get_user_profile(user=Depends(Auth())):
-    # print(user.id)
     return Users.get_user_profile(user.id)
