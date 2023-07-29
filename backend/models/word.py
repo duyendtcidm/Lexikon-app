@@ -3,6 +3,7 @@ from playhouse.postgres_ext import JSONField
 from models.base import BaseModel
 from models.level import Level
 
+
 class Word(BaseModel):
     code = IntegerField()
     name = CharField()
@@ -17,7 +18,6 @@ class Word(BaseModel):
     usage_pattern = JSONField()
     compound_word = JSONField()
     common_word = JSONField()
-
 
     class Meta:
         table_name = 'word'
@@ -53,4 +53,3 @@ class Word(BaseModel):
             query = query.dicts()
         data = list(query)
         return data
-

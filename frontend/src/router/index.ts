@@ -34,8 +34,8 @@ const routes: Array<RouteConfig> = [
       component: () => import('../pages/Ranking/index.vue')
   },
   {
-      ...urlPath.EXAM,
-      component: () => import('../pages/Exam/index.vue')
+      ...urlPath.TEST,
+      component: () => import('../pages/Test/index.vue')
   },
     {
       ...urlPath.CONTENTS,

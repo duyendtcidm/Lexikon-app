@@ -122,8 +122,8 @@
     "check": "Kiểm tra",
     "cancel": "Hủy bài"
   },
-  "exam": {
-    "title": "Thi thử"
+  "test": {
+    "title": "Kiểm tra"
 
   },
   "ranking": {
@@ -131,6 +131,6 @@
 
   },
   "contents": {
-    "title": "Admin"
+    "title": ""
   }
 }

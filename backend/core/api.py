@@ -7,8 +7,7 @@ from core.endpoints import (
     users,
     look_up,
     practice,
-    word_question,
-    grammar_question,
+    question,
     home
 )
 
@@ -49,18 +48,18 @@ api_router.include_router(
 )
 
 api_router.include_router(
-    word_question.router,
-    prefix="/word_question",
-    tags=["word_question"],
+    question.router,
+    prefix="/question",
+    tags=["question"],
     # dependencies=[Depends(Auth())]
 )
 
-api_router.include_router(
-    grammar_question.router,
-    prefix="/grammar_question",
-    tags=["grammar_question"],
-    # dependencies=[Depends(Auth())]
-)
+# api_router.include_router(
+#     grammar_question.router,
+#     prefix="/grammar_question",
+#     tags=["grammar_question"],
+#     # dependencies=[Depends(Auth())]
+# )
 
 api_router.include_router(
     home.router,

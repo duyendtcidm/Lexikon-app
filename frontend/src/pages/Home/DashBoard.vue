@@ -108,7 +108,7 @@ export default  {
 
     // Get data orders
     const countWordByLevel = async () => {
-      api.get(`/home/dashboard`, )
+      api.get(`/home/dashboard/`, )
         .then(async response => {
           stats.value[0].count = response.data.n1.length
           stats.value[1].count = response.data.n2.length
