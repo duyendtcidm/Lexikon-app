@@ -123,7 +123,15 @@
     "cancel": "Hủy bài"
   },
   "test": {
-    "title": "Kiểm tra"
+    "title": "Kiểm tra",
+    "test_type": {
+      "title": "Hãy kiểm tra trình độ nào!",
+      "subtitle": "Tiêu chí bài kiểm tra",
+      "level": "Trình độ",
+      "amount": "Số lượng câu hỏi",
+      "type_question": "Loại câu hỏi"
+    },
+    "start_test": "Bắt đầu làm bài"
 
   },
   "ranking": {

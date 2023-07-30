@@ -9,3 +9,10 @@ vi:
       invalid_email: Email không chính xác. Vui lòng thử lại.
     update_password:
       success: Mật khẩu đã được cập nhật.
+    test:
+      standard:
+        hiragana: Lựa chọn cách đọc đúng của từ trong ngoặc,
+        kanji: Viết lại từ trong ngoặc bằng chữ hán
+        missing_word: Lựa chọn từ thích hợp điển vào chỗ trống
+        synonym: Tìm từ đồng nghĩa với từ trong ngoặc
+        true_meaning: Lựa chọn câu có cách sử dụng đúng của từ
