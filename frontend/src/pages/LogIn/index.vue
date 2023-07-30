@@ -73,7 +73,7 @@ export default defineComponent({
           // }, 1000)
           if (response.data.result.user.role === 'learner')
             $root.$router.replace({name: urlPath.HOME.name})
-          else $root.$router.replace({name: urlPath.CONTENTS.name})
+          else $root.$router.replace({name: urlPath.QUESTION_CONTENT.name})
         })
         .catch((e) => {
           $toast.error(e.response.data.detail)

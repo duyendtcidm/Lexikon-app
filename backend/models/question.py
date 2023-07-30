@@ -4,6 +4,8 @@ from playhouse.postgres_ext import JSONField
 from models.base import BaseModel
 from models.level import Level
 
+from utils.mecab import normalize_text
+
 
 class Question(BaseModel):
     code = IntegerField()
@@ -22,6 +24,7 @@ class Question(BaseModel):
     def get_list(cls, level, amount, question_type):
         query = (
             cls.select(
+                cls.id,
                 cls.name,
                 cls.type,
                 cls.content,
@@ -61,4 +64,31 @@ class Question(BaseModel):
         )
 
         result = list(query)
+        return result
+
+    @classmethod
+    def get_by_creator(cls, creator, search_input=None):
+        query = (
+            cls.select(
+                cls.id,
+                cls.code,
+                cls.name,
+                cls.type,
+                cls.content,
+                cls.choices,
+                cls.answer,
+                cls.explanation,
+                cls.level_id.alias('level')
+            )
+            .where(cls.created_by == creator, cls.active)
+            .order_by(cls.id)
+        )
+        if search_input:
+            if search_input != '':
+                query = query.where(
+                    cls.search_str.contains(
+                        normalize_text(search_input).lower()
+                    )
+                )
+        result = list(query.dicts())
         return result

@@ -53,3 +53,16 @@ class Word(BaseModel):
             query = query.dicts()
         data = list(query)
         return data
+
+
+    @classmethod
+    def get_by_creator(cls, creator):
+        query = (
+            cls.select()
+            .where(cls.created_by == creator, cls.active)
+            .order_by(cls.id)
+            .dicts()
+        )
+        result = list(query)
+        return result
+

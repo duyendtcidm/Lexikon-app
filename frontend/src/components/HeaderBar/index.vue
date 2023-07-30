@@ -51,7 +51,7 @@
 import {defineComponent} from 'vue'
 import Logo from './logo.vue'
 import Profile from './profile.vue'
-import { backPage } from '../../utils/common/index'
+import { backPage } from '../../utils/common'
 
 const HeaderBar = defineComponent({
   components: {

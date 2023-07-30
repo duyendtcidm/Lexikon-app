@@ -79,7 +79,8 @@
 <script>
 import {defineComponent, ref, watch} from 'vue'
 import ConfirmDeleteDialog from '../ConfirmDeleteDialog/index'
-const DialogContainer = defineComponent({
+export default defineComponent ({
+  name: 'DialogContainer',
   props: {
     value: {
       type: Boolean,
@@ -197,7 +198,6 @@ const DialogContainer = defineComponent({
   }
 })
 
-export default DialogContainer
 </script>
 
 <style lang="sass" scoped>

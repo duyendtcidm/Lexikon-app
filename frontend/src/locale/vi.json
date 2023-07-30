@@ -10,6 +10,8 @@
     "new_password": "Mật khẩu mới",
     "code": "Code",
     "or": "hoặc",
+    "add": "Thêm mới",
+    "edit": "Cập nhật",
     "delete": "Xóa",
     "ok": "OK",
     "logout": "Đăng xuất",
@@ -131,14 +133,53 @@
       "amount": "Số lượng câu hỏi",
       "type_question": "Loại câu hỏi"
     },
-    "start_test": "Bắt đầu làm bài"
+    "start_test": "Bắt đầu làm bài",
+    "quiz": {
+      "button": {
+        "skip": "Bỏ qua",
+        "submit": "Kiểm tra",
+        "next": "Tiếp theo"
+      }
+    }
 
   },
   "ranking": {
     "title": "Xếp hạng"
 
   },
-  "contents": {
-    "title": ""
+  "content": {
+    "question": {
+      "title": "Câu hỏi",
+      "code": "Code",
+      "name": "Từ",
+      "type": "Kiểu câu hỏi",
+      "content": "Nội dung",
+      "add": "Thêm câu hỏi",
+      "edit": "Chỉnh sửa câu hỏi",
+      "search": "Tìm kiếm",
+      "basic_information": {
+        "title": "Thông tin cơ bản",
+        "code": "Code",
+        "name": "Từ",
+        "type": "Kiểu câu hỏi",
+        "level": "Cấp độ"
+      },
+      "choices": {
+        "title": "Câu hỏi",
+        "content": "Nội dung câu hỏi",
+        "choice_1": "Đáp án 1",
+        "choice_2": "Đáp án 2",
+        "choice_3": "Đáp án 3",
+        "choice_4": "Đáp án 4"
+      },
+      "explanation": {
+        "title": "Đáp án và giải thích",
+        "answer": "Đáp án",
+        "explanation_1": "Giải thích đáp án 1",
+        "explanation_2": "Giải thích đáp án 2",
+        "explanation_3": "Giải thích đáp án 3",
+        "explanation_4": "Giải thích đáp án 4"
+      }
+    }
   }
 }

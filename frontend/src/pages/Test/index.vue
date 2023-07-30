@@ -1,11 +1,11 @@
 <template lang="pug">
-  div
+  div.test-page
     v-card(v-if="!isRendered" ).mx-auto.mt-4(max-width='700' style='background-color: #fff' height='95%')
       v-card-title.justify-center.rounded-card.mb-1(style='background-color: #81D4FA')
         h1.font-weight-thin {{$t('test.test_type.title')}}
       v-img.white--text.align-end(height='150px' src='@/assets/quiz.jpg')
       v-spacer
-      v-card-subtitle
+      v-card-subtitle.mt-5
         h2.display-1 {{$t('test.test_type.subtitle')}}
       v-card-actions.standard
         v-text-field.text-field(
@@ -13,6 +13,7 @@
           type='number'
           hide-spin-buttons
           :label="$t('test.test_type.amount')"
+          outlined
           dense
         )
       //v-card-actions
@@ -41,10 +42,10 @@
       )
       v-row.standard
         v-btn.ma-2.white--text(elevation='2' color='info' :disabled="!level || amount === '0' || !amount || !question_type" @click='onRender')
-          router-link(style='text-decoration: none; color: inherit;' to=`/test/?level=${level}&amount=${amount}&question_type=${question_type}`)
+          //router-link(style='text-decoration: none; color: inherit;' to=`/test/?level=${level}&amount=${amount}&question_type=${question_type}`)
           | {{$t('test.start_test')}}
     div(v-if="isRendered")
-      quiz(quizes="questions")
+      quiz(:quizes="questions")
 
 
 
@@ -68,7 +69,7 @@ export default defineComponent({
     const question_type = ref('')
     const levelTypeItems = ['N1', 'N2', 'N3', 'N4', 'N5']
     const isRendered = ref(false)
-    const questions = ref([])
+    const questions = ref()
 
     const questionTypeItems = [
         'Lựa chọn cách đọc đúng của từ trong ngoặc',
@@ -95,10 +96,8 @@ export default defineComponent({
       isRendered.value = false
       try {
         const questionType = defineQuestionType(question_type.value)
-        const { data } = await api.get(`/test/get_question_to_practice?level=${level.value}&amount=${amount.value}&question_type=${questionType}` )
-        console.log(data)
+        const { data } = await api.get(`/test/get_question_to_practice?level=${level.value}&amount=${amount.value}&question_type=${questionType}`)
         questions.value = data
-        console.log(questions.value, typeof questions.value)
         isRendered.value = true
       } catch (e) {
         console.log('hihi', e)
@@ -122,6 +121,9 @@ export default defineComponent({
 </script>
 
 <style lang="sass" scoped>
+.test-page
+  height: 100%
+  margin: auto
 .rounded-card
   border-radius: 5px
 .standard

@@ -7,7 +7,8 @@ from core.endpoints import (
     home,
     look_up,
     practice,
-    test
+    test,
+    content
 )
 
 api_router = APIRouter()
@@ -50,6 +51,13 @@ api_router.include_router(
     test.router,
     prefix="/test",
     tags=["test"],
+    # dependencies=[Depends(Auth())]
+)
+
+api_router.include_router(
+    content.router,
+    prefix="/content",
+    tags=["content"],
     # dependencies=[Depends(Auth())]
 )
 

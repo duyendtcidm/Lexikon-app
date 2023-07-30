@@ -6,7 +6,7 @@ const LOOK_UP = { path: '/look_up/', name: 'look_up.title' }
 const PRACTICE = { path: '/practice/', name: 'practice.title' }
 const RANKING = { path: '/ranking/', name: 'ranking.title' }
 const TEST = { path: '/test/', name: 'test.title' }
-const CONTENTS = { path: '/contents/', name: 'contents.title' }
+const QUESTION_CONTENT = { path: '/content/question', name: 'content.question.title' }
 
 const DISABLE_NAVIGATION = [
     HOME.path
@@ -21,5 +21,5 @@ export {
     PRACTICE,
     RANKING,
     TEST,
-    CONTENTS
+    QUESTION_CONTENT
 }

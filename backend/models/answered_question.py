@@ -23,6 +23,7 @@ class AnsweredQuestion(BaseModel):
     def get_list(cls, level, amount, question_type, user):
         query = (
             cls.select(
+                cls.id,
                 Question.type.alias('type'),
                 Question.type.alias('content'),
                 Question.type.alias('choices'),
