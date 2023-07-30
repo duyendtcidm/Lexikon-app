@@ -1,10 +1,12 @@
 from peewee import CharField, DateField, ForeignKeyField, fn, IntegerField, JOIN, Case, DateTimeField
-from playhouse.postgres_ext import  DateTimeTZField
+from playhouse.postgres_ext import DateTimeTZField
 from peewee import (JOIN)
 from models.base import BaseModel
 from models.level import Level
 from models.users import Users
 from models.word import Word
+
+
 # from models.grammar import Grammar
 
 
@@ -41,7 +43,7 @@ class WordLearning(BaseModel):
                 cls.practice_times,
                 cls.practice_date,
                 cls.note
-           )
+            )
             .join(Word, on=(cls.word_id == Word.id))
             .join(Level, on=Word.level == Level.id)
             .where(cls.active, cls.user_id == user_id, cls.practice_date <= date)
@@ -82,7 +84,8 @@ class WordLearning(BaseModel):
                 new_words.append(word)
             elif word['status'] == 5:
                 complete_words.append(word)
-            else: doing_words.append(word)
+            else:
+                doing_words.append(word)
 
         return {
             "new_words": new_words,

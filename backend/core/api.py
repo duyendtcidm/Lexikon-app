@@ -2,23 +2,15 @@ from utils.auth import Auth
 from fastapi import APIRouter, Depends, Header
 
 from core.endpoints import (
-    test,
     authentication,
     users,
+    home,
     look_up,
     practice,
-    question,
-    home
+    test
 )
-
 
 api_router = APIRouter()
-
-api_router.include_router(
-    test.router,
-    prefix="/test",
-    tags=["test"]
-)
 
 api_router.include_router(
     authentication.router,
@@ -48,9 +40,16 @@ api_router.include_router(
 )
 
 api_router.include_router(
-    question.router,
-    prefix="/question",
-    tags=["question"],
+    home.router,
+    prefix="/home",
+    tags=["home"],
+    # dependencies=[Depends(Auth())]
+)
+
+api_router.include_router(
+    test.router,
+    prefix="/test",
+    tags=["test"],
     # dependencies=[Depends(Auth())]
 )
 
@@ -61,9 +60,3 @@ api_router.include_router(
 #     # dependencies=[Depends(Auth())]
 # )
 
-api_router.include_router(
-    home.router,
-    prefix="/home",
-    tags=["home"],
-    # dependencies=[Depends(Auth())]
-)
