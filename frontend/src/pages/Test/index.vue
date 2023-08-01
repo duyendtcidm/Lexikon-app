@@ -16,16 +16,6 @@
           outlined
           dense
         )
-      //v-card-actions
-      //  v-radio-group(
-      //
-      //    v-model='level'
-      //  )
-      //    v-radio(label='N1' value='N1')
-      //    v-radio(label='N2' value='N2')
-      //    v-radio(label='N3' value='N3')
-      //    v-radio(label='N4' value='N4')
-      //    v-radio(label='N5' value='N5')
       v-select.standard.px-2(
         v-model='level'
         :items='levelTypeItems'
@@ -45,7 +35,13 @@
           //router-link(style='text-decoration: none; color: inherit;' to=`/test/?level=${level}&amount=${amount}&question_type=${question_type}`)
           | {{$t('test.start_test')}}
     div(v-if="isRendered")
-      quiz(:quizes="questions")
+      quiz(
+        :quizes="questions"
+        :amount="exactAmount"
+        :questionType="question_type"
+        :render="isRendered"
+        @on-finish="updateStatus"
+      )
 
 
 
@@ -55,6 +51,7 @@
 import { defineComponent, getCurrentInstance, ref } from 'vue'
 import {api, i18n} from '@/plugins'
 import { Quiz } from '@/components'
+import {showError} from "@/utils";
 
 export default defineComponent({
   components: {
@@ -70,6 +67,7 @@ export default defineComponent({
     const levelTypeItems = ['N1', 'N2', 'N3', 'N4', 'N5']
     const isRendered = ref(false)
     const questions = ref()
+    const exactAmount = ref(0)
 
     const questionTypeItems = [
         'Lựa chọn cách đọc đúng của từ trong ngoặc',
@@ -97,22 +95,68 @@ export default defineComponent({
       try {
         const questionType = defineQuestionType(question_type.value)
         const { data } = await api.get(`/test/get_question_to_practice?level=${level.value}&amount=${amount.value}&question_type=${questionType}`)
-        questions.value = data
-        isRendered.value = true
+        exactAmount.value = data.length
+        if (data.length) {
+          questions.value = data
+          isRendered.value = true
+        } else {
+          $toast.error($root.$t('common.msg.get_data_question'))
+        }
       } catch (e) {
-        console.log('hihi', e)
+        showError(e, $toast, $root.$t('common.msg.get_data_failed'))
+      }
+    }
+
+    const generateStatus = (status, isCorrect) => {
+      if(isCorrect === 'true')
+        if (status)
+          status += 1
+        else status = 1
+      else
+        if (status)
+          status = status > 0 ? status : 0
+        else
+          status = 0
+      return status
+
+    }
+
+    const updateStatus = async (results) => {
+      // isRendered.value = false
+      let answeredQuestions = []
+      let newQuestions = []
+
+      results.forEach((result) => {
+        if (result['status']) {
+          answeredQuestions.push({id: result.id, status: generateStatus(result['status'], result['isCorrect'])})
+        } else {
+          newQuestions.push({id: result.id, status: generateStatus(result['status'], result['isCorrect'])})
+        }
+      })
+      let param = {
+        answered: answeredQuestions,
+        new: newQuestions
+      }
+      try {
+        await api.put(`/test/update_status`, param)
+        $toast.success($root.$t('test.msg.congratulation'))
+        isRendered.value = false
+      } catch (e) {
+        showError(e, $toast, $root.$t('common.msg.get_data_failed'))
       }
     }
 
     return {
       level,
       amount,
+      exactAmount,
       question_type,
       levelTypeItems,
       questionTypeItems,
       onRender,
       isRendered,
-      questions
+      questions,
+      updateStatus
     }
   }
 

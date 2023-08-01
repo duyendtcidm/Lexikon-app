@@ -83,7 +83,6 @@ export default defineComponent({
     const openConfirmDelete = (question) => {
       isShowConfirmDelete.value = true
       curQuestion.value = question
-      console.log(curQuestion.value)
     }
 
     const onClickOpenAddDialog = () => {

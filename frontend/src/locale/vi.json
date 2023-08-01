@@ -24,8 +24,8 @@
       "update_failed": "Cập nhật không thành công!",
       "create_successful": "Thêm mới thành công!",
       "delete_successful": "Xóa thành công!",
-      "delete_failed": "Không thể xóa được!"
-
+      "delete_failed": "Không thể xóa được!",
+      "get_data_question": "Không tìm được câu hỏi phù hợp. Vui lòng thay đổi lựa chọn!"
     }
 
   },
@@ -39,7 +39,7 @@
     "look_up_and_practice": {
       "look_up": "Tra cứu",
       "practice": "Luyện tập",
-      "exam": "Thi thử"
+      "exam": "Kiểm tra"
     }
 
   },
@@ -146,8 +146,11 @@
       "button": {
         "skip": "Bỏ qua",
         "submit": "Kiểm tra",
-        "next": "Tiếp theo"
-      }
+        "next": "Tiếp theo",
+        "retest": "Làm bài kiểm tra khác"
+      },
+      "question_no": "Câu hỏi số",
+      "correct_ratio": "Tỷ lệ trả lời đúng"
     }
 
   },

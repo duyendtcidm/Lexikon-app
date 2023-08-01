@@ -42,7 +42,6 @@ class Question(BaseModel):
             .order_by(cls.id)
             .dicts()
         )
-
         result = list(query)
         return result
 

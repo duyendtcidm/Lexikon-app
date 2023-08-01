@@ -12,9 +12,6 @@ class AnsweredQuestion(BaseModel):
     user_id = ForeignKeyField(Users, column_name='user_id', field='id')
     question_id = ForeignKeyField(Question, column_name='question_id', field='id')
     status = IntegerField()
-    correct_times = IntegerField()
-    practice_times = IntegerField()
-    practice_date = DateTimeField()
 
     class Meta:
         table_name = 'answered_question'
@@ -24,11 +21,12 @@ class AnsweredQuestion(BaseModel):
         query = (
             cls.select(
                 cls.id,
+                cls.status,
                 Question.type.alias('type'),
-                Question.type.alias('content'),
-                Question.type.alias('choices'),
-                Question.type.alias('answer'),
-                Question.type.alias('explanation'),
+                Question.content.alias('content'),
+                Question.choices.alias('choices'),
+                Question.answer.alias('answer'),
+                Question.explanation.alias('explanation'),
                 Level.name.alias('level')
             )
             .join(Question, on=cls.question_id == Question.id)
@@ -40,7 +38,7 @@ class AnsweredQuestion(BaseModel):
                 Level.name == level,
                 cls.active)
             .limit(amount)
-            .order_by(cls.id)
+            .order_by(cls.status.asc())
             .dicts()
         )
 
