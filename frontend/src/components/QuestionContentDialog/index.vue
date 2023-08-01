@@ -1,13 +1,14 @@
 <template lang="pug">
   div
     dialog-container(
+      ref="dialog_container"
       :label="isAdd ? $t('content.question.add') : $t('content.question.edit')"
       :mode="isAdd ? 'create' : 'update'"
       :loading="loading"
-      :width="1200"
+      :width="1100"
       :height="'85vh'"
       @on-close="closeDialog"
-      @on-update="confirmUpdate"
+      @on-update="update"
       @on-create="create"
       @on-typing="onTyping"
       v-model="show"
@@ -95,7 +96,7 @@
                       span.red--text *
                 validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.choices.choice_3')")
                   v-text-field#choice_3(
-                    ref="choice_1"
+                    ref="choice_3"
                     :error-messages="errors"
                     v-model="questionData.choices[3]"
                     @focus="onClickInput('choice_3')"
@@ -105,7 +106,7 @@
                       span.red--text *
                 validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.choices.choice_4')")
                   v-text-field#choice_4(
-                    ref="choice_1"
+                    ref="choice_4"
                     :error-messages="errors"
                     v-model="questionData.choices[4]"
                     @focus="onClickInput('choice_4')"
@@ -129,46 +130,31 @@
                     template(v-slot:label)
                       span {{$t('content.question.explanation.answer')}}
                       span.red--text *
-                validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.explanation.explanation_1')")
-                  v-text-field#explanation_1(
-                    ref="answer"
-                    :error-messages="errors"
-                    v-model="questionData.explanation['1']"
-                    @focus="onClickInput('explanation_1')"
-                  )
-                    template(v-slot:label)
-                      span {{$t('content.question.explanation.explanation_1')}}
-                      span.red--text *
-                validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.explanation.explanation_2')")
-                  v-text-field#explanation_2(
-                    ref="answer"
-                    :error-messages="errors"
-                    v-model="questionData.explanation['2']"
-                    @focus="onClickInput('explanation_2')"
-                  )
-                    template(v-slot:label)
-                      span {{$t('content.question.explanation.explanation_2')}}
-                      span.red--text *
-                validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.explanation.explanation_3')")
-                  v-text-field#explanation_3(
-                    ref="answer"
-                    :error-messages="errors"
-                    v-model="questionData.explanation['3']"
-                    @focus="onClickInput('explanation_3')"
-                  )
-                    template(v-slot:label)
-                      span {{$t('content.question.explanation.explanation_3')}}
-                      span.red--text *
-                validation-provider(rules="required" v-slot="{ errors }" :name="$t('content.question.explanation.explanation_4')")
-                  v-text-field#explanation_4r(
-                    ref="answer"
-                    :error-messages="errors"
-                    v-model="questionData.explanation['4']"
-                    @focus="onClickInput('explanation_4')"
-                  )
-                    template(v-slot:label)
-                      span {{$t('content.question.explanation.explanation_4')}}
-                      span.red--text *
+                v-text-field#explanation_1(
+                  ref="explanation_1"
+                  :label="$t('content.question.explanation.explanation_1')"
+                  v-model="questionData.explanation[1]"
+                  @focus="onClickInput('explanation_1')"
+                )
+                v-text-field#explanation_2(
+                  ref="explanation_2"
+                  :label="$t('content.question.explanation.explanation_2')"
+                  v-model="questionData.explanation[2]"
+                  @focus="onClickInput('explanation_2')"
+                )
+                v-text-field#explanation_3(
+                  ref="explanation_3"
+                  :label="$t('content.question.explanation.explanation_3')"
+                  v-model="questionData.explanation[3]"
+                  @focus="onClickInput('explanation_3')"
+                )
+                v-text-field#explanation_4(
+                  ref="explanation_4"
+                  :label="$t('content.question.explanation.explanation_4')"
+                  v-model="questionData.explanation[4]"
+                  @focus="onClickInput('explanation_4')"
+                )
+
 
 </template>
 
@@ -208,24 +194,17 @@ const CustomerDialog = defineComponent({
     const { $toast, $root, $refs } = instance
     const loading = ref(false)
     const { question } = toRefs(props)
-    const cusID = ref(0)
-    const listMember = ref([])
     let LIST_STATES = STATES
     const focusInput = ref('code')
     const questionData = ref({})
     const enterKeydown = ref(0)
-    const isEditable = ref(true)
-    const customerList = ref([])
-    const showConfirmUsedDialog = ref(false)
     const {auction_date: auctionDateValue} = router.currentRoute.query
-    const customers = ref([])
+    const questions = ref([])
 
     const closeDialog = () => {
       loading.value = false
       emit('on-close')
     }
-
-    
 
     const onFocus = (event, rf) => {
       focusInput.value = rf
@@ -240,70 +219,62 @@ const CustomerDialog = defineComponent({
     }
 
     const onTyping = (event) => {
-      LIST_STATES = LIST_STATES?.filter((item) => {return !removeIndexList.includes(item)})
       const oldFocus = focusInput.value
       focusInput.value = moveCursor(event, $refs, LIST_STATES, focusInput.value)
       if (focusInput.value === LIST_STATES[LIST_STATES.length - 1] && event.keyCode === 13 && oldFocus === focusInput.value)
         $refs.dialog_container.$refs.save_btn.$el.click()
     }
-    
 
     const onClickInput = (refName) => {
       focusInput.value = refName
     }
 
+    const convertLevel = (level) => {
+      if (level.trim().toLowerCase()=== 'n1') return 1
+      if (level.trim().toLowerCase() === 'n2') return 2
+      if (level.trim().toLowerCase() === 'n3') return 3
+      if (level.trim().toLowerCase() === 'n4') return 4
+      if (level.trim().toLowerCase() === 'n5') return 5
+      return ''
+    }
+
     const convertData = () => {
       Object.keys(questionData.value).forEach((key) => {
+        if (key === 'level') {
+          questionData.value[key] = convertLevel(questionData.value[key])
+          Object.assign(questionData.value, {'level_id': questionData.value['level']})
+        }
         if (questionData.value[key] === '') questionData.value[key] = null
       })
     }
 
-    // UPDATE master customer
+    // UPDATE common customer
     const update = async () => {
       convertData()
-      const success = await validateElement()
-      if (!success) {
-        return
-      }
       loading.value = true
       try {
-        await api.put(`/content/question/`, questionData.value)
+        await api.put(`/content/`, questionData.value)
         closeDialog()
-        $toast.success($root.$t('master.msg.update_successful'))
+        $toast.success($root.$t('common.msg.update_successful'))
         emit('on-reload')
       } catch (e) {
-        showError(e, $toast, $root.$t('master.msg.update_failed'))
+        showError(e, $toast, $root.$t('common.msg.update_failed'))
       } finally {
         loading.value = false
       }
     }
-    const confirmUpdate = async () => {
-      try {
-        await api.post(`/content/question/check?id=${questionData.value.id}`)
-        await update()
-      } catch (e) {
-        showConfirmUsedDialog.value = true
-      }
-    }
-    
 
-    // CREATE master customer
+    // CREATE common customer
     const create = async () => {
       convertData()
-      const success = await validateElement()
-      if (!success) {
-        return
-      }
       loading.value = true
       try {
-        if (props.isAdd) {
-            questionData.value['member'] = listMember.value
-        }
-        const data = await api.post(`/content/question/`, questionData.value)
-        $toast.success($root.$t('master.msg.create_successful'))
+        const data = await api.post(`/content/`, questionData.value)
+        closeDialog()
+        $toast.success($root.$t('common.msg.create_successful'))
         emit('on-reload')
       } catch (e) {
-        showError(e, $toast, $root.$t('master.msg.update_failed'))
+        showError(e, $toast, $root.$t('common.msg.update_failed'))
       } finally {
         loading.value = false
       }
@@ -317,50 +288,23 @@ const CustomerDialog = defineComponent({
         } else {
           await getQuestions()
           const data = await api.get(`/content/question/?question_id=${questionData.value.id}`)
-          isEditable.value = data.data
         }
       }
     }
-    
-    const onUpdateInvoiceEmailDestination = (event) => {
-      questionData.value.invoice_email_destination = event
-    }
 
-    const save = async () => {
-      let success
-      let successWithTax
-      if (!(success && successWithTax)) {
-        {
-          $toast.error($root.$t('sale.input_fee_invalid'))
-          return
-        }
-      }
-        if (!props.isAdd) {
-        await api.put(`/content/question/`, questionData.value)
-        $toast.success($root.$t('master.customer.fee.msg.add_successful'))
-        await getQuestions()
-      }
-    }
-
-    const searchItems = (item, queryText, itemText) => {
-      return (
-        item.search_str.includes(queryText)
-      )
-    }
 
     const getQuestions = async () => {
-      console.log(question)
         if (!props.isAdd){
           const {data} =  await api.get(`/content/question/`+ question.value['id'])
           questionData.value = data
         }
     }
-     const getListCustomer = async () => {
+     const getListQuestion = async () => {
        try {
          const {data} = await api.get(`/content/question/`)
-         customers.value = data
+         questions.value = data
        } catch (e) {
-         showError(e, $toast, $root.$t('master.msg.get_data_failed'))
+         showError(e, $toast, $root.$t('common.msg.get_data_failed'))
        }
      }
     watch(
@@ -368,7 +312,7 @@ const CustomerDialog = defineComponent({
       () => {
         if (props.show) {
             init()
-            getListCustomer()
+            getListQuestion()
         }
       }
     )
@@ -383,15 +327,7 @@ const CustomerDialog = defineComponent({
       questionData,
       onFocus,
       closeDialog,
-      cusID,
-      onUpdateInvoiceEmailDestination,
-      isEditable,
-      customerList,
-      confirmUpdate,
-      showConfirmUsedDialog,
-      save,
-      searchItems,
-      customers,
+      questions,
       close
     }
   }

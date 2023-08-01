@@ -18,21 +18,18 @@ def gen_search_str(**kwargs):
 def get_param(data: dict):
     param = data.copy()
     param['name'] = normalize_text(param['name'])
-    if 'name_eng' in param:
-        param['name_eng'] = (
-            normalize_text(param['name_eng']) if param['name_eng'] else None
-        )
     if 'yomi' in param:
         param['yomi'] = normalize_text(param['yomi']) if param['yomi'] else None
-    if 'name_short' in param:
-        param['name_short'] = (
-            normalize_text(param['name_short']) if param['name_short'] else None
-        )
     param['search_str'] = gen_search_str(
         code=param.get('code'),
         name=param.get('name'),
-        name_eng=param.get('name_eng'),
-        yomi=param.get('yomi'),
-        short_name=param.get('name_short')
+        yomi=param.get('yomi')
     )
     return param
+
+
+def reformat_string(data: dict):
+    # Remove white spaces at top & bottom
+    formatted_data = {k: normalize_text(v).strip() if (type(v) is str and v is not None) else v for k, v in
+                      data.items()}
+    return formatted_data

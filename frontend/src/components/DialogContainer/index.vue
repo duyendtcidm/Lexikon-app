@@ -45,7 +45,7 @@
                   @click="deleteItem()"
                 )
                   | {{$t('common.delete')}}
-            v-row.pa-0.ma-0(v-if="!isConfirm")
+            v-row.pa-0.ma-0(v-if="!isConfirm").justify-center
               v-col.px-0(:cols="6" v-if="showDeleteBtn && mode === 'edit'" )
                 v-btn.relative-btn(
                   ref="delete_btn"
@@ -57,7 +57,8 @@
                   @click="showConfirmDelete = true"
                 )
                   | {{$t('common.delete')}}
-              v-col(:cols="showDeleteBtn && mode === 'edit' ? 6 : 12")
+              //v-col(:cols="showDeleteBtn && mode === 'edit' ? 6 : 12")
+              v-col(cols="3")
                 v-btn.relative-btn(
                   ref="save_btn"
                   v-if="!isConfirm"

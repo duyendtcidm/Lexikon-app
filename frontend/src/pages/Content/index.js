@@ -13,13 +13,14 @@ export const questionContentHeader = [
         text: i18n.t('common.code'),
         sortable: false,
         value: 'code',
-        width: 100,
+        width: 80,
         class: 'primary'
     },
     {
         text: i18n.t('content.question.name'),
         sortable: false,
         value: 'name',
+        width: 150,
         class: 'primary'
     },
     {

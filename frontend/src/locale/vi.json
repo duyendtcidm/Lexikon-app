@@ -18,7 +18,15 @@
     "save": "Lưu",
     "cancel": "Hủy",
     "confirm": "Xác nhận",
-    "confirm_delete": "Bạn có thực sự muốn xóa hay không?"
+    "confirm_delete": "Bạn có thực sự muốn xóa hay không?",
+    "msg": {
+      "get_data_failed": "Không thể lấy dữ liệu!",
+      "update_failed": "Cập nhật không thành công!",
+      "create_successful": "Thêm mới thành công!",
+      "delete_successful": "Xóa thành công!",
+      "delete_failed": "Không thể xóa được!"
+
+    }
 
   },
   "error_code": {
@@ -151,7 +159,7 @@
     "question": {
       "title": "Câu hỏi",
       "code": "Code",
-      "name": "Từ",
+      "name": "Từ vựng",
       "type": "Kiểu câu hỏi",
       "content": "Nội dung",
       "add": "Thêm câu hỏi",

@@ -83,6 +83,7 @@ export default defineComponent({
     const openConfirmDelete = (question) => {
       isShowConfirmDelete.value = true
       curQuestion.value = question
+      console.log(curQuestion.value)
     }
 
     const onClickOpenAddDialog = () => {
@@ -92,16 +93,15 @@ export default defineComponent({
    
     const deleteAPI = async () => {
       try {
-        await api.delete(`/content/question${curQuestion.value.id}`)
+        await api.delete(`/content/question/${curQuestion.value.id}`)
         await getQuestion()
-        $toast.success($root.$t('master.msg.delete_successful'))
+        $toast.success($root.$t('common.msg.delete_successful'))
       } catch (e) {
-        showError(e, $toast, $root.$t('master.msg.delete_failed'))
+        showError(e, $toast, $root.$t('common.msg.delete_failed'))
       }
     }
 
     const onDelete = (mode) => {
-      console.log(curQuestion.value)
       isShowConfirmDelete.value = false
       if (mode === 'delete') {
         deleteAPI()
@@ -114,12 +114,10 @@ export default defineComponent({
 
     const getQuestion = async () => {
       try {
-        const { data } = await api.get(`/content/question?search_input=${searchInfo.value}`)
+        const { data } = await api.get(`/content/question/?search_input=${searchInfo.value}`)
         questions.value = data
-
       } catch (e) {
-        // showError(e, $toast, $root.$t('master.msg.get_data_failed'))
-        console.log('haha')
+        showError(e, $toast, $root.$t('common.msg.get_data_failed'))
       }
     }
 

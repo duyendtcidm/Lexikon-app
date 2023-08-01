@@ -19,61 +19,13 @@
       div.border-checkbox
         v-simple-checkbox(:value="props.value" v-on="on" color="primary")
     template(v-slot:item.name="{ item }")
-      slot(name="name" :item="item")
-    template(v-slot:item.name_display="{ item }")
-        slot(name="name_display" :item="item")
+      span {{ item.name }}
     template(v-slot:item.action="{ item }")
       slot(name="action" :item="item")
     template(v-slot:no-data)
       span {{ $t('common.no_data') }}
-    template(v-slot:item.box="{ item }")
-      span {{numberToString(item.box)}}
-    template(v-slot:item.stem="{ item }")
-      span {{numberToString(item.stem)}}
-    template(v-slot:item.amount="{ item }")
-      span {{numberToString(item.amount)}}
-    template(v-slot:item.sale_amount="{ item }")
-      span {{numberToString(item.sale_amount)}}
-    template(v-slot:item.remaining_pot="{ item }")
-      span {{numberToString(item.remaining_pot)}}
-    template(v-slot:item.remaining_cut="{ item }")
-      span {{numberToString(item.remaining_cut)}}
-    template(v-slot:item.remaining="{ item }")
-      span {{numberToString(item.remaining)}}
-    template(v-slot:item.sale_stem="{ item }")
-      span {{numberToString(item.sale_stem)}}
-    template(v-slot:item.tax_amount="{ item }")
-      span {{numberToString(item.tax_amount)}}
-    template(v-slot:item.sale_amount_with_tax="{ item }")
-      span {{numberToString(item.sale_amount_with_tax)}}
-    template(v-slot:item.usage_fee="{ item }")
-      span {{numberToString(item.usage_fee)}}
-    template(v-slot:item.fee_amount="{ item }")
-      span {{numberToString(item.fee_amount)}}
-    template(v-slot:item.deduction_amount="{ item }")
-      span {{numberToString(item.deduction_amount)}}
-    template(v-slot:item.total_amount="{ item }")
-      span {{numberToString(item.total_amount)}}
-    template(v-slot:item.fee="{ item }")
-      span {{numberToString(item.fee)}}
-    template(v-slot:item.total_amount_closed_ar="{ item }")
-      span {{numberToString(item.total_amount_closed_ar)}}
-    template(v-slot:item.tax_amount_rate="{ item }")
-      span {{numberToString(item.tax_amount_rate)}}
-    template(v-slot:item.tax_amount_rate2="{ item }")
-      span {{numberToString(item.tax_amount_rate2)}}
-    template(v-slot:item.customer="{ item }")
-      span {{item.customer.name_short}}
-    template(v-slot:item.payment_destination="{ item }")
-      span {{item.payment_destination.name}}
-    template(v-slot:item.payment_method="{ item }")
-      span {{item.payment_method.name}}
-    template(v-slot:item.payment_date="{ item }")
-      span {{moment(item.payment_date).format($root.$t(`common.time_month_date`))}}
-    template(v-slot:item.is_default="{ item }")
-      slot(name="is_default" :item="item")
-    template(v-slot:item.account_type="{ item }")
-      slot(name="account_type" :item="item")
+
+
 </template>
 <script>
 import {defineComponent, onMounted, ref, watch} from 'vue'

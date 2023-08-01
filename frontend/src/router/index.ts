@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { urlPath } from '@/utils'
+// @ts-ignore
+import { urlPath } from '@/utils/index.js'
 
 Vue.use(VueRouter)
 

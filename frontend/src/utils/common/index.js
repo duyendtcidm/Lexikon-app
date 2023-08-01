@@ -11,13 +11,13 @@ export const backPage = () => {
     history.back()
 }
 
-export const moveCursor = (event: any, $refs: any, list_states: any, focusInput: any) => {
+export const moveCursor = (event, $refs, list_states, focusInput) => {
     /*
     * event: keydown event
     * list_states: array reference name exp ['code', 'untg', 'name', 'yomi', 'name_short', 'name_eng']
     * focusInput: reference name is focusing exp name
     * */
-    let index = list_states.findIndex((state: any) => state === focusInput)
+    let index = list_states.findIndex((state) => state === focusInput)
     if ((event.keyCode === 13 || event.keyCode === 9) && index !== list_states.length - 1) {
         event.preventDefault()
         focusInput = list_states[index + 1]

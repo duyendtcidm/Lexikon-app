@@ -16,6 +16,7 @@ class Question(BaseModel):
     answer = IntegerField()
     explanation = JSONField()
     level_id = ForeignKeyField(Level, column_name='level_id', field='id')
+    search_str = CharField()
 
     class Meta:
         table_name = 'question'
@@ -66,6 +67,28 @@ class Question(BaseModel):
         result = list(query)
         return result
 
+
+    @classmethod
+    def __get_one__(cls, id):
+        query = (
+            cls.select(
+                cls.id,
+                cls.code,
+                cls.name,
+                cls.type,
+                cls.content,
+                cls.choices,
+                cls.answer,
+                cls.explanation,
+                Level.name.alias('level')
+            )
+            .join(Level, on=(cls.level_id == Level.id))
+            .where(cls.id == id, cls.active)
+            .order_by(cls.id)
+        )
+        result = list(query.dicts())
+        print(result)
+        return result
     @classmethod
     def get_by_creator(cls, creator, search_input=None):
         query = (
@@ -78,8 +101,9 @@ class Question(BaseModel):
                 cls.choices,
                 cls.answer,
                 cls.explanation,
-                cls.level_id.alias('level')
+                Level.name.alias('level')
             )
+            .join(Level, on=(cls.level_id == Level.id))
             .where(cls.created_by == creator, cls.active)
             .order_by(cls.id)
         )

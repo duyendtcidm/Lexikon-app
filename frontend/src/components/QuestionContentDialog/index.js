@@ -21,13 +21,7 @@ export const QUESTION_INIT = {
     type: null,
     level: null,
     content: null,
-    choice_1: null,
-    choice_2: null,
-    choice_3: null,
-    choice_4: null,
+    choices: {},
     answer: null,
-    explanation_1: null,
-    explanation_2: null,
-    explanation_3: null,
-    explanation_4: null
+    explanation: {}
 }
