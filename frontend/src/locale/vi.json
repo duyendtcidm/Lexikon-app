@@ -37,6 +37,7 @@
   },
   "menu": {
     "look_up_and_practice": {
+      "title": "Menu",
       "look_up": "Tra cứu",
       "practice": "Luyện tập",
       "exam": "Kiểm tra"
@@ -55,7 +56,6 @@
     },
     "status": {
       "statistic": "Thống kê",
-      "rank": "Xếp hạng",
       "level": {
         "n1": "N1",
         "n2": "N2",
@@ -152,10 +152,6 @@
       "question_no": "Câu hỏi số",
       "correct_ratio": "Tỷ lệ trả lời đúng"
     }
-
-  },
-  "ranking": {
-    "title": "Xếp hạng"
 
   },
   "content": {

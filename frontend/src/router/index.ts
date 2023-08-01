@@ -31,10 +31,6 @@ const routes: Array<RouteConfig> = [
       component: () => import('../pages/Practice/index.vue')
   },
   {
-      ...urlPath.RANKING,
-      component: () => import('../pages/Ranking/index.vue')
-  },
-  {
       ...urlPath.TEST,
       component: () => import('../pages/Test/index.vue')
   },

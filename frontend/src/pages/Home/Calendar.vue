@@ -59,18 +59,18 @@
             v-list
               v-subheader(v-if='clickedDay')
                 v-icon mdi-calendar-search
-                span.pl-3 {{ clickedDay }}
+                span(:style="{'font-size': '16px'}").pl-3 {{ clickedDay }}
               template(v-if="!noData")
                 div(v-for="key in Object.keys(dateDetails)")
                   v-list-item-content.py-1.my-0.ml-8(v-if="dateDetails[key].length > 0")
                     v-list-item-title
                       v-icon(
-                        size="18"
+                        size="25"
                         :style="'color:' + STATUS_ICONS[key]?.color"
                         ) {{STATUS_ICONS[key]?.icon}}
                       span.ml-1.bold--text.primary--text {{$t('home.calendar.' + STATUS_ICONS[key]?.title)}}
-                      span.ml-2 {{dateDetails[key].length}}
-                      span.ml-2 {{$t('home.calendar.unit')}}
+                      span.ml-2.bold--text {{dateDetails[key].length}}
+                      span.ml-2.bold--text {{$t('home.calendar.unit')}}
               template(v-else)
                 span.ml-5.grey--text {{ $t('common.no_data')}}
 </template>
@@ -191,44 +191,6 @@ export default {
       clickEvent(today.value)
     }
 
-    // const goToDate = (key) => {
-    //   let routeData = {
-    //     name: urlPath.ORDER.name,
-    //     query: {date: clickedDay.value}
-    //   }
-    //   key = parseInt(key)
-    //   if (Object.values(CALENDAR_STATUSES.invoice).includes(key)) {
-    //     routeData = {
-    //       name: urlPath.INVOICE.name,
-    //       query: {auction_date: clickedDay.value}
-    //     }
-    //   } else if (Object.values(CALENDAR_STATUSES.sale).includes(key)) {
-    //     routeData = {
-    //       name: urlPath.SALE.name,
-    //       query: {auction_date: clickedDay.value, cst_id: dateDetails.value[key][0]['cst']}
-    //     }
-    //   } else if (Object.values(CALENDAR_STATUSES.billing).includes(key)) {
-    //     routeData = {
-    //       name: urlPath.BILL.name,
-    //       query: {issue_date_from: null, issue_date_to: null,  created_at_from: clickedDay.value,  created_at_to: clickedDay.value}
-    //     }
-    //   } else if (Object.values(CALENDAR_STATUSES.deposit).includes(key)) {
-    //     routeData = {
-    //       name: urlPath.PAYMENT.name,
-    //       query: {issue_date_from: null, issue_date_to: null, created_at_from: clickedDay.value, created_at_to: clickedDay.value}
-    //     }
-    //   }
-    //   router.push(routeData).catch((err) => {
-    //     // Ignore the vuex err regarding navigating to the page they are already on.
-    //     if (
-    //         err.name !== 'NavigationDuplicated' &&
-    //         !err.message.includes('Avoided redundant navigation to current location')
-    //     ) {
-    //       // But print any other errors to the console
-    //       console.log(err)
-    //     }
-    //   })
-    // }
     const getStatusForDay = (date) => {
       const new_words = calendarData.value?.new_words.find((stat) => stat.created_at === date.date)
       const doing_words = calendarData.value?.doing_words.find((stat) => stat.created_at === date.date)
@@ -338,6 +300,7 @@ export default {
           padding: 0
           overflow: hidden auto
           max-height: 326px
+          font-size: 20px !important
 
           .v-subheader
             padding: 0
@@ -347,7 +310,7 @@ export default {
               color: #9e9e9e
 
             span
-              font-size: 14px
+              font-size: 20px
 
           .v-list-item
             .v-list-item__content
