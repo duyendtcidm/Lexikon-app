@@ -40,18 +40,6 @@ class BaseModel(Model):
             )
 
     @classmethod
-    def get_one(cls, id: int, get_dict=True):
-        try:
-            data = cls.get_or_none(id=id)
-            if data and get_dict:
-                data = data.__dict__['__data__']
-            return data
-        except DoesNotExist:
-            raise HTTPException(
-                status_code=404, detail=f"{cls.__name__} not found"
-            )
-
-    @classmethod
     def soft_delete(cls, id: int, deleted_by: int = None):
         try:
             data = cls.get_by_id(id)
@@ -60,29 +48,6 @@ class BaseModel(Model):
             data.deleted_by = deleted_by
             data.save()
             return {"detail": f"Deleted {cls.__name__} {id}"}
-        except DoesNotExist:
-            raise HTTPException(
-                status_code=404, detail=f"{cls.__name__} not found"
-            )
-
-    @classmethod
-    def soft_delete_many(cls, ids, deleted_by: int = None):
-        try:
-            if (ids is None) or (len(ids) == 0):
-                return "Nothing to delete"
-
-            query = (cls.update(
-                {
-                    'active': False,
-                    'deleted_at': datetime.now(timezone.utc),
-                    'deleted_by': deleted_by
-                }
-            ).where(
-                cls.id.in_(ids)
-            ))
-
-            query.execute()
-            return {"detail": f"Deleted {cls.__name__} {','.join(str(x) for x in ids)}"}
         except DoesNotExist:
             raise HTTPException(
                 status_code=404, detail=f"{cls.__name__} not found"

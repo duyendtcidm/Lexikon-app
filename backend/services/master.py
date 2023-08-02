@@ -1,6 +1,4 @@
 from utils.mecab import normalize_text
-from fastapi import HTTPException
-from peewee import fn
 
 
 def gen_search_str(**kwargs):

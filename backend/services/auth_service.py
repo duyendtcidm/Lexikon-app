@@ -1,6 +1,3 @@
-import base64
-from datetime import datetime
-from uuid import uuid4
 from fastapi import HTTPException
 
 from passlib.context import CryptContext
@@ -50,10 +47,3 @@ class AuthService:
             raise HTTPException(status_code=404, detail=t('lexikon.authentication.login.invalid_email'))
         await Users.update_password(forgot_password.email, pwd_context.hash(forgot_password.new_password))
 
-
-# Generate roles manually
-# async def generate_role():
-#     _role = await RoleRepository.find_by_list_role_name(["admin", "user"])
-#     if not _role:
-#         await RoleRepository.create_list(
-#             [Role(id=str(uuid4()), role_name="admin"), Role(id=str(uuid4()), role_name="user")])

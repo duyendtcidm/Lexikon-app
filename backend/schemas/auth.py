@@ -20,7 +20,6 @@ class RegisterSchema(BaseModel):
     email: str
     password: str
     role: str = "learner"
-    # profile: str = "base64"
 
 
 class LoginSchema(BaseModel):
@@ -31,12 +30,6 @@ class LoginSchema(BaseModel):
 class ForgotPasswordSchema(BaseModel):
     email: str
     new_password: str
-
-
-class DetailSchema(BaseModel):
-    status: str
-    message: str
-    result: Optional[T] = None
 
 
 class ResponseSchema(BaseModel):

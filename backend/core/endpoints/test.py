@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from schemas import test as test_schema
+from schemas import answered_question as test_schema
 
 from utils.db import transaction
 
