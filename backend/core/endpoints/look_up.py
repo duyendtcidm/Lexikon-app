@@ -17,7 +17,7 @@ def get_new_word(
     if len(words):
         for word in words:
             word['kanji'] = word['kanji'].upper()
-            pratice_date = date.today() + timedelta(days=1)
+            practice_date = date.today() + timedelta(days=1)
 
             # check if user id learning this word or not
             # if not add to word_learning
@@ -25,13 +25,13 @@ def get_new_word(
             learned_word = WordLearning.check_duplicate(user.id, word['id'])
             if not learned_word:
                 data = {'user_id': user.id, 'word_id': word['id'], 'status': 0, 'correct_times': 0, 'practice_times': 0,
-                        'practice_date': pratice_date}
+                        'practice_date': practice_date}
                 WordLearning.create(**data)
             else:
                 WordLearning.update_one(learned_word, {
                     'status': 0,
                     'correct_times': 0,
                     'practice_times': 0,
-                    'practice_date': pratice_date
+                    'practice_date': practice_date
                 })
     return words

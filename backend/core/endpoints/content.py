@@ -5,7 +5,6 @@ from utils.db import transaction
 
 from models.question import Question
 from schemas import question as question_schemas
-from models.word_learning import Word
 from utils.auth import Auth
 
 router = APIRouter()

@@ -3,6 +3,7 @@ from peewee import CharField, DateField, ForeignKeyField, fn, IntegerField, JOIN
 from playhouse.postgres_ext import JSONField
 from models.base import BaseModel
 
+
 class Test(BaseModel):
     word: JSONField()
 

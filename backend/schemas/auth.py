@@ -1,11 +1,10 @@
-
-
 from fastapi import HTTPException
 import logging
 import re
 from typing import TypeVar, Optional
 
 from pydantic import BaseModel, validator
+
 # from sqlalchemy import false
 # from app.model.person import Sex
 
@@ -22,6 +21,7 @@ class RegisterSchema(BaseModel):
     password: str
     role: str = "learner"
     # profile: str = "base64"
+
 
 class LoginSchema(BaseModel):
     email: str

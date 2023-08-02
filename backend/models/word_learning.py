@@ -1,13 +1,9 @@
 from peewee import CharField, DateField, ForeignKeyField, fn, IntegerField, JOIN, Case, DateTimeField
-from playhouse.postgres_ext import DateTimeTZField
-from peewee import (JOIN)
 from models.base import BaseModel
 from models.level import Level
 from models.users import Users
 from models.word import Word
 
-
-# from models.grammar import Grammar
 
 
 class WordLearning(BaseModel):

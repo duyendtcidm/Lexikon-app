@@ -3,6 +3,7 @@ from playhouse.postgres_ext import JSONField
 from models.base import BaseModel
 from models.level import Level
 
+
 class Grammar(BaseModel):
     code = IntegerField()
     name = CharField()
@@ -10,7 +11,6 @@ class Grammar(BaseModel):
     kanji = CharField()
     search_str = CharField()
     level = ForeignKeyField(Level, column_name='level', field='id')
-
 
     class Meta:
         table_name = 'grammar'
@@ -34,5 +34,3 @@ class Grammar(BaseModel):
             query = query.dicts()
         data = list(query)
         return data
-
-

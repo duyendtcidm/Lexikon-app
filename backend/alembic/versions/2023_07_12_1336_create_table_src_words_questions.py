@@ -26,6 +26,7 @@ def upgrade() -> None:
                     meanings JSON,
                     yomi TEXT,
                     kanji TEXT,
+                    search_str TEXT,
                     level_id BIGINT,
                     synonym JSON DEFAULT '{}',
                     antonym JSON DEFAULT '{}',
@@ -44,7 +45,6 @@ def upgrade() -> None:
                 );''')
     op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS word_unique_code ON level (code) WHERE active IS TRUE;''')
     op.execute('''
-        ALTER TABLE word ADD COLUMN search_str TEXT;
         UPDATE word
         SET search_str = concat(code, '|', lower(name), CASE
         WHEN yomi IS NOT NULL AND LENGTH(yomi) > 0 AND (yomi = ANY (array [name])) IS NOT TRUE
@@ -52,29 +52,8 @@ def upgrade() -> None:
         WHERE TRUE;
     ''')
 
-    op.execute('''CREATE TABLE IF NOT EXISTS grammar
-                (
-                    id  BIGSERIAL NOT NULL,
-                    code BIGINT,
-                    name TEXT,
-                    usage JSON DEFAULT '{}',
-                    kanji TEXT,
-                    level_id BIGINT,
-                    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-                    created_by BIGINT,
-                    modified_at TIMESTAMP WITH TIME ZONE,
-                    modified_by BIGINT,
-                    deleted_at TIMESTAMP WITH TIME ZONE,
-                    deleted_by BIGINT,
-                    active BOOLEAN DEFAULT TRUE,
-                    CONSTRAINT pkey_grammar PRIMARY KEY (id)
-                );''')
-    op.execute('''CREATE UNIQUE INDEX IF NOT EXISTS grammar_unique_code ON level (code) WHERE active IS TRUE;''')
-
 
 
 def downgrade() -> None:
-    op.execute('''DROP INDEX IF EXISTS grammar_unique_code ''')
+    op.execute('''DROP INDEX IF EXISTS word_unique_code ''')
     op.execute('''DROP TABLE IF EXISTS word CASCADE ''')
-    op.execute('''DROP INDEX IF EXISTS grammar_unique_code ''')
-    op.execute('''DROP TABLE IF EXISTS grammar CASCADE''')

@@ -1,6 +1,6 @@
 from datetime import date
 
-from schemas.base import Schema, StrictDate
+from schemas.base import Schema
 from typing import List
 
 

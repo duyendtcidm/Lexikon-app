@@ -24,12 +24,6 @@ class Word(BaseModel):
 
     @classmethod
     def get_list(cls, get_dict=True, search_input=None):
-        # query = cls.select().where(cls.active).order_by(cls.id)
-        # if search_input:
-        #     if search_input != '':
-        #         query = query.where(
-        #             cls.search_str.contains(search_input)
-        #         )
         query = (
             cls.select(
                 cls.id,
@@ -54,7 +48,6 @@ class Word(BaseModel):
         data = list(query)
         return data
 
-
     @classmethod
     def get_by_creator(cls, creator):
         query = (
@@ -65,4 +58,3 @@ class Word(BaseModel):
         )
         result = list(query)
         return result
-

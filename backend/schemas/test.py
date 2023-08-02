@@ -8,5 +8,5 @@ class Status(Schema):
 
 
 class UpdateStatus(Status):
-    tried: List[Status]
-    new: List[Status]
+    tried: List[dict]
+    new: List[dict]

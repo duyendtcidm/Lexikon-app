@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-from datetime import date
 from schemas import test as test_schema
 
 from utils.db import transaction
