@@ -34,7 +34,7 @@ def upgrade() -> None:
             deleted_at TIMESTAMP WITH TIME ZONE,
             deleted_by BIGINT,
             active BOOLEAN DEFAULT TRUE,
-            CONSTRAINT pkey_learning PRIMARY KEY (id)
+            CONSTRAINT pkey_word_learning PRIMARY KEY (id)
         );
     ''')
 

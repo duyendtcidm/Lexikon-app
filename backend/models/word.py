@@ -11,7 +11,7 @@ class Word(BaseModel):
     kanji = CharField()
     yomi = CharField()
     search_str = CharField()
-    level = ForeignKeyField(Level, column_name='level', field='id')
+    level_id = ForeignKeyField(Level, column_name='level_id', field='id')
     synonym = JSONField()
     antonym = JSONField()
     kanren = JSONField()
@@ -40,7 +40,7 @@ class Word(BaseModel):
                 cls.compound_word,
                 cls.common_word
             )
-            .join(Level, on=cls.level == Level.id)
+            .join(Level, on=cls.level_id == Level.id)
             .where(cls.search_str.contains(search_input), cls.active)
             .order_by(cls.id))
         if get_dict:

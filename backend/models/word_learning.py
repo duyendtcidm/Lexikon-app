@@ -41,7 +41,7 @@ class WordLearning(BaseModel):
                 cls.note
             )
             .join(Word, on=(cls.word_id == Word.id))
-            .join(Level, on=Word.level == Level.id)
+            .join(Level, on=Word.level_id == Level.id)
             .where(cls.active, cls.user_id == user_id, cls.practice_date <= date)
             .order_by(cls.status.asc())
             .dicts()
@@ -104,7 +104,7 @@ class WordLearning(BaseModel):
                 (cls.user_id == user_id)
             )
             .join(Word, on=(cls.word_id == Word.id))
-            .join(Level, on=Word.level == Level.id)
+            .join(Level, on=Word.level_id == Level.id)
             .dicts()
         )
         words = list(query)
