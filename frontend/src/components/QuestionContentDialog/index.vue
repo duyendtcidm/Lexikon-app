@@ -58,7 +58,7 @@
                     template(v-slot:label)
                       span {{$t('content.question.basic_information.level')}}
                       span.red--text *
-               
+
           div
             div.multiple-tag
               .title-children
@@ -160,13 +160,12 @@
 
 <script>
 import {defineComponent, getCurrentInstance, ref, toRefs, watch} from 'vue'
-import { showError, moveCursor} from '@/utils'
-import { STATES, QUESTION_INIT } from './index'
-import { api } from '@/plugins'
+import {showError, moveCursor} from '@/utils'
+import {STATES, QUESTION_INIT} from './index'
+import {api} from '@/plugins'
 import moment from "moment/moment";
-// import JConfirmDialog from '../JConfirmDialog/index'
-import router from "@/router";
 import DialogContainer from "@/components/DialogContainer/index.vue";
+
 const CustomerDialog = defineComponent({
   component: {
     DialogContainer
@@ -188,17 +187,16 @@ const CustomerDialog = defineComponent({
   components: {
     DialogContainer
   },
-  setup(props, { emit }) {
+  setup(props, {emit}) {
     moment.locale('ja')
     const instance = getCurrentInstance().proxy
-    const { $toast, $root, $refs } = instance
+    const {$toast, $root, $refs} = instance
     const loading = ref(false)
-    const { question } = toRefs(props)
+    const {question} = toRefs(props)
     let LIST_STATES = STATES
     const focusInput = ref('code')
     const questionData = ref({})
     const enterKeydown = ref(0)
-    const {auction_date: auctionDateValue} = router.currentRoute.query
     const questions = ref([])
 
     const closeDialog = () => {
@@ -230,11 +228,11 @@ const CustomerDialog = defineComponent({
     }
 
     const convertLevel = (level) => {
-      if (level.trim().toLowerCase()=== 'n1') return 1
-      if (level.trim().toLowerCase() === 'n2') return 2
-      if (level.trim().toLowerCase() === 'n3') return 3
-      if (level.trim().toLowerCase() === 'n4') return 4
-      if (level.trim().toLowerCase() === 'n5') return 5
+      if (level?.trim().toLowerCase() === 'n1') return 1
+      if (level?.trim().toLowerCase() === 'n2') return 2
+      if (level?.trim().toLowerCase() === 'n3') return 3
+      if (level?.trim().toLowerCase() === 'n4') return 4
+      if (level?.trim().toLowerCase() === 'n5') return 5
       return ''
     }
 
@@ -248,7 +246,7 @@ const CustomerDialog = defineComponent({
       })
     }
 
-    // UPDATE common customer
+    // UPDATE question
     const update = async () => {
       convertData()
       loading.value = true
@@ -264,7 +262,7 @@ const CustomerDialog = defineComponent({
       }
     }
 
-    // CREATE common customer
+    // CREATE question
     const create = async () => {
       convertData()
       loading.value = true
@@ -274,7 +272,7 @@ const CustomerDialog = defineComponent({
         $toast.success($root.$t('common.msg.create_successful'))
         emit('on-reload')
       } catch (e) {
-        showError(e, $toast, $root.$t('common.msg.update_failed'))
+        showError(e, $toast, $root.$t('common.msg.add_failed'))
       } finally {
         loading.value = false
       }
@@ -294,27 +292,27 @@ const CustomerDialog = defineComponent({
 
 
     const getQuestions = async () => {
-        if (!props.isAdd){
-          const {data} =  await api.get(`/content/question/`+ question.value['id'])
-          questionData.value = data
-        }
+      if (!props.isAdd) {
+        const {data} = await api.get(`/content/question/` + question.value['id'])
+        questionData.value = data
+      }
     }
-     const getListQuestion = async () => {
-       try {
-         const {data} = await api.get(`/content/question/`)
-         questions.value = data
-       } catch (e) {
-         showError(e, $toast, $root.$t('common.msg.get_data_failed'))
-       }
-     }
+    const getListQuestion = async () => {
+      try {
+        const {data} = await api.get(`/content/question/`)
+        questions.value = data
+      } catch (e) {
+        showError(e, $toast, $root.$t('common.msg.get_data_failed'))
+      }
+    }
     watch(
-      () => props.show,
-      () => {
-        if (props.show) {
+        () => props.show,
+        () => {
+          if (props.show) {
             init()
             getListQuestion()
+          }
         }
-      }
     )
 
 
@@ -342,39 +340,49 @@ export default CustomerDialog
   display: grid
   grid-gap: 25px
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+
 .container > .multiple-tag, div > .multiple-tag
   object-fit: cover
   border: 1px solid #3c3c3c
+
   .title-children
     background-color: #1976d2
     color: white
     padding: 10px
     text-align: center
+
   .content
     padding: 10px
+
 .auto-button
   padding-bottom: 4px
+
 .list-item
   max-height: 550px
   overflow-y: auto
+
 .item
   display: flex
   align-items: center
+
 .item .code
   display: inline-block
   width: 100px
   text-align: left
   padding-left: 20px
+
 .item .name
   display: inline-block
   width: calc(100% - 100px)
   text-align: left
   padding-right: 20px
+
 .icon-list
   font-size: 20px
   display: inline-block
   justify-content: center
   align-items: center
+
 .no-value
   color: gray
   font-style: italic

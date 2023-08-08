@@ -12,6 +12,7 @@ const DISABLE_NAVIGATION = [
 ]
 
 export {
+    DISABLE_NAVIGATION,
     REGISTER,
     LOG_IN,
     FORGOT_PASSWORD,

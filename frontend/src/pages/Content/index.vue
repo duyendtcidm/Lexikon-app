@@ -13,7 +13,6 @@
       @on-delete="openConfirmDelete"
       @on-update="onClickOpenUpdateDialog"
     )
-
     question-content-dialog(
       :show="isShowQuestionContentDialog"
       :question="curQuestion"

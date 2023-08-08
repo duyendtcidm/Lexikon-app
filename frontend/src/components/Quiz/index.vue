@@ -14,7 +14,7 @@
         h3.justify-center {{currentQuestion.content}}
       v-spacer
     v-card-actions(rules='required')
-      v-radio-group(v-model='answered')
+      v-radio-group(v-model='answered' :disabled="isShowAnswer")
         v-radio(v-for='n in choices' :key='n' :label='`${n}`' :value='n')
     v-card-actions(v-if="!isShowAnswer").d-flex.justify-space-around
       v-btn(
@@ -33,9 +33,9 @@
       )
         | {{$t('test.quiz.button.submit')}}
     v-card-actions.right-answer(v-if="isShowAnswer && isCorrect").d-flex.justify-space-around
-      //v-list.right-answer
-      //  v-list-item( v-for="(explain, idx) in explanation")
-      //    span {{idx}}. {{explain}}
+      v-list.right-answer
+        div(v-for="(explain, idx) in explanation" )
+          span(v-if="explain !== ''") {{idx}}. {{explain}}
       v-btn.white--text(
         @click='next'
         elevation='2'
@@ -44,9 +44,9 @@
       )
         | {{$t('test.quiz.button.next')}}
     v-card-actions.wrong-answer(v-if="isShowAnswer && !isCorrect").d-flex.justify-space-around
-      v-list(v-if="explanation.length > 0").wrong-answer
-        v-list-item(v-for="(explain, idx) in explanation" )
-          span {{idx}}. {{explain}}
+      v-list.wrong-answer
+        div(v-for="(explain, idx) in explanation" )
+          span(v-if="explain !== ''") {{idx}}. {{explain}}
       v-btn.white--text(
         @click='next'
         elevation='2'
@@ -112,6 +112,7 @@ export default defineComponent ({
       if (currentIndex.value <= numberQuestion.value){
         currentQuestion.value = questions.value[currentIndex.value-1]
         choices.value = currentQuestion.value['choices']
+        explanation.value = currentQuestion.value['explanation']
       } else {
         emit('on-finish', questions.value)
       }

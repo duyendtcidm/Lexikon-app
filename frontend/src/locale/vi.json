@@ -22,6 +22,7 @@
     "msg": {
       "get_data_failed": "Không thể lấy dữ liệu!",
       "update_failed": "Cập nhật không thành công!",
+      "add_failed": "Thêm mới không thành công!",
       "create_successful": "Thêm mới thành công!",
       "delete_successful": "Xóa thành công!",
       "delete_failed": "Không thể xóa được!",

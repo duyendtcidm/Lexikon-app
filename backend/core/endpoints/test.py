@@ -28,6 +28,7 @@ def get_list_question(
         for ques in list_question:
             if ques['question_id'] not in tried_question_list:
                 tried_question.append(ques)
+    print('tried_question', tried_question)
     return tried_question
 
 
@@ -49,7 +50,6 @@ def update_status_question(param: test_schema.UpdateStatus, user=Depends(Auth())
                 AnsweredQuestion.id == ques['id'],
                 AnsweredQuestion.user_id == ques['user_id'],
                 AnsweredQuestion.question_id == ques['question_id'],
-                AnsweredQuestion.modified_by == user.id,
                 AnsweredQuestion.active
             ).execute()
     return True
