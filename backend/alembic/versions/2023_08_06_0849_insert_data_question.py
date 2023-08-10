@@ -80,6 +80,13 @@ def upgrade() -> None:
         VALUES ('親戚', 'synonym', 'お正月で実家に(しんせき)が集まった。', '{"1":"両親","2":"新子","3":"親類","4":"兄弟"}', '3', '{"1":"","2":"","3":"","4":""}', '3','true');
     ''')
 
+    op.execute('''
+        UPDATE question
+        SET search_str = concat(type, '|', lower(name), '|', content, CASE
+        WHEN code IS NOT NULL THEN concat('|', code) END )
+        WHERE TRUE;
+    ''')
+
 
 def downgrade() -> None:
     pass

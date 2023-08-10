@@ -3,11 +3,7 @@ import logging
 import re
 from typing import TypeVar, Optional
 
-from pydantic import BaseModel, validator
-
-# from sqlalchemy import false
-# from app.model.person import Sex
-
+from pydantic import BaseModel
 
 T = TypeVar('T')
 

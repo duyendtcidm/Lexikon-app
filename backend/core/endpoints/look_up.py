@@ -3,7 +3,6 @@ from datetime import date, timedelta
 
 from models.word import Word
 from models.word_learning import WordLearning
-
 from utils.auth import Auth
 
 router = APIRouter()

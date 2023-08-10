@@ -25,7 +25,8 @@
       "create_successful": "Thêm mới thành công!",
       "delete_successful": "Xóa thành công!",
       "delete_failed": "Không thể xóa được!",
-      "get_data_question": "Không tìm được câu hỏi phù hợp. Vui lòng thay đổi lựa chọn!"
+      "get_data_question": "Không tìm được câu hỏi phù hợp. Vui lòng thay đổi lựa chọn!",
+      "update_successful": "Cập nhật thành công!"
     }
 
   },

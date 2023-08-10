@@ -21,7 +21,9 @@ def get_param(data: dict):
     param['search_str'] = gen_search_str(
         code=param.get('code'),
         name=param.get('name'),
-        yomi=param.get('yomi')
+        yomi=param.get('yomi'),
+        kanji=param.get('kanji'),
+        content=param.get('content')
     )
     return param
 

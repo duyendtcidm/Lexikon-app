@@ -45,28 +45,6 @@ class Question(BaseModel):
         result = list(query)
         return result
 
-    # @classmethod
-    # def get_by_word(cls, name):
-    #     query = (
-    #         cls.select(
-    #             cls.name,
-    #             cls.type,
-    #             cls.content,
-    #             cls.choices,
-    #             cls.answer,
-    #             cls.explanation,
-    #             Level.name.alias('level')
-    #         )
-    #         .join(Level, on=cls.level_id == Level.id)
-    #         .where(cls.name == name, cls.active)
-    #         .order_by(cls.id)
-    #         .dicts()
-    #     )
-    #
-    #     result = list(query)
-    #     return result
-
-
     @classmethod
     def __get_one__(cls, id):
         query = (

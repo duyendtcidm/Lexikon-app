@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, Header
 
 from core.endpoints import (
     authentication,
-    users,
+    # users,
     home,
     look_up,
     practice,
@@ -19,12 +19,12 @@ api_router.include_router(
     tags=["Authentication"]
 )
 
-api_router.include_router(
-    users.router,
-    prefix="/users",
-    tags=["user"],
-    dependencies=[Depends(Auth())]
-)
+# api_router.include_router(
+#     users.router,
+#     prefix="/users",
+#     tags=["user"],
+#     dependencies=[Depends(Auth())]
+# )
 
 api_router.include_router(
     look_up.router,
