@@ -1,6 +1,6 @@
 <template lang="pug">
   div.test-page
-    v-card(v-if="!isRendered" ).mx-auto.mt-4(max-width='700' style='background-color: #fff' height='95%')
+    v-card(v-if="!isRendered" ).mx-auto.mt-4(max-width='800' style='background-color: #fff' height='95%')
       v-card-title.justify-center.rounded-card.mb-1(style='background-color: #81D4FA')
         h1.font-weight-thin {{$t('test.test_type.title')}}
       v-img.white--text.align-end(height='150px' src='@/assets/quiz.jpg')
@@ -122,19 +122,19 @@ export default defineComponent({
     }
 
     const updateStatus = async (results) => {
-      // isRendered.value = false
+      isRendered.value = false
       let answeredQuestions = []
       let newQuestions = []
 
       results.forEach((result) => {
         if (result['status']) {
-          answeredQuestions.push({id: result.id, status: generateStatus(result['status'], result['isCorrect'])})
+          answeredQuestions.push({id: result.id, question_id: result.question_id, status: generateStatus(result['status'], result['isCorrect'])})
         } else {
-          newQuestions.push({id: result.id, status: generateStatus(result['status'], result['isCorrect'])})
+          newQuestions.push({question_id: result.question_id, status: generateStatus(result['status'], result['isCorrect'])})
         }
       })
       let param = {
-        answered: answeredQuestions,
+        tried: answeredQuestions,
         new: newQuestions
       }
       try {

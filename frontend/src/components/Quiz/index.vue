@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card.pa-6.ma-auto.mt-5(max-width='800' elevation='4')
+  v-card.pa-6.ma-auto.mt-5(max-width='1000' elevation='4')
     v-card-title.justify-center.rounded-card.mb-1(style='background-color: #81D4FA' primary-title='')
       h1.font-weight-thin {{requirement}}
     //  Show timer

@@ -25,7 +25,7 @@ class Question(BaseModel):
     def get_list(cls, level, amount, question_type):
         query = (
             cls.select(
-                cls.id,
+                cls.id.alias('question_id'),
                 cls.name,
                 cls.type,
                 cls.content,

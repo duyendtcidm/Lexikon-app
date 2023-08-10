@@ -151,6 +151,9 @@
       },
       "question_no": "Câu hỏi số",
       "correct_ratio": "Tỷ lệ trả lời đúng"
+    },
+    "msg": {
+      "congratulation": "Chúc mừng bãn đã hoàn thành bài kiểm tra."
     }
 
   },

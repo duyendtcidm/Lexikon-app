@@ -2,11 +2,15 @@ from schemas.base import Schema
 from typing import List
 
 
-class Status(Schema):
-    id: int
-    status: int
+class NewQuestion(Schema):
+    question_id: int = None
+    status: int = None
 
 
-class UpdateStatus(Status):
-    tried: List[dict]
-    new: List[dict]
+class TriedQuestion(NewQuestion):
+    id: int = None
+
+
+class UpdateStatus(Schema):
+    tried: List[TriedQuestion]
+    new: List[NewQuestion]

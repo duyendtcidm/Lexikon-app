@@ -21,6 +21,7 @@ class AnsweredQuestion(BaseModel):
         query = (
             cls.select(
                 cls.id,
+                cls.question_id,
                 cls.status,
                 Question.type.alias('type'),
                 Question.content.alias('content'),
@@ -41,6 +42,5 @@ class AnsweredQuestion(BaseModel):
             .order_by(cls.status.asc())
             .dicts()
         )
-
         result = list(query)
         return result

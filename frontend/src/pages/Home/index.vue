@@ -98,17 +98,6 @@ export default defineComponent ({
 
 <style scoped lang="sass">
 @import '@/style/css/common.sass'
-//@media (max-width: 1200px)
-//  .welcome
-//    width: 0
-//    display: none
-//@media (max-width: 1920px)
-//  .welcome
-//    width: 500px
-//    position: absolute
-//    margin-left: 10%
-  //.content
-  //  margin-top: 98px
 .home-page
   padding: 0 80px 0 80px
 .title
