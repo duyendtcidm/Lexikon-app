@@ -3,7 +3,7 @@
     "theme": "Chủ đề",
     "level": "JLPT",
     "no_data": "Không tìm thấy dữ liệu.",
-    "no_data_note": "Hiện tại, từ - ngữ pháp này chưa có trong hệ thống. Bạn vui lòng  ôn tập từ - ngữ pháp khác.",
+    "no_data_note": "Hiện tại, từ này chưa có trong hệ thống. Bạn vui lòng  ôn tập từ khác.",
     "email": "Email",
     "user_name": "Tên",
     "password": "Mật khẩu",
@@ -94,7 +94,7 @@
     },
     "intro": {
       "hello": "Xin chào!",
-      "about": "Lexikon là website hỗ trợ bạn ôn tập từ vựng - ngữ pháp chuẩn bị cho kì thi JLPT. Khi bạn tra cứu, nội dung mà bạn vừa tìm kiếm sẽ được lưu lại, phục vụ cho mục đích ôn tập sau này.",
+      "about": "Lexikon là website hỗ trợ bạn ôn tập từ vựng chuẩn bị cho kì thi JLPT. Khi bạn tra cứu, nội dung mà bạn vừa tìm kiếm sẽ được lưu lại, phục vụ cho mục đích ôn tập sau này.",
       "thanks": "Bắt đầu bổ sung kiến thức ngay bây giờ nào!"
     }
 
@@ -102,7 +102,7 @@
   "practice": {
     "title": "Luyện tập",
     "practice_header": {
-      "word_or_grammar": "Từ vựng hoặc ngữ pháp",
+      "word_or_grammar": "Từ vựng",
       "meaning": "Ý nghĩa",
       "level": "Cấp độ",
       "status": "Trạng thái",

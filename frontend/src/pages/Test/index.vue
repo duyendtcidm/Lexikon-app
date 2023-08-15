@@ -127,7 +127,7 @@ export default defineComponent({
       let newQuestions = []
 
       results.forEach((result) => {
-        if (result['status']) {
+        if (result['id']) {
           answeredQuestions.push({id: result.id, question_id: result.question_id, status: generateStatus(result['status'], result['isCorrect'])})
         } else {
           newQuestions.push({question_id: result.question_id, status: generateStatus(result['status'], result['isCorrect'])})
