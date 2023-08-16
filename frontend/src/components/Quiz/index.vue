@@ -15,7 +15,12 @@
       v-spacer
     v-card-actions(rules='required')
       v-radio-group(v-model='answered' :disabled="isShowAnswer")
-        v-radio(v-for='n in choices' :key='n' :label='`${n}`' :value='n')
+        div(v-for='(n, idx) in choices' :key='n')
+          v-row
+            v-col(cols="2")
+              v-icon(v-if="isShowAnswer && idx == currAnswer" color="green") mdi-check
+            v-col
+              v-radio(:label='`${n}`' :value='n')
     v-card-actions(v-if="!isShowAnswer").d-flex.justify-space-around
       v-btn(
         @click='skip'
@@ -47,6 +52,8 @@
       v-list.wrong-answer
         div(v-for="(explain, idx) in explanation" )
           span(v-if="explain !== ''") {{idx}}. {{explain}}
+              //span(v-else-if="idx === currAnswer") hello {{idx}}. {{explain}}
+              //span {{idx}} {{currAnswer}} {{idx == currAnswer}}
       v-btn.white--text(
         @click='next'
         elevation='2'
@@ -83,12 +90,13 @@ export default defineComponent ({
     const currentIndex = ref(1)
     const numberQuestion = ref()
     const currentQuestion = ref({})
+    const currAnswer = ref()
     const answered = ref(false)
     const choices = ref({})
     const explanation = ref({})
     const isShowAnswer = ref(false)
     const isCorrect = ref(false)
-    const correctRatio = ref(0)
+    const correctRatio = ref('0.00')
     const currCorrectQuestion = ref(0)
 
     const skip = () => {
@@ -113,6 +121,7 @@ export default defineComponent ({
         currentQuestion.value = questions.value[currentIndex.value-1]
         choices.value = currentQuestion.value['choices']
         explanation.value = currentQuestion.value['explanation']
+        currAnswer.value = currentQuestion.value['answer']
       } else {
         emit('on-finish', questions.value)
       }
@@ -125,12 +134,13 @@ export default defineComponent ({
       currentQuestion.value = questions.value[currentIndex.value-1]
       choices.value = currentQuestion.value['choices']
       explanation.value = currentQuestion.value['explanation']
+      currAnswer.value = currentQuestion.value['answer']
     })
 
     watch(
       () => currentIndex.value,
       () => {
-        correctRatio.value = currCorrectQuestion.value / (currentIndex.value - 1) * 100
+        correctRatio.value = (currCorrectQuestion.value / (currentIndex.value - 1) * 100).toFixed(2)
       }
     )
 
@@ -141,6 +151,7 @@ export default defineComponent ({
       currentQuestion,
       numberQuestion,
       correctRatio,
+      currAnswer,
       answered,
       choices,
       explanation,
