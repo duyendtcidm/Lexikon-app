@@ -60,7 +60,7 @@ export const PRACTICE_HEADER = [
         text: i18n.t('practice.practice_header.note'),
         align: 'left',
         value: 'note',
-        width: 150,
+        width: 400,
         class: 'primary',
         isVisible: true,
         sortable : false
